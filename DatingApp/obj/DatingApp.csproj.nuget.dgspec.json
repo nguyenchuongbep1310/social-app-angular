@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\DatingApp.csproj": {}
+    "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\DatingApp.csproj": {
+    "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\DatingApp.csproj",
+        "projectUniqueName": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj",
         "projectName": "DatingApp",
-        "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\DatingApp.csproj",
+        "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj",
         "packagesPath": "C:\\Users\\chuong.nguyen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\obj\\",
+        "outputPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chuong.nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",

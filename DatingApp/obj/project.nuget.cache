@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zCPl0l2v2KvyVatG4qFOxCHBNjFTuWDBNKkCl11co/5Af0bYkfJsQDGfM78F8PY627Pmne554G6woOWDiIHBdg==",
+  "dgSpecHash": "/FIbb8CY8/jenv0vJeoX9HvGpbDS0M2Z4XZFKOublzyLMlNyHY3sdeMQta/h7ejeE+eEu8lXBoejNW731c51GQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\chuong.nguyen\\Desktop\\DatingApp\\DatingApp\\DatingApp.csproj",
+  "projectFilePath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chuong.nguyen\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\chuong.nguyen\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
