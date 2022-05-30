@@ -103,7 +103,6 @@ C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Mic
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\SQLitePCLRaw.nativelibrary.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\SQLitePCLRaw.core.dll
@@ -156,3 +155,5 @@ C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\obj\Debug\net5.0\ref
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\obj\Debug\net5.0\DatingApp.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\obj\Debug\net5.0\DatingApp.genruntimeconfig.cache
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\obj\Debug\net5.0\ref\DatingApp.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
