@@ -29,8 +29,16 @@ namespace DatingApp.Controllers
             var user = new AppUser
             {
                 UserName = registerDto.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Username)),
-                PasswordSalt = hmac.Key
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.Key,
+
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                DateOfBirth = registerDto.DateOfBirth,
+                Gender = registerDto.Gender,
+                Email = registerDto.Email,
+                Phone = registerDto.Phone,
+                Avatar = registerDto.Avatar,
             };
 
             _context.Users.Add(user);
