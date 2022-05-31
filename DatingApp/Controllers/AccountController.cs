@@ -23,6 +23,7 @@ namespace DatingApp.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Resgister(RegisterDto registerDto)
         {
+            if (!CheckConfirmPassword(registerDto)) return BadRequest("Confirm password must match with password");
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
 
@@ -75,6 +76,11 @@ namespace DatingApp.Controllers
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        }
+
+        private bool CheckConfirmPassword(RegisterDto registerDto)
+        {
+            return registerDto.Password == registerDto.ConfirmPassword;
         }
     }
 }
