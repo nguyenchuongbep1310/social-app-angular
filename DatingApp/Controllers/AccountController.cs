@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,11 @@ namespace DatingApp.Controllers
         public async Task<ActionResult<UserDto>> Resgister(RegisterDto registerDto)
         {
             if (!CheckConfirmPassword(registerDto)) return BadRequest("The confirm password is not match with password. Please re-enter your password");
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
+            if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
+            if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yy");
+            if (!CheckValidAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
+            
             using var hmac = new HMACSHA512();
 
             var user = new AppUser
@@ -111,9 +116,52 @@ namespace DatingApp.Controllers
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
 
+        private async Task<bool> EmailExists(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
+        }
+
         private bool CheckConfirmPassword(RegisterDto registerDto)
         {
             return registerDto.Password == registerDto.ConfirmPassword;
+        }
+
+
+        //dob = date of birth
+        private bool CheckValidDOB(string dob)
+        {
+            DateTime date;
+
+            if(dob == null || dob == "")
+            {
+                return true;
+            }    
+
+            if(!DateTime.TryParse(dob, out date))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckValidAge(string dob)
+        {
+            DateTime date;
+
+            if (dob == null || dob == "")
+            {
+                return true;
+            }
+
+            if (DateTime.TryParse(dob, out date))
+            {
+                if ((DateTime.Now.Year - date.Year) >= 13)
+                {
+                    return true;
+                }              
+            }
+            return false;
         }
     }
 }

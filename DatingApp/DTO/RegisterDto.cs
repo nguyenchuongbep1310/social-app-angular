@@ -43,8 +43,9 @@ namespace DatingApp.DTO
 
         [Required]
         [EmailAddress]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@gmail.com$", ErrorMessage = @"Please enter a valid email which consists of letters (a-z), numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com")]
+        [RegularExpression("^[a-z]+[a-z0-9_\\.-]*[a-z0-9]@gmail.com$", ErrorMessage = @"Please enter a valid email which consists of letters (a-z), numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com")]
         public string Email { get; set; }
+
 
         public string DateOfBirth { get; set; }
 
