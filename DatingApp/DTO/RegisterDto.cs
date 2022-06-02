@@ -16,15 +16,17 @@ namespace DatingApp.DTO
         [Required]
         [MinLength(8, ErrorMessage = "The password must be at least 8 characters long. Please use another one")]
         [MaxLength(32, ErrorMessage = "The password is limit on the number of 32 characters. Please use another one")]
-        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?!.*[\s]).{2,31}$", 
+        [RegularExpression(@"^(?=.*\d)(?=.*[A-Z]).{7,31}$",
                             ErrorMessage = "Please enter your password with at least 1 uppercase and 1 number")]
+        //[RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?!.*[\s]).{2,31}$", 
+        //                    ErrorMessage = "Please enter your password with at least 1 uppercase and 1 number")]
         public string Password { get; set; }
 
         [Required]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [MinLength(5, ErrorMessage = "The first name must be at least 5 characters long. Please use another one")]
+        [MinLength(2, ErrorMessage = "The first name must be at least 2 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The first name is limit on the number of 50 characters. Please use another one")]
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name is not valid. " +
                                                             "Please use another one which does not contain special characters" +

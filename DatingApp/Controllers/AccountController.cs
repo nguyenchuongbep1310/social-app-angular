@@ -59,7 +59,7 @@ namespace DatingApp.Controllers
             if (!CheckConfirmPassword(registerDto)) return BadRequest("The confirm password is not match with password. Please re-enter your password");
             if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
             if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
-            if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yy");
+            if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
             if (!CheckValidAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
             
             using var hmac = new HMACSHA512();
