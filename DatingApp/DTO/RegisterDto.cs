@@ -27,7 +27,7 @@ namespace DatingApp.DTO
 
 
         [Required]
-        [MinLength(2, ErrorMessage = "The first name must be at least 2 characters long. Please use another one")]
+        [MinLength(1, ErrorMessage = "The first name must be at least 1 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The first name is limit on the number of 50 characters. Please use another one")]
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name is not valid. " +
                                                             "Please use another one which does not contain special characters" +
@@ -35,7 +35,7 @@ namespace DatingApp.DTO
         public string FirstName { get; set; }
 
         [Required]
-        [MinLength(5, ErrorMessage = "The last name must be at least 5 characters long. Please use another one")]
+        [MinLength(1, ErrorMessage = "The last name must be at least 1 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The last name is limit on the number of 50 characters. Please use another one")]
         [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Last name is not valid. " +
                                                             "Please use another one which does not contain special characters" + 
