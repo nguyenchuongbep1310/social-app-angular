@@ -7,8 +7,8 @@ namespace DatingApp.DTO
     {
         [Required]
         [MinLength(6, ErrorMessage = "The username must be at least 6 characters long. Please use another one")]
-        [MaxLength(64, ErrorMessage = "The username is limit on the number of 64 characters. Please use another one")]
-        [RegularExpression(@"^[a-zA-Z][a-zA-Z_0-9]{5,63}$", ErrorMessage = "The username is invalid. " +
+        [MaxLength(32, ErrorMessage = "The username is limit on the number of 64 characters. Please use another one")]
+        [RegularExpression(@"^[a-zA-Z][a-zA-Z_0-9]{5,31}$", ErrorMessage = "The username is invalid. " +
                                                                             "Please use another one which not start with a number " +
                                                                             "and not contain special characters, spaces or symbols")]
         public string Username { get; set; }
@@ -25,23 +25,23 @@ namespace DatingApp.DTO
         [Required]
         public string ConfirmPassword { get; set; }
 
+
         [Required]
         [MinLength(2, ErrorMessage = "The first name must be at least 2 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The first name is limit on the number of 50 characters. Please use another one")]
         [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name is not valid. " +
                                                             "Please use another one which does not contain special characters" +
-                                                             @"`~!@#$%^&*()-_+={}[]\|;:'<,>.?/" +
-                                                              "and null character")]
+                                                              @"`~!@#$%^&*()-_+=[]\|;:'<,>.?/")]
         public string FirstName { get; set; }
 
         [Required]
         [MinLength(5, ErrorMessage = "The last name must be at least 5 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The last name is limit on the number of 50 characters. Please use another one")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "First name is not valid. " +
-                                                            "Please use another one which does not contain special characters" +
-                                                             @"`~!@#$%^&*()-_+={}[]\|;:'<,>.?/" +
-                                                              "and null character")]
+        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Last name is not valid. " +
+                                                            "Please use another one which does not contain special characters" + 
+                                                                @"`~!@#$%^&*()-_+=[]\|;:'<,>.?/")]
         public string LastName { get; set; }
+
 
         [Required]
         [EmailAddress]

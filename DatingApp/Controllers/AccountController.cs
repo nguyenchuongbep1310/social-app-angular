@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,8 +61,8 @@ namespace DatingApp.Controllers
             if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
             if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
             if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
-            if (!CheckValidAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
-            
+            if(!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
+
             using var hmac = new HMACSHA512();
 
             var user = new AppUser
@@ -130,37 +131,31 @@ namespace DatingApp.Controllers
         //dob = date of birth
         private bool CheckValidDOB(string dob)
         {
-            DateTime date;
-
-            if(dob == null || dob == "")
+            try
             {
-                return true;
-            }    
-
-            if(!DateTime.TryParse(dob, out date))
+                if (dob == null || dob == "") return true;
+                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch
             {
                 return false;
             }
 
             return true;
         }
-
-        private bool CheckValidAge(string dob)
+        
+        private bool CheckUserAge(string dob)
         {
-            DateTime date;
-
-            if (dob == null || dob == "")
+            try
             {
-                return true;
+                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
+                if (DateTime.Now.Year - dt.Year >= 13) return true;
+            }
+            catch
+            {
+                return false;
             }
 
-            if (DateTime.TryParse(dob, out date))
-            {
-                if ((DateTime.Now.Year - date.Year) >= 13)
-                {
-                    return true;
-                }              
-            }
             return false;
         }
     }
