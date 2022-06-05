@@ -1,0 +1,14 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.padding-12px {
+  padding: 12px;
+}
+
+.border-red {
+  border: 1px solid red;
+}
+
+.empty-err {
+  font-size: 14px;
+  color: red;
+}

@@ -1,0 +1,64 @@
+<div class="app-login-wrapper">
+  <div class="container login-container">
+    <div class="row align-items-center">
+      <div class="col-md-7 app-heading-box">
+        <h1 class="login-heading">
+          ungap
+          <span>
+            Eliminating the generation gap, location gap and emotional gap among
+            people.
+          </span>
+        </h1>
+      </div>
+      <div class="col-md-5 login-form">
+        <form class="row gy-2 border-bottom">
+          <div class="col-12 input-group flex-nowrap">
+            <input
+              (input)="getUsernameInput($event)"
+              (blur)="usernameBlur()"
+              [ngClass]="{ 'border-red': usernameValue === '' }"
+              type="text"
+              class="form-control padding-12px"
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+          <div *ngIf="usernameValue === ''" class="col-12">
+            <p class="empty-err">Please enter your username</p>
+          </div>
+          <div class="col-12 input-group flex-nowrap">
+            <input
+              (input)="getPasswordInput($event)"
+              (blur)="passwordBlur()"
+              [ngClass]="{ 'border-red': passwordValue === '' }"
+              type="password"
+              class="form-control padding-12px"
+              placeholder="Password"
+              aria-label="Password"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+          <div *ngIf="passwordValue === ''" class="col-12">
+            <p class="empty-err">Please enter your password</p>
+          </div>
+          <div class="col-12 flex-nowrap">
+            <button
+              [ngClass]="{ disabled: !usernameValue || !passwordValue }"
+              type="submit"
+              class="btn btn-primary mb-3 padding-12px"
+            >
+              Log in
+            </button>
+          </div>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </form>
+        <div class="login-create-new">
+          <button (click)="navigateToRegister()" class="btn-success btn">
+            Create a new account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
