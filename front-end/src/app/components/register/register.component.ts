@@ -11,63 +11,33 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  firstNameValue: any = null;
-  getFirstNameInput(event: Event) {
-    this.firstNameValue = (event.target as HTMLInputElement).value;
-  }
-  firstNameBlur() {
-    if (this.firstNameValue === null) this.firstNameValue = '';
-  }
+  value: {
+    firstNameValue: any;
+    lastNameValue: any;
+    usernameValue: any;
+    passwordValue: any;
+    confirmPasswordValue: any;
+    birthdayValue: any;
+    profilePictureValue: any;
+    emailValue: any;
+    phoneValue: any;
+  } = {
+    firstNameValue: null,
+    lastNameValue: null,
+    usernameValue: null,
+    passwordValue: null,
+    confirmPasswordValue: null,
+    birthdayValue: null,
+    profilePictureValue: null,
+    emailValue: null,
+    phoneValue: null,
+  };
 
-  lastNameValue: any = null;
-  getLastNameInput(event: Event) {
-    this.lastNameValue = (event.target as HTMLInputElement).value;
+  getInput(event: Event, value: any, str: string) {
+    value[str] = (event.target as HTMLInputElement).value;
+    console.log(this.value.usernameValue);
   }
-  lastNameBlur() {
-    if (this.lastNameValue === null) this.lastNameValue = '';
+  blur(value: any, str: string) {
+    if (value[str] === null) value[str] = '';
   }
-
-  usernameValue: any = null;
-  getUsernameInput(event: Event) {
-    this.usernameValue = (event.target as HTMLInputElement).value;
-  }
-  usernameBlur() {
-    if (this.usernameValue === null) this.usernameValue = '';
-  }
-
-  passwordValue: any = null;
-  getPasswordInput(event: Event) {
-    this.passwordValue = (event.target as HTMLInputElement).value;
-  }
-  passwordBlur() {
-    if (this.passwordValue === null) this.passwordValue = '';
-  }
-
-  confirmPasswordValue: any = null;
-  getConfirmPasswordInput(event: Event) {
-    this.confirmPasswordValue = (event.target as HTMLInputElement).value;
-  }
-  confirmPasswordBlur() {
-    if (this.confirmPasswordValue === null) this.confirmPasswordValue = '';
-  }
-
-  birthdayValue: any = null;
-  getBirthdayInput(event: Event) {
-    this.birthdayValue = (event.target as HTMLInputElement).value;
-  }
-  birthdayBlur() {
-    if (this.birthdayValue === null) this.birthdayValue = '';
-  }
-
-  profilePictureValue: any = null;
-
-  emailValue: any = null;
-  getEmailInput(event: Event) {
-    this.emailValue = (event.target as HTMLInputElement).value;
-  }
-  emailBlur() {
-    if (this.emailValue === null) this.emailValue = '';
-  }
-
-  phoneValue: any = null;
 }

@@ -14,9 +14,9 @@
         <form class="row gy-2 border-bottom">
           <div class="col-12 input-group flex-nowrap">
             <input
-              (input)="getUsernameInput($event)"
-              (blur)="usernameBlur()"
-              [ngClass]="{ 'border-red': usernameValue === '' }"
+              (input)="getInput($event, value, 'usernameValue')"
+              (blur)="blur(value, 'usernameValue')"
+              [ngClass]="{ 'border-red': value.usernameValue === '' }"
               type="text"
               class="form-control padding-12px"
               placeholder="Username"
@@ -24,14 +24,14 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="usernameValue === ''" class="col-12">
+          <div *ngIf="value.usernameValue === ''" class="col-12">
             <p class="empty-err">Please enter your username</p>
           </div>
           <div class="col-12 input-group flex-nowrap">
             <input
-              (input)="getPasswordInput($event)"
-              (blur)="passwordBlur()"
-              [ngClass]="{ 'border-red': passwordValue === '' }"
+              (input)="getInput($event, value, 'passwordValue')"
+              (blur)="blur(value, 'passwordValue')"
+              [ngClass]="{ 'border-red': value.passwordValue === '' }"
               type="password"
               class="form-control padding-12px"
               placeholder="Password"
@@ -39,12 +39,14 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="passwordValue === ''" class="col-12">
+          <div *ngIf="value.passwordValue === ''" class="col-12">
             <p class="empty-err">Please enter your password</p>
           </div>
           <div class="col-12 flex-nowrap">
             <button
-              [ngClass]="{ disabled: !usernameValue || !passwordValue }"
+              [ngClass]="{
+                disabled: !value.usernameValue || !value.passwordValue
+              }"
               type="submit"
               class="btn btn-primary mb-3 padding-12px"
             >

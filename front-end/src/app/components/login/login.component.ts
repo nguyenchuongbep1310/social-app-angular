@@ -15,19 +15,16 @@ export class LoginComponent implements OnInit {
     this._router.navigateByUrl('/register');
   }
 
-  usernameValue: any = null;
-  getUsernameInput(event: Event) {
-    this.usernameValue = (event.target as HTMLInputElement).value;
-  }
-  usernameBlur() {
-    if (this.usernameValue === null) this.usernameValue = '';
-  }
+  value: { usernameValue: any; passwordValue: any } = {
+    usernameValue: null,
+    passwordValue: null,
+  };
 
-  passwordValue: any = null;
-  getPasswordInput(event: Event) {
-    this.passwordValue = (event.target as HTMLInputElement).value;
+  getInput(event: Event, value: any, str: string) {
+    value[str] = (event.target as HTMLInputElement).value;
+    console.log(this.value.usernameValue);
   }
-  passwordBlur() {
-    if (this.passwordValue === null) this.passwordValue = '';
+  blur(value: any, str: string) {
+    if (value[str] === null) value[str] = '';
   }
 }

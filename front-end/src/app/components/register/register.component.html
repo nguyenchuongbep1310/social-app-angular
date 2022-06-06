@@ -10,21 +10,21 @@
         <div class="row gy-2">
           <div class="col-6">
             <input
-              (input)="getFirstNameInput($event)"
-              (blur)="firstNameBlur()"
+              (input)="getInput($event, value, 'firstNameValue')"
+              (blur)="blur(value, 'firstNameValue')"
               type="text"
               class="form-control"
               placeholder="First name"
               aria-label="First name"
               aria-describedby="addon-wrapping"
-              [ngClass]="{ 'border-red': firstNameValue === '' }"
+              [ngClass]="{ 'border-red': value.firstNameValue === '' }"
             />
           </div>
           <div class="col-6">
             <input
-              (input)="getLastNameInput($event)"
-              (blur)="lastNameBlur()"
-              [ngClass]="{ 'border-red': lastNameValue === '' }"
+              (input)="getInput($event, value, 'lastNameValue')"
+              (blur)="blur(value, 'lastNameValue')"
+              [ngClass]="{ 'border-red': value.lastNameValue === '' }"
               type="text"
               class="form-control"
               placeholder="Last name"
@@ -33,12 +33,12 @@
             />
           </div>
           <div class="col-6">
-            <p *ngIf="firstNameValue === ''" class="empty-err">
+            <p *ngIf="value.firstNameValue === ''" class="empty-err">
               Please enter your first name
             </p>
           </div>
           <div class="col-6">
-            <p *ngIf="lastNameValue === ''" class="empty-err">
+            <p *ngIf="value.lastNameValue === ''" class="empty-err">
               Please enter your last name
             </p>
           </div>
@@ -46,9 +46,9 @@
         <div class="row">
           <div class="col-sm-12">
             <input
-              (input)="getUsernameInput($event)"
-              (blur)="usernameBlur()"
-              [ngClass]="{ 'border-red': usernameValue === '' }"
+              (input)="getInput($event, value, 'usernameValue')"
+              (blur)="blur(value, 'usernameValue')"
+              [ngClass]="{ 'border-red': value.usernameValue === '' }"
               type="text"
               class="form-control"
               placeholder="Username"
@@ -56,16 +56,16 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="usernameValue === ''" class="col-sm-12">
+          <div *ngIf="value.usernameValue === ''" class="col-sm-12">
             <p class="empty-err">Please enter your username</p>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <input
-              (input)="getPasswordInput($event)"
-              (blur)="passwordBlur()"
-              [ngClass]="{ 'border-red': passwordValue === '' }"
+              (input)="getInput($event, value, 'passwordValue')"
+              (blur)="blur(value, 'passwordValue')"
+              [ngClass]="{ 'border-red': value.passwordValue === '' }"
               type="password"
               class="form-control"
               placeholder="Password"
@@ -73,16 +73,16 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="passwordValue === ''" class="col-sm-12">
+          <div *ngIf="value.passwordValue === ''" class="col-sm-12">
             <p class="empty-err">Please enter your password</p>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <input
-              (input)="getConfirmPasswordInput($event)"
-              (blur)="confirmPasswordBlur()"
-              [ngClass]="{ 'border-red': confirmPasswordValue === '' }"
+              (input)="getInput($event, value, 'confirmPasswordValue')"
+              (blur)="blur(value, 'confirmPasswordValue')"
+              [ngClass]="{ 'border-red': value.confirmPasswordValue === '' }"
               type="password"
               class="form-control"
               placeholder="Confirm password"
@@ -90,7 +90,7 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="confirmPasswordValue === ''" class="col-sm-12">
+          <div *ngIf="value.confirmPasswordValue === ''" class="col-sm-12">
             <p class="empty-err">Please confirm your password</p>
           </div>
         </div>
@@ -98,9 +98,9 @@
           <div class="col-6">
             <label for="birthday" class="gray-label"> Birthday </label>
             <input
-              (input)="getBirthdayInput($event)"
-              (blur)="birthdayBlur()"
-              [ngClass]="{ 'border-red': birthdayValue === '' }"
+              (input)="getInput($event, value, 'birthdayValue')"
+              (blur)="blur(value, 'birthdayValue')"
+              [ngClass]="{ 'border-red': value.birthdayValue === '' }"
               type="date"
               class="form-control"
               aria-label="Confirm password"
@@ -142,7 +142,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="birthdayValue === ''" class="col-6">
+          <div *ngIf="value.birthdayValue === ''" class="col-6">
             <p class="empty-err">Please choose your birthday</p>
           </div>
         </div>
@@ -158,7 +158,7 @@
               id="formFile"
             />
           </div>
-          <div *ngIf="profilePictureValue === ''" class="col-sm-12">
+          <div *ngIf="value.profilePictureValue === ''" class="col-sm-12">
             <p class="empty-err">
               The photo is different from the standard requirement. Please be
               informed that the quality of photos will be reduced
@@ -168,9 +168,9 @@
         <div class="row">
           <div class="col-sm-12">
             <input
-              (input)="getEmailInput($event)"
-              (blur)="emailBlur()"
-              [ngClass]="{ 'border-red': emailValue === '' }"
+              (input)="getInput($event, value, 'emailValue')"
+              (blur)="blur(value, 'emailValue')"
+              [ngClass]="{ 'border-red': value.emailValue === '' }"
               type="email"
               class="form-control"
               placeholder="Email"
@@ -178,7 +178,7 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="emailValue === ''" class="col-sm-12">
+          <div *ngIf="value.emailValue === ''" class="col-sm-12">
             <p class="empty-err">Please enter a valid email address</p>
           </div>
         </div>
@@ -192,7 +192,7 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="phoneValue === ''" class="col-sm-12">
+          <div *ngIf="value.phoneValue === ''" class="col-sm-12">
             <p class="empty-err">
               Please enter a valid phone number which starts with 0 and must
               have 10 digits
@@ -204,13 +204,13 @@
             <button
               [ngClass]="{
                 disabled:
-                  !firstNameValue ||
-                  !lastNameValue ||
-                  !usernameValue ||
-                  !passwordValue ||
-                  !confirmPasswordValue ||
-                  !birthdayValue ||
-                  !emailValue
+                  !value.firstNameValue ||
+                  !value.lastNameValue ||
+                  !value.usernameValue ||
+                  !value.passwordValue ||
+                  !value.confirmPasswordValue ||
+                  !value.birthdayValue ||
+                  !value.emailValue
               }"
               class="btn-success btn register-btn"
             >
