@@ -1666,6 +1666,51 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "DatingApp.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DatingApp.Core": "1.0.0",
+          "DatingApp.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DatingApp.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DatingApp.Application.dll": {}
+        }
+      },
+      "DatingApp.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
+          "Microsoft.IdentityModel.Tokens": "6.18.0",
+          "System.IdentityModel.Tokens.Jwt": "6.18.0"
+        },
+        "compile": {
+          "bin/placeholder/DatingApp.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DatingApp.Core.dll": {}
+        }
+      },
+      "DatingApp.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DatingApp.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.0",
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DatingApp.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DatingApp.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -5931,10 +5976,28 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "DatingApp.Application/1.0.0": {
+      "type": "project",
+      "path": "../DatingApp.Application/DatingApp.Application.csproj",
+      "msbuildProject": "../DatingApp.Application/DatingApp.Application.csproj"
+    },
+    "DatingApp.Core/1.0.0": {
+      "type": "project",
+      "path": "../DatingApp.Core/DatingApp.Core.csproj",
+      "msbuildProject": "../DatingApp.Core/DatingApp.Core.csproj"
+    },
+    "DatingApp.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../DatingApp.Infrastructure/DatingApp.Infrastructure.csproj",
+      "msbuildProject": "../DatingApp.Infrastructure/DatingApp.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "DatingApp.Application >= 1.0.0",
+      "DatingApp.Core >= 1.0.0",
+      "DatingApp.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.0",
       "Microsoft.EntityFrameworkCore >= 5.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.0",
@@ -5946,19 +6009,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\chuon\\.nuget\\packages\\": {}
+    "C:\\Users\\chuong.nguyen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chuon\\Downloads\\social-app-angular\\DatingApp\\DatingApp.csproj",
+      "projectUniqueName": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj",
       "projectName": "DatingApp",
-      "projectPath": "C:\\Users\\chuon\\Downloads\\social-app-angular\\DatingApp\\DatingApp.csproj",
-      "packagesPath": "C:\\Users\\chuon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chuon\\Downloads\\social-app-angular\\DatingApp\\obj\\",
+      "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\DatingApp.csproj",
+      "packagesPath": "C:\\Users\\chuong.nguyen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\chuon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\chuong.nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5971,7 +6034,17 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Application\\DatingApp.Application.csproj": {
+              "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Application\\DatingApp.Application.csproj"
+            },
+            "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Core\\DatingApp.Core.csproj": {
+              "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Core\\DatingApp.Core.csproj"
+            },
+            "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Infrastructure\\DatingApp.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\chuong.nguyen\\Desktop\\social-app-angular\\DatingApp.Infrastructure\\DatingApp.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6039,7 +6112,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

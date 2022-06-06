@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using DatingApp.Data;
-using DatingApp.DTO;
-using DatingApp.Entities;
-using DatingApp.Interfaces;
+using DatingApp.Core.DTO;
+using DatingApp.Core.Entities;
+using DatingApp.Core.Interfaces;
+using DatingApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DatingApp.Data;
-using DatingApp.Entities;
+using DatingApp.Core.Entities;
+using DatingApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {
-    
+
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
