@@ -11,9 +11,11 @@
         </h1>
       </div>
       <div class="col-md-5 login-form">
-        <form class="row gy-2 border-bottom">
+        <form #loginForm="ngForm" class="row gy-2 border-bottom" (ngSubmit)="login()">
           <div class="col-12 input-group flex-nowrap">
             <input
+              name="username"
+              [(ngModel)]="model.username"
               (input)="getInput($event, value, 'usernameValue')"
               (blur)="blur(value, 'usernameValue')"
               [ngClass]="{ 'border-red': value.usernameValue === '' }"
@@ -29,6 +31,8 @@
           </div>
           <div class="col-12 input-group flex-nowrap">
             <input
+              name="password"
+              [(ngModel)]="model.password"
               (input)="getInput($event, value, 'passwordValue')"
               (blur)="blur(value, 'passwordValue')"
               [ngClass]="{ 'border-red': value.passwordValue === '' }"
