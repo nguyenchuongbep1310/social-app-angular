@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/nav/nav.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NavComponent } from './components/nav/nav.component';
     RegisterComponent,
     DashboardComponent,
     NavComponent,
+    ForgotPasswordComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, RouterModule, ReactiveFormsModule,HttpClientModule, FormsModule],
   providers: [],
