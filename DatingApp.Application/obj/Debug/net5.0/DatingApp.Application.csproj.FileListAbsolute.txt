@@ -7,9 +7,7 @@ C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debu
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Application.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Application.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Core.dll
-C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Infrastructure.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Core.pdb
-C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\bin\Debug\net5.0\DatingApp.Infrastructure.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\obj\Debug\net5.0\DatingApp.Application.csproj.CopyComplete
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\obj\Debug\net5.0\DatingApp.Application.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Application\obj\Debug\net5.0\refint\DatingApp.Application.dll
