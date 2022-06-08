@@ -13,3 +13,5 @@ C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\obj\D
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\obj\Debug\net5.0\refint\DatingApp.Infrastructure.dll
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\obj\Debug\net5.0\DatingApp.Infrastructure.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\obj\Debug\net5.0\ref\DatingApp.Infrastructure.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\bin\Debug\net5.0\DatingApp.Application.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp.Infrastructure\bin\Debug\net5.0\DatingApp.Application.pdb

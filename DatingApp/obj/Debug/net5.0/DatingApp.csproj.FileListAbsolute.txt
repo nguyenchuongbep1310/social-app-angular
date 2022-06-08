@@ -326,3 +326,8 @@ C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Dat
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\DatingApp.Application.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\DatingApp.Core.pdb
 C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\DatingApp.Infrastructure.pdb
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\IdentityModel.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\IdentityServer4.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\IdentityServer4.Storage.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\chuong.nguyen\Desktop\social-app-angular\DatingApp\bin\Debug\net5.0\Newtonsoft.Json.dll
