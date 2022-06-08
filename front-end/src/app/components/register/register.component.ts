@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
     if (value[str] === null) value[str] = '';
   }
 
-  navigateToRegister() {
+  navigateToLogin() {
     this._router.navigateByUrl('/login');
   }
 
@@ -60,10 +60,10 @@ export class RegisterComponent implements OnInit {
 
     this.accountService.register(this.value).subscribe(response => {
       // console.log(response);
-      
+
       if(response.success == true)
       {
-        this.navigateToRegister();
+        this.navigateToLogin();
       }
     });
   }
