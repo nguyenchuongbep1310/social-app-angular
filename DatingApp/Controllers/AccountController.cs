@@ -22,38 +22,6 @@ namespace DatingApp.Controllers
             _context = context;
         }
 
-        //[HttpPost("register")]
-        //public async Task<ActionResult<UserDto>> Resgister(RegisterDto registerDto)
-        //{
-        //    if (!CheckConfirmPassword(registerDto)) return BadRequest("Confirm password must match with password");
-        //    if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-        //    using var hmac = new HMACSHA512();
-
-        //    var user = new AppUser
-        //    {
-        //        UserName = registerDto.Username,
-        //        PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-        //        PasswordSalt = hmac.Key,
-
-        //        FirstName = registerDto.FirstName,
-        //        LastName = registerDto.LastName,
-        //        DateOfBirth = registerDto.DateOfBirth,
-        //        Gender = registerDto.Gender,
-        //        Email = registerDto.Email,
-        //        Phone = registerDto.Phone,
-        //        Avatar = registerDto.Avatar,
-        //    };
-
-        //    _context.Users.Add(user);
-        //    await _context.SaveChangesAsync();
-
-        //    return new UserDto{
-        //        Username = user.UserName,
-        //        Token = _tokenService.CreateToken(user)
-        //    };
-
-        //}
-
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Resgister(RegisterDto registerDto)
         {

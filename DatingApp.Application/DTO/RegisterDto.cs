@@ -38,14 +38,14 @@ namespace DatingApp.Core.DTO
         [MinLength(1, ErrorMessage = "The last name must be at least 1 characters long. Please use another one")]
         [MaxLength(50, ErrorMessage = "The last name is limit on the number of 50 characters. Please use another one")]
         [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Last name is not valid. " +
-                                                            "Please use another one which does not contain special characters" + 
+                                                            "Please use another one which does not contain special characters" +
                                                                 @"`~!@#$%^&*()-_+=[]\|;:'<,>.?/")]
         public string LastName { get; set; }
 
 
         [Required]
         [EmailAddress]
-        [RegularExpression("^[a-z]+[a-z0-9_\\.-]*[a-z0-9]@gmail.com$", ErrorMessage = @"Please enter a valid email which consists of letters (a-z), numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com")]
+        [RegularExpression("^[a-z]+[a-z0-9_\\.-]*[a-z0-9]@gmail.com$", ErrorMessage = @"Must be a valid email which consists of lowercase alphabet letters, numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com")]
         public string Email { get; set; }
 
 
