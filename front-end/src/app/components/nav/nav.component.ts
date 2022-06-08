@@ -1,15 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { of, throwIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
+  constructor(private element: ElementRef) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  hidden: string = 'hidden';
+  menu: boolean = false;
+  icon: string = 'M4 6h16M4 12h16M4 18h7';
+
+  onClickHidden() {
+    if (this.hidden === 'hidden') {
+      this.hidden = '';
+    } else {
+      this.hidden = 'hidden';
+    }
   }
 
+  onMenuClick() {
+    if (!this.menu) {
+      this.element.nativeElement
+        .querySelector('.grid-1-2')
+        .classList.add('translateX0');
+
+      this.menu = true;
+      this.icon = 'M6 18L18 6M6 6l12 12';
+    } else {
+      this.element.nativeElement
+        .querySelector('.grid-1-2')
+        .classList.remove('translateX0');
+      this.menu = false;
+      this.icon = 'M4 6h16M4 12h16M4 18h7';
+    }
+  }
 }
