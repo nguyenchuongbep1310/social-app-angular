@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220606081459_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220608064010_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
