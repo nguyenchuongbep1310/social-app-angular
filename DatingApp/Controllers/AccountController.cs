@@ -23,7 +23,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Resgister(RegisterDto registerDto)
+        public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
             if (!CheckConfirmPassword(registerDto)) return BadRequest("The confirm password is not match with password. Please re-enter your password");
             if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
@@ -51,12 +51,11 @@ namespace DatingApp.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new UserDto
+            return Ok( new
             {
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
-            };
-
+                success = true,
+                message = "Your account is created",
+            });
         }
 
         [HttpPost("login")]
