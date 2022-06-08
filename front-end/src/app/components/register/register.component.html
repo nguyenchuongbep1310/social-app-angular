@@ -63,6 +63,40 @@
         <div class="row">
           <div class="col-sm-12">
             <input
+              (input)="getInput($event, value, 'emailValue')"
+              (blur)="blur(value, 'emailValue')"
+              [ngClass]="{ 'border-red': value.emailValue === '' }"
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              aria-label="Email"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+          <div *ngIf="value.emailValue === ''" class="col-sm-12">
+            <p class="empty-err">Please enter a valid email address</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <input
+              type="tel"
+              class="form-control"
+              placeholder="Phone number"
+              aria-label="Phone number"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+          <div *ngIf="value.phoneValue === ''" class="col-sm-12">
+            <p class="empty-err">
+              Please enter a valid phone number which starts with 0 and must
+              have 10 digits
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <input
               (input)="getInput($event, value, 'passwordValue')"
               (blur)="blur(value, 'passwordValue')"
               [ngClass]="{ 'border-red': value.passwordValue === '' }"
@@ -165,40 +199,7 @@
             </p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <input
-              (input)="getInput($event, value, 'emailValue')"
-              (blur)="blur(value, 'emailValue')"
-              [ngClass]="{ 'border-red': value.emailValue === '' }"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              aria-label="Email"
-              aria-describedby="addon-wrapping"
-            />
-          </div>
-          <div *ngIf="value.emailValue === ''" class="col-sm-12">
-            <p class="empty-err">Please enter a valid email address</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <input
-              type="tel"
-              class="form-control"
-              placeholder="Phone number"
-              aria-label="Phone number"
-              aria-describedby="addon-wrapping"
-            />
-          </div>
-          <div *ngIf="value.phoneValue === ''" class="col-sm-12">
-            <p class="empty-err">
-              Please enter a valid phone number which starts with 0 and must
-              have 10 digits
-            </p>
-          </div>
-        </div>
+        
         <div class="row">
           <div class="col-sm-12 btn-wrapper">
             <button

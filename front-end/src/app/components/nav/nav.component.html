@@ -116,7 +116,7 @@
           />
         </svg>
       </div>
-      <div class="logout-container" [ngClass]="hidden">
+      <div class="logout-container" [ngClass]="hidden" (click)="navigateToRegister()" >
         <div class="border-bottom" style="padding: 6px 0">
           <div class="flex-12px profile-logout-container">
             <img

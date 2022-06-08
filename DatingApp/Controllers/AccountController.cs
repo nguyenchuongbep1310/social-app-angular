@@ -64,7 +64,7 @@ namespace DatingApp.Controllers
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
-            if (user == null) return Unauthorized("The username does not exist.");
+            if (user == null) return NotFound("The username does not exist.");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
