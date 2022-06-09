@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/nav/nav.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { ValidationComponent } from './components/validation/validation.component';
+import { CodeComponent } from './components/code/code.component';
+import { NewpasswordComponent } from './components/newpassword/newpassword.component';
+import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { ValidationComponent } from './components/validation/validation.componen
     NavComponent,
     ForgotComponent,
     ValidationComponent,
+    CodeComponent,
+    NewpasswordComponent,
+    ResetsucessComponent,
   ],
   imports: [
     BrowserModule,
