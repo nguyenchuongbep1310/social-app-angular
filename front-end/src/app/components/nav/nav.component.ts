@@ -28,14 +28,14 @@ export class NavComponent implements OnInit {
   onMenuClick() {
     if (!this.menu) {
       this.element.nativeElement
-        .querySelector('.grid-1-2')
+        .querySelector('.first-column')
         .classList.add('translateX0');
 
       this.menu = true;
       this.icon = 'M6 18L18 6M6 6l12 12';
     } else {
       this.element.nativeElement
-        .querySelector('.grid-1-2')
+        .querySelector('.first-column')
         .classList.remove('translateX0');
       this.menu = false;
       this.icon = 'M4 6h16M4 12h16M4 18h7';

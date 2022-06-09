@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
+import { ValidationComponent } from './components/validation/validation.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
     path: 'home',
     component: DashboardComponent,
   },
+  { path: 'reset-password', component: ForgotComponent },
+  { path: 'email-validation', component: ValidationComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
