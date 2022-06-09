@@ -1,5 +1,8 @@
+using DatingApp.Application.Interfaces;
+using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using DatingApp.Infrastructure.Service;
 using DatingApp.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +48,10 @@ namespace DatingApp
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp", Version = "v1" });
             });
+            services.AddOptions(); // Active Options
+            var mailsettings = _config.GetSection("MailSettings");  // read config
+            services.Configure<MailSettings>(mailsettings);
+            services.AddScoped<ISendMailService, SendMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

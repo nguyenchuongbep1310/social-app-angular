@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
@@ -16,10 +17,13 @@ namespace DatingApp.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly ISendMailService _sendMailService;
+
+        public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService)
         {
             _tokenService = tokenService;
             _context = context;
+            _sendMailService = sendMailService;
         }
 
         [HttpPost("register")]
@@ -50,6 +54,15 @@ namespace DatingApp.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
+            MailContent content = new MailContent
+            {
+                To = "trung.pv194@gmail.com",
+                Subject = "UNGAP create account",
+                Body = "<p><strong>Your account is created!!!</strong></p>"
+            };
+
+            await _sendMailService.SendMail(content);
 
             return Ok( new
             {
