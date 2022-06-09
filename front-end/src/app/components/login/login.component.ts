@@ -16,16 +16,27 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login()
-  {
-    this.accountService.login(this.model).subscribe(response =>{
-      console.log(response);
-      this.loggedIn = true;
-    }, error =>{
-      console.log(error);
-    })
-  }
+  // login()
+  // {
+  //   this.accountService.login(this.model).subscribe(response =>{
+  //     console.log(response);
+  //     this.loggedIn = true;
+  //   }, error =>{
+  //     console.log(error);
+  //   })
+  // }
+  public onSubmitLogin(): void {
 
+    this.accountService.login(this.value).subscribe(response => {
+
+      console.log(response);
+      if(response.success == true)
+      {
+
+        this.navigateToDashBoard();
+      }
+    });
+  }
   logout(){
     this.loggedIn = false;
   }
@@ -34,17 +45,17 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToDashBoard(){
-    this._router.navigateByUrl('dashboard');
+    this._router.navigateByUrl('/home');
   }
 
-  value: { usernameValue: any; passwordValue: any } = {
-    usernameValue: null,
-    passwordValue: null,
+  value: { username: any; password: any } = {
+    username: null,
+    password: null,
   };
 
   getInput(event: Event, value: any, str: string) {
     value[str] = (event.target as HTMLInputElement).value;
-    console.log(this.value.usernameValue);
+    console.log(this.value.username);
   }
   blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';

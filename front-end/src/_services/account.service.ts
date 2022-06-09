@@ -10,13 +10,18 @@ export class AccountService {
     })
   }
 
-  baseUrl = 'https://localhost:44371/api/'
+  baseUrl = 'https://localhost:5001/api/'
 
   constructor(private http: HttpClient) { }
 
-  login(model: any){
-    return this.http.post(this.baseUrl + 'account/login', model);
+  // login(model: any){
+  //   return this.http.post(this.baseUrl + 'account/login', model);
     
+  // }
+
+  public login(model: any) {
+    const url = `${this.baseUrl + 'account/login'}`;
+    return this.http.post<any>(url, model, this.httpOptions)
   }
 
   public register(model: any) {

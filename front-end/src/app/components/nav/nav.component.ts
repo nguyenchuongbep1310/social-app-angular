@@ -46,7 +46,7 @@ export class NavComponent implements OnInit {
     this.loggedIn = false;
   }
 
-  navigateToRegister() {
+  navigateToLogin() {
     this._router.navigateByUrl('/login');
   }
 }

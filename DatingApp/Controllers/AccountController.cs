@@ -74,10 +74,16 @@ namespace DatingApp.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("The password that you've entered is incorrect. Please re-enter your password");
             }
 
-             return new UserDto{
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
-            };
+            // return new UserDto{
+            //    Username = user.UserName,
+            //    Token = _tokenService.CreateToken(user)
+            //};
+
+            return Ok(new
+            {
+                success = true,
+                message = "Your account is created",
+            });
         }
         private async Task<bool> UserExists(string username)
         {

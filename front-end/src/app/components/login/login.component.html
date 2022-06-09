@@ -11,14 +11,14 @@
         </h1>
       </div>
       <div class="col-md-5 login-form">
-        <form #loginForm="ngForm" class="row gy-2 border-bottom" (ngSubmit)="login()">
+        <form #loginForm="ngForm" class="row gy-2 border-bottom">
           <div class="col-12 input-group flex-nowrap">
             <input
               name="username"
               [(ngModel)]="model.username"
-              (input)="getInput($event, value, 'usernameValue')"
-              (blur)="blur(value, 'usernameValue')"
-              [ngClass]="{ 'border-red': value.usernameValue === '' }"
+              (input)="getInput($event, value, 'username')"
+              (blur)="blur(value, 'username')"
+              [ngClass]="{ 'border-red': value.username === '' }"
               type="text"
               class="form-control padding-12px"
               placeholder="Username"
@@ -26,16 +26,16 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="value.usernameValue === ''" class="col-12">
+          <div *ngIf="value.username === ''" class="col-12">
             <p class="empty-err">Please enter your username</p>
           </div>
           <div class="col-12 input-group flex-nowrap">
             <input
               name="password"
               [(ngModel)]="model.password"
-              (input)="getInput($event, value, 'passwordValue')"
-              (blur)="blur(value, 'passwordValue')"
-              [ngClass]="{ 'border-red': value.passwordValue === '' }"
+              (input)="getInput($event, value, 'password')"
+              (blur)="blur(value, 'password')"
+              [ngClass]="{ 'border-red': value.password === '' }"
               type="password"
               class="form-control padding-12px"
               placeholder="Password"
@@ -43,16 +43,17 @@
               aria-describedby="addon-wrapping"
             />
           </div>
-          <div *ngIf="value.passwordValue === ''" class="col-12">
+          <div *ngIf="value.password === ''" class="col-12">
             <p class="empty-err">Please enter your password</p>
           </div>
           <div class="col-12 flex-nowrap">
             <button
               [ngClass]="{
-                disabled: !value.usernameValue || !value.passwordValue
+                disabled: !value.username || !value.password
               }"
               type="submit"
               class="btn btn-primary mb-3 padding-12px"
+              (click)="onSubmitLogin()"
             >
               Log in
             </button>
