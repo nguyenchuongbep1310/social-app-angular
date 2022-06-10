@@ -10,7 +10,7 @@ export class AccountService {
     })
   }
 
-  baseUrl = 'https://localhost:5001/api/'
+  baseUrl = 'https://localhost:44371/api/'
 
   constructor(private http: HttpClient) { }
 
