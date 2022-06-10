@@ -48,6 +48,8 @@ namespace DatingApp
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp", Version = "v1" });
             });
+
+            // Config to send mail
             services.AddOptions(); // Active Options
             var mailsettings = _config.GetSection("MailSettings");  // read config
             services.Configure<MailSettings>(mailsettings);

@@ -36,7 +36,6 @@ namespace DatingApp.Controllers
             if(!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
 
             using var hmac = new HMACSHA512();
-
             var user = new AppUser
             {
                 UserName = registerDto.Username,
@@ -58,16 +57,20 @@ namespace DatingApp.Controllers
             MailContent content = new MailContent
             {
                 To = "trung.pv194@gmail.com",
-                Subject = "UNGAP create account",
-                Body = "<p><strong>Your account is created!!!</strong></p>"
+                Subject = "Welcome to UNGAP",
+                Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
+                        "<br />" +
+                        "<p>Here are three ways for you to get the most out of it:</p>" +
+                        "<p>+Find the people you know</p>"+ 
+                        "<p>+Upload a Profile Photo</p>"+ 
+                        "<p>+Edit your Profile</p>"
             };
-
             await _sendMailService.SendMail(content);
 
             return Ok( new
             {
                 success = true,
-                message = "Your account is created",
+                message = "Your account has been created",
             });
         }
 
@@ -98,6 +101,7 @@ namespace DatingApp.Controllers
                 message = "Your account is created",
             });
         }
+
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
