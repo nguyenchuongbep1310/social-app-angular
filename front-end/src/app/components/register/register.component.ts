@@ -8,7 +8,11 @@ import { AccountService } from 'src/_services/account.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private elRef: ElementRef, private accountService: AccountService, private _router: Router) {}
+  constructor(
+    private elRef: ElementRef,
+    private accountService: AccountService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -39,7 +43,7 @@ export class RegisterComponent implements OnInit {
   getInput(event: Event, value: any, str: string) {
     value[str] = (event.target as HTMLInputElement).value;
   }
-  
+
   blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
   }
@@ -58,11 +62,10 @@ export class RegisterComponent implements OnInit {
 
     // console.log(this.value);
 
-    this.accountService.register(this.value).subscribe(response => {
+    this.accountService.register(this.value).subscribe((response) => {
       // console.log(response);
 
-      if(response.success == true)
-      {
+      if (response.success == true) {
         this.navigateToLogin();
       }
     });

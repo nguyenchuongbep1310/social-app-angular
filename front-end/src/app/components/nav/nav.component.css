@@ -10,10 +10,14 @@ nav {
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.075);
 }
 
+.first-column {
+  justify-self: start;
+}
+
 .grid-1-2 {
-  justify-self: stretch;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  column-gap: 12px;
   align-items: center;
   justify-items: center;
 }
@@ -22,6 +26,9 @@ nav {
   border: none;
   border-radius: 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 p {
@@ -45,15 +52,13 @@ p {
   letter-spacing: 1px;
 }
 
-img {
-  width: 32px;
-  border-radius: 50%;
+.form-control {
+  padding: 4px 8px;
 }
 
-.second-column {
-  display: flex;
-  column-gap: 36px;
-  align-items: center;
+img {
+  width: 24px;
+  border-radius: 50%;
 }
 
 .home-btn {
@@ -72,8 +77,8 @@ img {
 }
 
 .icon {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 .input-group {
@@ -86,6 +91,8 @@ img {
   top: 50%;
   transform: translateY(-50%);
   padding: 6px;
+  border: none;
+  background-color: transparent;
 }
 
 .search-icon {
@@ -170,6 +177,7 @@ img {
 
 .logout-btn {
   grid-column: 1 / -1;
+  justify-content: start;
 }
 
 .logout-btn:hover {
@@ -204,7 +212,7 @@ img {
   stroke: #1877f2;
 }
 
-.grid-1-2.translateX0 {
+.first-column.translateX0 {
   transform: translateX(0);
 }
 
@@ -222,27 +230,23 @@ img {
     z-index: 2;
   }
 
-  .grid-1-2 {
+  .first-column {
     position: absolute;
     width: 100vw;
-    height: 100vh;
-    grid-template-columns: 1fr;
-    align-items: start;
-    top: 0;
-    row-gap: 32px;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 1;
+    height: 100%;
     transform: translateX(-100%);
+    background-color: rgba(255, 255, 255, 0.9);
     transition: all 0.3s;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .logo-container {
-    align-self: end;
-  }
-
-  .second-column {
-    flex-direction: column;
-    row-gap: 32px;
+  .grid-1-2 {
+    align-items: center;
+    justify-items: start;
   }
 }
 
