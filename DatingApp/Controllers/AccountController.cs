@@ -98,7 +98,7 @@ namespace DatingApp.Controllers
             return Ok(new
             {
                 success = true,
-                message = "Your account is created",
+                message = "Login successfully",
             });
         }
 
