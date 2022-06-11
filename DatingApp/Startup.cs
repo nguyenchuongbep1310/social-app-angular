@@ -54,7 +54,7 @@ namespace DatingApp
             var mailsettings = _config.GetSection("MailSettings");  // read config
             services.Configure<MailSettings>(mailsettings);
             services.AddScoped<ISendMailService, SendMailService>();
-
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -18,12 +18,13 @@ namespace DatingApp.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly ISendMailService _sendMailService;
-        //private readonly IAccountService accountService;
-        public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService)
+        private readonly IAccountService _accountService;
+        public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService, IAccountService accountService)
         {
             _tokenService = tokenService;
             _context = context;
             _sendMailService = sendMailService;
+            _accountService = accountService;
         }
 
         [HttpPost("register")]
@@ -33,7 +34,7 @@ namespace DatingApp.Controllers
             if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
             if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
             if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
-            if(!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
+            if (!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
 
             using var hmac = new HMACSHA512();
             var user = new AppUser
@@ -61,13 +62,13 @@ namespace DatingApp.Controllers
                 Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
                         "<br />" +
                         "<p>Here are three ways for you to get the most out of it:</p>" +
-                        "<p>+Find the people you know</p>"+ 
-                        "<p>+Upload a Profile Photo</p>"+ 
+                        "<p>+Find the people you know</p>" +
+                        "<p>+Upload a Profile Photo</p>" +
                         "<p>+Edit your Profile</p>"
             };
             await _sendMailService.SendMail(content);
 
-            return Ok( new
+            return Ok(new
             {
                 success = true,
                 message = "Your account has been created",
@@ -77,31 +78,18 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            //accountService.login(username, password);
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
-            if (user == null) return NotFound("The username does not exist.");
-
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
+            var loginResult = await this._accountService.Login(loginDto);
+            if (loginResult.IsSuccess)
             {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("The password that you've entered is incorrect. Please re-enter your password");
+                return Ok(loginResult);
             }
 
-            return new UserDto
+            else
             {
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
-            };
-
-            //return Ok(new
-            //{
-            //    success = true,
-            //    message = "Login successfully",
-            //});
+                return BadRequest(loginResult);
+            }
+            
         }
 
         private async Task<bool> UserExists(string username)
@@ -135,7 +123,7 @@ namespace DatingApp.Controllers
 
             return true;
         }
-        
+
         private bool CheckUserAge(string dob)
         {
             try
