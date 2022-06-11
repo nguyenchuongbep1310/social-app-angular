@@ -18,7 +18,7 @@ namespace DatingApp.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly ISendMailService _sendMailService;
-
+        //private readonly IAccountService accountService;
         public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService)
         {
             _tokenService = tokenService;
@@ -77,6 +77,7 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            //accountService.login(username, password);
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
             if (user == null) return NotFound("The username does not exist.");
@@ -90,16 +91,17 @@ namespace DatingApp.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("The password that you've entered is incorrect. Please re-enter your password");
             }
 
-            // return new UserDto{
-            //    Username = user.UserName,
-            //    Token = _tokenService.CreateToken(user)
-            //};
-
-            return Ok(new
+            return new UserDto
             {
-                success = true,
-                message = "Login successfully",
-            });
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
+
+            //return Ok(new
+            //{
+            //    success = true,
+            //    message = "Login successfully",
+            //});
         }
 
         private async Task<bool> UserExists(string username)
