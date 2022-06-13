@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
   // }
   public onSubmitLogin(): void {
 
-    this.accountService.login(this.value).subscribe(response => {
-
-      console.log(response);
+    this.accountService.login(this.value).subscribe(response => { 
       if(response)
       {
         localStorage.setItem('token', response.token);
         this.navigateToDashBoard();
-      }
+      } 
+    }, error => {
+      console.log(error)
     });
   }
   logout(){
