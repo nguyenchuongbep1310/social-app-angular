@@ -28,7 +28,11 @@ namespace DatingApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
+            if (await UserExists(registerDto.Username))
+            {
+                return BadRequest("This username is already in use. Please use another one");
+            } 
+
             if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
 
             await _accountService.Register(registerDto);
