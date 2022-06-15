@@ -10,5 +10,7 @@ namespace DatingApp.Application.Interfaces
     public interface IAccountService
     {
         Task <UserDto> Login(LoginDto loginDto);
+
+        Task Register(RegisterDto registerDto);
     }
 }

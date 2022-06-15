@@ -1,5 +1,6 @@
 ﻿using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
+using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,41 @@ namespace DatingApp.Infrastructure.Service
                 IsSuccess = true
                 
             };
+        }
+
+        public async Task Register(RegisterDto registerDto)
+        {
+            using var hmac = new HMACSHA512();
+            var user = new AppUser
+            {
+                UserName = registerDto.Username,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.Key,
+
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                DateOfBirth = registerDto.DateOfBirth,
+                Gender = registerDto.Gender,
+                Email = registerDto.Email,
+                Phone = registerDto.Phone,
+                Avatar = registerDto.Avatar,
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            //MailContent content = new MailContent
+            //{
+            //    To = "trung.pv194@gmail.com",
+            //    Subject = "Welcome to UNGAP",
+            //    Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
+            //            "<br />" +
+            //            "<p>Here are three ways for you to get the most out of it:</p>" +
+            //            "<p>+Find the people you know</p>" +
+            //            "<p>+Upload a Profile Photo</p>" +
+            //            "<p>+Edit your Profile</p>"
+            //};
+            //await _sendMailService.SendMail(content);
         }
     }
 }
