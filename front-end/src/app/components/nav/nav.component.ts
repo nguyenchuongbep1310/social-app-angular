@@ -43,7 +43,8 @@ export class NavComponent implements OnInit {
     }
   }
 
-  navigateToLogin() {
+  logOut() {
+    localStorage.removeItem('token')
     this._router.navigateByUrl('/login');
   }
 }

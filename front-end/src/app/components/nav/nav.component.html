@@ -49,7 +49,7 @@
         src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
         alt="profile-picture"
       />
-      <p>{{accountService.userName}}</p>
+      <p>{{accountService.lastName}}</p>
     </li>
     <li>
       <div class="mess-btn btn">
@@ -113,12 +113,12 @@
               alt="profile-picture"
             />
             <div>
-              <p style="font-weight: 500; font-size: 14px">{{accountService.userName}}</p>
+              <p style="font-weight: 500; font-size: 14px">{{accountService.lastName}}</p>
               <p>View your profile</p>
             </div>
           </div>
         </div>
-        <div class="logout-btn btn flex-12px" (click)="navigateToLogin()">
+        <div class="logout-btn btn flex-12px" (click)="logOut()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="logout-icon icon"
