@@ -17,7 +17,6 @@ using System.Text;
 
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using DatingApp.Application.DTO;
 using DatingApp.Application.Validation;
 using DatingApp.Core.DTO;
 
