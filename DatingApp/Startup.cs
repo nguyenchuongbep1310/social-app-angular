@@ -15,6 +15,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using DatingApp.Application.DTO;
+using DatingApp.Application.Validation;
+using DatingApp.Core.DTO;
+
 namespace DatingApp
 {
     public class Startup
@@ -55,6 +61,10 @@ namespace DatingApp
             services.Configure<MailSettings>(mailsettings);
             services.AddScoped<ISendMailService, SendMailService>();
             services.AddScoped<IAccountService, AccountService>();
+
+            // Validation with fluent api
+            services.AddMvc().AddFluentValidation();
+            services.AddTransient<IValidator<RegisterDto>, RegisterDtoValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
