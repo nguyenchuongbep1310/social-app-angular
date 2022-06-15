@@ -17,13 +17,11 @@ namespace DatingApp.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        private readonly ISendMailService _sendMailService;
         private readonly IAccountService _accountService;
-        public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService, IAccountService accountService)
+        public AccountController(DataContext context, ITokenService tokenService, IAccountService accountService)
         {
             _tokenService = tokenService;
             _context = context;
-            _sendMailService = sendMailService;
             _accountService = accountService;
         }
 
@@ -36,37 +34,7 @@ namespace DatingApp.Controllers
             if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
             if (!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
 
-            using var hmac = new HMACSHA512();
-            var user = new AppUser
-            {
-                UserName = registerDto.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                DateOfBirth = registerDto.DateOfBirth,
-                Gender = registerDto.Gender,
-                Email = registerDto.Email,
-                Phone = registerDto.Phone,
-                Avatar = registerDto.Avatar,
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            MailContent content = new MailContent
-            {
-                To = "trung.pv194@gmail.com",
-                Subject = "Welcome to UNGAP",
-                Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
-                        "<br />" +
-                        "<p>Here are three ways for you to get the most out of it:</p>" +
-                        "<p>+Find the people you know</p>" +
-                        "<p>+Upload a Profile Photo</p>" +
-                        "<p>+Edit your Profile</p>"
-            };
-            await _sendMailService.SendMail(content);
+            await _accountService.Register(registerDto);
 
             return Ok(new
             {
