@@ -19,9 +19,7 @@ namespace DatingApp.Infrastructure.Service
 
         private readonly ILogger<SendMailService> logger;
 
-
-        // mailSetting được Inject qua dịch vụ hệ thống
-        // Có inject Logger để xuất log
+        // Inject mailSetting via system service
         public SendMailService(IOptions<MailSettings> _mailSettings, ILogger<SendMailService> _logger)
         {
             mailSettings = _mailSettings.Value;
@@ -43,7 +41,7 @@ namespace DatingApp.Infrastructure.Service
             builder.HtmlBody = mailContent.Body;
             email.Body = builder.ToMessageBody();
 
-            // dùng SmtpClient của MailKit
+            // use SmtpClient MailKit
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
             try
@@ -54,7 +52,7 @@ namespace DatingApp.Infrastructure.Service
             }
             catch (Exception ex)
             {
-                // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
+                // Send mail failed, email content will save into mailssave folder
                 System.IO.Directory.CreateDirectory("Mailssave");
                 var emailsavefile = string.Format(@"Mailssave/{0}.eml", Guid.NewGuid());
                 await email.WriteToAsync(emailsavefile);
@@ -66,7 +64,6 @@ namespace DatingApp.Infrastructure.Service
             smtp.Disconnect(true);
 
             logger.LogInformation("send mail to " + mailContent.To);
-
         }
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

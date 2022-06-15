@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DatingApp.Application.DTO;
+
 namespace DatingApp.Application.Interfaces
 {
     public interface IAccountService
