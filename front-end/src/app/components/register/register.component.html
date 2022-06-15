@@ -205,7 +205,8 @@
         <div class="row">
           <div class="col-sm-12 btn-wrapper">
             <button
-              [ngClass]="{
+              [ngStyle]="{position: 'relative'}"
+              [ngClass]="{spinner:true,
                 disabled:
                   !value.firstName ||
                   !value.lastName ||
@@ -217,6 +218,7 @@
               }"
               class="btn-success btn register-btn"
               (click)="onSubmitRegister()"
+              
             >
               Register
             </button>
