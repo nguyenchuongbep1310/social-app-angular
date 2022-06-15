@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
-
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
   // }
   public onSubmitLogin(): void {
 
-    this.accountService.login(this.value).subscribe(response => {
-
-      console.log(response);
-      if(response.success == true)
+    this.accountService.login(this.value).subscribe(response => { 
+      if(response)
       {
-
+        localStorage.setItem('token', response.token);
         this.navigateToDashBoard();
-      }
+      } 
+    }, error => {
+      console.log(error)
     });
   }
   logout(){
@@ -60,4 +60,6 @@ export class LoginComponent implements OnInit {
   blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
   }
+
+  
 }
