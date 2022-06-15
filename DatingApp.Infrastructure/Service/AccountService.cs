@@ -74,18 +74,18 @@ namespace DatingApp.Infrastructure.Service
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            //MailContent content = new MailContent
-            //{
-            //    To = "trung.pv194@gmail.com",
-            //    Subject = "Welcome to UNGAP",
-            //    Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
-            //            "<br />" +
-            //            "<p>Here are three ways for you to get the most out of it:</p>" +
-            //            "<p>+Find the people you know</p>" +
-            //            "<p>+Upload a Profile Photo</p>" +
-            //            "<p>+Edit your Profile</p>"
-            //};
-            //await _sendMailService.SendMail(content);
+            MailContent content = new MailContent
+            {
+                To = user.Email,
+                Subject = "Welcome to UNGAP",
+                Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
+                        "<br />" +
+                        "<p>Here are three ways for you to get the most out of it:</p>" +
+                        "<p>+Find the people you know</p>" +
+                        "<p>+Upload a Profile Photo</p>" +
+                        "<p>+Edit your Profile</p>"
+            };
+            await _sendMailService.SendMail(content);
         }
     }
 }

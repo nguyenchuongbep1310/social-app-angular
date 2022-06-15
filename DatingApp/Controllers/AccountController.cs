@@ -28,11 +28,8 @@ namespace DatingApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
-            if (!CheckConfirmPassword(registerDto)) return BadRequest("The confirm password is not match with password. Please re-enter your password");
             if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
             if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
-            if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
-            if (!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
 
             await _accountService.Register(registerDto);
 
@@ -68,43 +65,6 @@ namespace DatingApp.Controllers
         private async Task<bool> EmailExists(string email)
         {
             return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
-        }
-
-        private bool CheckConfirmPassword(RegisterDto registerDto)
-        {
-            return registerDto.Password == registerDto.ConfirmPassword;
-        }
-
-
-        //dob = date of birth
-        private bool CheckValidDOB(string dob)
-        {
-            try
-            {
-                if (dob == null || dob == "") return true;
-                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CheckUserAge(string dob)
-        {
-            try
-            {
-                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
-                if (DateTime.Now.Year - dt.Year >= 13) return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-            return false;
         }
     }
 }
