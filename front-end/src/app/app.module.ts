@@ -15,6 +15,8 @@ import { ValidationComponent } from './components/validation/validation.componen
 import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
+import { WallComponent } from './components/wall/wall.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
     CodeComponent,
     NewpasswordComponent,
     ResetsucessComponent,
+    WallComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

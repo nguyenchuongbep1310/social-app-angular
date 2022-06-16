@@ -9,6 +9,7 @@ import { ValidationComponent } from './components/validation/validation.componen
 import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
+import { WallComponent } from './components/wall/wall.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'recover-code', component: CodeComponent },
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
+  { path: 'personal-wall', component: WallComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
