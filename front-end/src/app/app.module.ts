@@ -16,6 +16,7 @@ import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
 import { WallComponent } from './components/wall/wall.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { WallComponent } from './components/wall/wall.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
