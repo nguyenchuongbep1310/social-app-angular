@@ -3,6 +3,7 @@ using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,20 @@ namespace DatingApp.Infrastructure.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly DataContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
         private readonly ISendMailService _sendMailService;
-        public AccountService(DataContext context, ITokenService tokenService, ISendMailService sendMailService)
+        public AccountService(IUserRepository userRepository, ITokenService tokenService, ISendMailService sendMailService)
         {
             _tokenService = tokenService;
-            _context = context;
+            _userRepository = userRepository;
             _sendMailService = sendMailService;
         }
         public async Task<UserDto> Login(LoginDto loginDto)
         {
             //accountService.login(username, password);
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            //var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _userRepository.GetByUsername(loginDto.Username);
 
             if (user == null) return new UserDto { IsSuccess = false };
 
@@ -40,8 +42,7 @@ namespace DatingApp.Infrastructure.Service
                 if (computedHash[i] != user.PasswordHash[i]) 
                 {
                     return new UserDto { IsSuccess = false };
-                }
-                
+                }              
             }
 
             return new UserDto
@@ -55,6 +56,7 @@ namespace DatingApp.Infrastructure.Service
 
         public async Task Register(RegisterDto registerDto)
         {
+            
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
@@ -70,9 +72,8 @@ namespace DatingApp.Infrastructure.Service
                 Phone = registerDto.Phone,
                 Avatar = registerDto.Avatar,
             };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            _userRepository.Insert(user);
+            _userRepository.Save();
 
             MailContent content = new MailContent
             {
