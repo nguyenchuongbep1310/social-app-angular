@@ -21,7 +21,8 @@ namespace DatingApp.Service
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Name, user.FirstName),
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 
             };

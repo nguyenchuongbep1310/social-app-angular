@@ -18,6 +18,7 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
 import { WallComponent } from './components/wall/wall.component';
 import { CommonModule } from '@angular/common';
 
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
   ],
-  providers: [],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

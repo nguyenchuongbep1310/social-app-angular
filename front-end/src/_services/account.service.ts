@@ -14,8 +14,8 @@ export class AccountService {
 
   //baseUrl = 'https://localhost:44371/api/'
 
-  
-  
+
+
   constructor(private http: HttpClient) { }
 
   // login(model: any){
@@ -23,21 +23,26 @@ export class AccountService {
 
   // }
 
-  get userName(): string {
+  get tokenInfo(): { name: string, family_name: string, email: string } {
     const token = localStorage.getItem('token');
     if (token) {
       //parse token 
       // get username
       // return username
-      
-      var decoded: {nameid: string} = jwt_decode(token);
-      console.log(decoded.nameid); 
 
-      return decoded.nameid;
+      var decoded: { name: string, family_name: string, email: string } = jwt_decode(token);
+      console.log(decoded.name);
+      console.log(decoded.family_name);
+
+      return decoded;
     }
-    return '';
+    return null;
   }
-  
+
+  get lastName(): string {
+    return this.tokenInfo && this.tokenInfo.name + " " + this.tokenInfo.family_name;
+  }
+
   public login(model: any) {
     const url = `${environment.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions)
@@ -47,4 +52,7 @@ export class AccountService {
     const url = `${environment.baseUrl + 'Account/register'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
+
+  
+
 }
