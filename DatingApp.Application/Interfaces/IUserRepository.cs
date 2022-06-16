@@ -9,7 +9,7 @@ using DatingApp.Core.Entities;
 namespace DatingApp.Application.Interfaces
 {
     public interface IUserRepository
-    {
+    {     
         void Insert(AppUser user);
         void Update(AppUser user);
         void Delete(int userID);
