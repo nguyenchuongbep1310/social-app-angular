@@ -54,10 +54,13 @@ namespace TestProject
                 Avatar = "",
             };
 
-            _accountService.Setup(controller => controller.Register(registerDto));
+            _userRepository.Setup(x => x.CheckUsernameExist("trung1")).ReturnsAsync(false);
+            _userRepository.Setup(x => x.CheckEmailExist("trung1")).ReturnsAsync(false);
+
 
             var result = await controller.Resgister(registerDto);
 
+            _accountService.Verify(x => x.Register(It.Is<RegisterDto>(x => x.Username == registerDto.Username)), Times.Once);
             Assert.IsType<OkObjectResult>(result);
         }
     }
