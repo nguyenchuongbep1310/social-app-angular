@@ -30,6 +30,11 @@ namespace DatingApp.Infrastructure.Repositories
             return _context.Users.Find(userID);
         }
 
+        public Task<AppUser> GetByUsername(string userName)
+        {
+            return _context.Users.SingleOrDefaultAsync(x => x.UserName == userName);
+        }
+
         public void Insert(AppUser user)
         {
             _context.Users.Add(user);
