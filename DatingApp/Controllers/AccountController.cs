@@ -15,25 +15,23 @@ namespace DatingApp.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
-        private readonly ITokenService _tokenService;
+        private readonly IUserRepository _userRepository;
         private readonly IAccountService _accountService;
-        public AccountController(DataContext context, ITokenService tokenService, IAccountService accountService)
+        public AccountController(IUserRepository userRepository, IAccountService accountService)
         {
-            _tokenService = tokenService;
-            _context = context;
+            _userRepository = userRepository;
             _accountService = accountService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username))
+            if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
                 return BadRequest("This username is already in use. Please use another one");
             } 
 
-            if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
+            if (await this._userRepository.CheckEmailExist(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
 
             await _accountService.Register(registerDto);
 
@@ -61,14 +59,19 @@ namespace DatingApp.Controllers
             
         }
 
-        private async Task<bool> UserExists(string username)
-        {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
-        }
+        //private async Task<bool> UserExists(string username)
+        //{
+        //    return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        //}
 
-        private async Task<bool> EmailExists(string email)
-        {
-            return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
-        }
+        //private async Task<bool> EmailExists(string email)
+        //{
+        //    return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
+        //}
+
+        //private async Task<bool> EmailExists(string userEmail)
+        //{
+        //    return await _userRepository.EmailExist(userEmail);
+        //}
     }
 }

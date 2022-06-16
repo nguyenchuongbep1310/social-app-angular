@@ -19,6 +19,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using DatingApp.Application.Validation;
 using DatingApp.Core.DTO;
+using DatingApp.Infrastructure.Repositories;
 
 namespace DatingApp
 {
@@ -35,6 +36,8 @@ namespace DatingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddDbContext<DataContext>(option => {
                 option.UseSqlServer(_config.GetConnectionString("MyDB"));
             });
