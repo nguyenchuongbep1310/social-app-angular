@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import jwt_decode from "jwt-decode";
-import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +16,7 @@ export class AccountService {
 
 
 
-  constructor(private http: HttpClient, private _router: Router) { }
+  constructor(private http: HttpClient) { }
 
   // login(model: any){
   //   return this.http.post(this.baseUrl + 'account/login', model);
@@ -54,9 +53,6 @@ export class AccountService {
     return this.http.post<any>(url, model, this.httpOptions)
   }
 
-  // logOut() {
-  //   localStorage.removeItem('token')
-  //   this._router.navigateByUrl('/login');
-  // }
+  
 
 }

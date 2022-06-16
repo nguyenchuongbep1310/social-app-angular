@@ -9,9 +9,9 @@ import { ValidationComponent } from './components/validation/validation.componen
 import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
-
+import { AuthGuardService as AuthGuard } from 'src/_services/auth.guard';
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, },
   {
     path: 'register',
     component: RegisterComponent,
@@ -19,6 +19,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   { path: 'reset-password', component: ForgotComponent },
   { path: 'email-validation', component: ValidationComponent },

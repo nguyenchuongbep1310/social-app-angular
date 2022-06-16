@@ -15,7 +15,7 @@ import { ValidationComponent } from './components/validation/validation.componen
 import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
-
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,7 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
     HttpClientModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
