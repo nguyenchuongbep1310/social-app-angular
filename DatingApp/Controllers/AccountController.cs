@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace DatingApp.Controllers
 
         /*
          *1.Get file from request
+         *  1.1 If file name is null => return
+         * 
          *2.Get file path
          *  2.1 Check file path: if file path doesn't exist => save file
          *  2.2                  if file path exists => message
@@ -34,9 +37,27 @@ namespace DatingApp.Controllers
          */
 
         [HttpPost("register")]
-        public async Task<IActionResult> Resgister(RegisterDto registerDto)
+        public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
         {
+            //1.Get file name
+            string fileName = registerDto.Avatar.FileName;
 
+            //2. declare folderName to save
+            string folderName = Path.Combine("Share", "Images");
+            string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (fileName.Length > 0)
+            {
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    registerDto.Avatar.CopyTo(stream);
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
 
             if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
