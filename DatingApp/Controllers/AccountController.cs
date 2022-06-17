@@ -23,9 +23,21 @@ namespace DatingApp.Controllers
             _accountService = accountService;
         }
 
+
+        /*
+         *1.Get file from request
+         *2.Get file path
+         *  2.1 Check file path: if file path doesn't exist => save file
+         *  2.2                  if file path exists => message
+         *3.Set file path to AppUser
+         *4.Update file path to database
+         */
+
         [HttpPost("register")]
         public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
+
+
             if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
                 return BadRequest("This username is already in use. Please use another one");

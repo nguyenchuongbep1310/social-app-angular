@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,6 +24,6 @@ namespace DatingApp.Core.DTO
        
         public string Phone { get; set; }
 
-        public string Avatar { get; set; }
+        public IFormFile Avatar { get; set; }
     }
 }

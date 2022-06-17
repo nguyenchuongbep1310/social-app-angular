@@ -70,7 +70,7 @@ namespace DatingApp.Infrastructure.Service
                 Gender = registerDto.Gender,
                 Email = registerDto.Email,
                 Phone = registerDto.Phone,
-                Avatar = registerDto.Avatar,
+                //Avatar = registerDto.Avatar,
             };
             _userRepository.Insert(user);
             _userRepository.Save();
