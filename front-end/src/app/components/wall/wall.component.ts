@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/_services/account.service';
 
 @Component({
   selector: 'wall',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WallComponent implements OnInit {
 
-  constructor() { }
+  constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
   }
