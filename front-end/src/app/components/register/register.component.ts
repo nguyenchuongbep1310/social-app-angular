@@ -40,15 +40,15 @@ export class RegisterComponent implements OnInit {
     phone: null,
   };
 
-  getInput(event: Event, value: any, str: string) {
+  public getInput(event: Event, value: any, str: string) {
     value[str] = (event.target as HTMLInputElement).value;
   }
 
-  blur(value: any, str: string) {
+  public blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
   }
 
-  navigateToLogin() {
+  public navigateToLogin() {
     this._router.navigateByUrl('/login');
   }
 
@@ -56,19 +56,13 @@ export class RegisterComponent implements OnInit {
     let myDate = new Date(this.value.dateOfBirth);
     let date = myDate.toLocaleDateString('en-AU');
 
-    // console.log(date);
-
     this.value.dateOfBirth = date;
 
-    // console.log(this.value);
-
     this.accountService.register(this.value).subscribe((response) => {
-      // console.log(response);
-
-      if (response.success == true) {
+      if (response.success == true) {              
         alert("Your account has been created successfully.");
         this.navigateToLogin();
       }
-    });
+    });    
   }
 }

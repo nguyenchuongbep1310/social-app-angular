@@ -15,58 +15,25 @@ namespace DatingApp.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
-        private readonly ITokenService _tokenService;
-        private readonly ISendMailService _sendMailService;
+        private readonly IUserRepository _userRepository;
         private readonly IAccountService _accountService;
-        public AccountController(DataContext context, ITokenService tokenService, ISendMailService sendMailService, IAccountService accountService)
+        public AccountController(IUserRepository userRepository, IAccountService accountService)
         {
-            _tokenService = tokenService;
-            _context = context;
-            _sendMailService = sendMailService;
+            _userRepository = userRepository;
             _accountService = accountService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Resgister(RegisterDto registerDto)
         {
-            if (!CheckConfirmPassword(registerDto)) return BadRequest("The confirm password is not match with password. Please re-enter your password");
-            if (await UserExists(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
-            if (await EmailExists(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
-            if (!CheckValidDOB(registerDto.DateOfBirth)) return BadRequest("Please re-enter your date of birth following format dd/mm/yyyy");
-            if (!CheckUserAge(registerDto.DateOfBirth)) return BadRequest("To be eligible to sign up for Ungap, you must be at least 13 years old");
-
-            using var hmac = new HMACSHA512();
-            var user = new AppUser
+            if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
-                UserName = registerDto.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
+                return BadRequest("This username is already in use. Please use another one");
+            } 
 
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                DateOfBirth = registerDto.DateOfBirth,
-                Gender = registerDto.Gender,
-                Email = registerDto.Email,
-                Phone = registerDto.Phone,
-                Avatar = registerDto.Avatar,
-            };
+            if (await this._userRepository.CheckEmailExist(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            MailContent content = new MailContent
-            {
-                To = "trung.pv194@gmail.com",
-                Subject = "Welcome to UNGAP",
-                Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
-                        "<br />" +
-                        "<p>Here are three ways for you to get the most out of it:</p>" +
-                        "<p>+Find the people you know</p>" +
-                        "<p>+Upload a Profile Photo</p>" +
-                        "<p>+Edit your Profile</p>"
-            };
-            await _sendMailService.SendMail(content);
+            await _accountService.Register(registerDto);
 
             return Ok(new
             {
@@ -78,7 +45,6 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-
             var loginResult = await this._accountService.Login(loginDto);
             if (loginResult.IsSuccess)
             {
@@ -92,51 +58,19 @@ namespace DatingApp.Controllers
             
         }
 
-        private async Task<bool> UserExists(string username)
-        {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
-        }
+        //private async Task<bool> UserExists(string username)
+        //{
+        //    return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        //}
 
-        private async Task<bool> EmailExists(string email)
-        {
-            return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
-        }
+        //private async Task<bool> EmailExists(string email)
+        //{
+        //    return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
+        //}
 
-        private bool CheckConfirmPassword(RegisterDto registerDto)
-        {
-            return registerDto.Password == registerDto.ConfirmPassword;
-        }
-
-
-        //dob = date of birth
-        private bool CheckValidDOB(string dob)
-        {
-            try
-            {
-                if (dob == null || dob == "") return true;
-                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CheckUserAge(string dob)
-        {
-            try
-            {
-                DateTime dt = DateTime.ParseExact(dob, "d/M/yyyy", CultureInfo.InvariantCulture);
-                if (DateTime.Now.Year - dt.Year >= 13) return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-            return false;
-        }
+        //private async Task<bool> EmailExists(string userEmail)
+        //{
+        //    return await _userRepository.EmailExist(userEmail);
+        //}
     }
 }

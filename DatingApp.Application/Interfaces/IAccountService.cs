@@ -1,4 +1,5 @@
 ﻿using DatingApp.Core.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace DatingApp.Application.Interfaces
     public interface IAccountService
     {
         Task <UserDto> Login(LoginDto loginDto);
+
+        Task Register(RegisterDto registerDto);
     }
 }

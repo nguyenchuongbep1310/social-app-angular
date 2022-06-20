@@ -9,10 +9,15 @@ import { AccountService } from 'src/_services/account.service';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-  constructor(private element: ElementRef, private _router: Router,
-    public accountService: AccountService) {}
+  constructor(
+    private element: ElementRef,
+    private _router: Router,
+    public accountService: AccountService
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.stickyBar();
+  }
 
   hidden: string = 'hidden';
   menu: boolean = false;
@@ -24,6 +29,27 @@ export class NavComponent implements OnInit {
     } else {
       this.hidden = 'hidden';
     }
+  }
+
+  stickyBar() {
+    const nav = document.querySelector('nav');
+    const navHeight = nav.getBoundingClientRect().height;
+    const container = document.querySelector('.container');
+
+    const stickyNav = function (entries) {
+      const [entry] = entries;
+
+      if (!entry.isIntersecting) nav.classList.add('sticky');
+      else nav.classList.remove('sticky');
+    };
+
+    const navObserver = new IntersectionObserver(stickyNav, {
+      root: null,
+      threshold: 0,
+      rootMargin: `-${navHeight}px`,
+    });
+    if(!container) return;
+    navObserver.observe(container);
   }
 
   onMenuClick() {
@@ -46,5 +72,9 @@ export class NavComponent implements OnInit {
   logOut() {
     localStorage.removeItem('token')
     this._router.navigateByUrl('/login');
+  }
+
+  navigateToPersonalWall() {
+    this._router.navigateByUrl('/personal-wall');
   }
 }

@@ -12,7 +12,7 @@ export class AccountService {
     })
   }
 
-  //baseUrl = 'https://localhost:44371/api/'
+  baseUrl = 'https://localhost:44371/api/'
 
 
 
@@ -23,16 +23,16 @@ export class AccountService {
 
   // }
 
-  get tokenInfo(): { name: string, family_name: string, email: string } {
+  get tokenInfo(): { name: string, family_name: string, email: string, nameid:string, birthdate:string } {
     const token = localStorage.getItem('token');
     if (token) {
       //parse token 
       // get username
       // return username
 
-      var decoded: { name: string, family_name: string, email: string } = jwt_decode(token);
-      console.log(decoded.name);
-      console.log(decoded.family_name);
+      var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string } = jwt_decode(token);
+      // console.log(decoded.name);
+      // console.log(decoded.family_name);
 
       return decoded;
     }
@@ -43,13 +43,27 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.name + " " + this.tokenInfo.family_name;
   }
 
+  get email(): string {
+    return this.tokenInfo && this.tokenInfo.email;
+  }
+
+  get userName(): string {
+    return this.tokenInfo && this.tokenInfo.nameid;
+  }
+
+  get birthDay(): string {
+    return this.tokenInfo && this.tokenInfo.birthdate;
+  }
+
+  
+
   public login(model: any) {
-    const url = `${environment.baseUrl + 'account/login'}`;
+    const url = `${this.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 
   public register(model: any) {
-    const url = `${environment.baseUrl + 'Account/register'}`;
+    const url = `${this.baseUrl + 'Account/register'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 

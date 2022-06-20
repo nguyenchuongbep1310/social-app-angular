@@ -15,6 +15,9 @@ import { ValidationComponent } from './components/validation/validation.componen
 import { CodeComponent } from './components/code/code.component';
 import { NewpasswordComponent } from './components/newpassword/newpassword.component';
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
+import { WallComponent } from './components/wall/wall.component';
+import { CommonModule } from '@angular/common';
+
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     CodeComponent,
     NewpasswordComponent,
     ResetsucessComponent,
+    WallComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],

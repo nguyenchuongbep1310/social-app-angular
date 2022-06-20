@@ -1,5 +1,9 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .padding-12px {
   padding: 12px;
 }
