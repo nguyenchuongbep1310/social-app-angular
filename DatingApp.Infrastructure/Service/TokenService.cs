@@ -26,7 +26,7 @@ namespace DatingApp.Service
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth),
-                //new Claim("Phone", user.Phone)
+                new Claim("Phone", user.Phone)
                 
             };
 

@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   getInput(event: Event, value: any, str: string) {
     value[str] = (event.target as HTMLInputElement).value;
-    console.log(this.value.username);
+    // console.log(this.value.username);
   }
   blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
