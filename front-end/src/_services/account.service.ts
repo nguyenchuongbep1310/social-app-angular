@@ -12,7 +12,7 @@ export class AccountService {
     })
   }
 
-  //baseUrl = 'https://localhost:44371/api/'
+  baseUrl = 'https://localhost:44371/api/'
 
 
 
@@ -58,12 +58,12 @@ export class AccountService {
   
 
   public login(model: any) {
-    const url = `${environment.baseUrl + 'account/login'}`;
+    const url = `${this.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 
   public register(model: any) {
-    const url = `${environment.baseUrl + 'Account/register'}`;
+    const url = `${this.baseUrl + 'Account/register'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 
