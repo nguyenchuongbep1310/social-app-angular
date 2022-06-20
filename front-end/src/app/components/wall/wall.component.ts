@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
 @Component({
   selector: 'wall',
@@ -8,7 +9,7 @@ import { AccountService } from 'src/_services/account.service';
 })
 export class WallComponent implements OnInit {
 
-  constructor(public accountService: AccountService) { }
+  constructor( public accountService: AccountService, dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
