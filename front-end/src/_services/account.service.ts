@@ -31,8 +31,8 @@ export class AccountService {
       // return username
 
       var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string } = jwt_decode(token);
-      console.log(decoded.name);
-      console.log(decoded.family_name);
+      // console.log(decoded.name);
+      // console.log(decoded.family_name);
 
       return decoded;
     }

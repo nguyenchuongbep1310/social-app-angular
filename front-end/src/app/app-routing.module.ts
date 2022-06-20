@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'recover-code', component: CodeComponent },
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
-  { path: 'personal-wall', component: WallComponent },
+  { path: 'personal-wall', component: WallComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
