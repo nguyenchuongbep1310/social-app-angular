@@ -1,0 +1,261 @@
+<div class="app-register-wrapper">
+    <div class="container register-container justify-content-center">
+      <div class="row form-box">
+        <div class="h1">ungap</div>
+        <form class="row form-wrapper">
+          <div class="border-bottom mb-3 intro-wrapper">
+            <h2 class="h2">Edit your profile</h2>
+            <p class="description">Quick and easy.</p>
+          </div>
+          <div class="row gy-2">
+            <div class="col-6">
+              <input
+                (input)="getInput($event, value, 'firstName')"
+                (blur)="blur(value, 'firstName')"
+                type="text"
+                class="form-control"
+                placeholder="First name"
+                aria-label="First name"
+                aria-describedby="addon-wrapping"
+                [ngClass]="{ 'border-red': value.firstName === '' }"
+              />
+            </div>
+            <div class="col-6">
+              <input
+                (input)="getInput($event, value, 'lastName')"
+                (blur)="blur(value, 'lastName')"
+                [ngClass]="{ 'border-red': value.lastName === '' }"
+                type="text"
+                class="form-control"
+                placeholder="Last name"
+                aria-label="Last name"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div class="col-6">
+              <p *ngIf="value.firstName === ''" class="empty-err">
+                Please enter your first name
+              </p>
+            </div>
+            <div class="col-6">
+              <p *ngIf="value.lastName === ''" class="empty-err">
+                Please enter your last name
+              </p>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-sm-12">
+              <input
+                (input)="getInput($event, value, 'username')"
+                (blur)="blur(value, 'username')"
+                [ngClass]="{ 'border-red': value.username === '' }"
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div *ngIf="value.username === ''" class="col-sm-12">
+              <p class="empty-err">Please enter your username</p>
+            </div>
+          </div> -->
+          <!-- <div class="row">
+            <div class="col-sm-12">
+              <input
+                (input)="getInput($event, value, 'password')"
+                (blur)="blur(value, 'password')"
+                [ngClass]="{ 'border-red': value.password === '' }"
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                aria-label="Password"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div *ngIf="value.password === ''" class="col-sm-12">
+              <p class="empty-err">Please enter your password</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <input
+                (input)="getInput($event, value, 'confirmPassword')"
+                (blur)="blur(value, 'confirmPassword')"
+                [ngClass]="{ 'border-red': value.confirmPassword === '' }"
+                type="password"
+                class="form-control"
+                placeholder="Confirm password"
+                aria-label="Confirm password"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div *ngIf="value.confirmPassword === ''" class="col-sm-12">
+              <p class="empty-err">Please confirm your password</p>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-sm-12">
+              <input
+                (input)="getInput($event, value, 'email')"
+                (blur)="blur(value, 'email')"
+                [ngClass]="{ 'border-red': value.email === '' }"
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                aria-label="Email"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div *ngIf="value.email === ''" class="col-sm-12">
+              <p class="empty-err">Please enter a valid email address</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <input
+                type="tel"
+                class="form-control"
+                placeholder="Phone number"
+                aria-label="Phone number"
+                aria-describedby="addon-wrapping"
+              />
+            </div>
+            <div *ngIf="value.phone === ''" class="col-sm-12">
+              <p class="empty-err">
+                Please enter a valid phone number which starts with 0 and must
+                have 10 digits
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <label for="birthday" class="gray-label"> Birthday </label>
+              <input
+                (input)="getInput($event, value, 'dateOfBirth')"
+                (blur)="blur(value, 'dateOfBirth')"
+                [ngClass]="{ 'border-red': value.dateOfBirth === '' }"
+                type="date"
+                class="form-control"
+                aria-label="Confirm password"
+                aria-describedby="addon-wrapping"
+                id="birthday"
+              />
+            </div>
+            <div class="col-6">
+              <label for="sex" class="gray-label sex-label">Gender</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input
+                      (change)="getInput($event, value, 'gender')"
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault1"
+                      value="Male"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Male
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input
+                      (change)="getInput($event, value, 'gender')"
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault1"
+                      value="Female"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Female
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="value.dateOfBirth === ''" class="col-6">
+              <p class="empty-err">Please choose your birthday</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="profile-picture" class="gray-label">Profile photo</label>
+              <input
+                id="profile-picture"
+                class="form-control"
+                type="file"
+                id="formFile"
+                placeholder="Upload your photo..."
+              />
+            </div>
+            <div *ngIf="value.avatar === ''" class="col-sm-12">
+              <p class="empty-err">
+                The photo is different from the standard requirement. Please be
+                informed that the quality of photos will be reduced
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="profile-picture" class="gray-label">Cover Photo</label>
+              <input
+                id="profile-picture"
+                class="form-control"
+                type="file"
+                id="formFile"
+                placeholder="Upload your photo..."
+              />
+            </div>
+            <div *ngIf="value.avatar === ''" class="col-sm-12">
+              <p class="empty-err">
+                The photo is different from the standard requirement. Please be
+                informed that the quality of photos will be reduced
+              </p>
+            </div>
+          </div>
+          <div class="block">
+            <div class="row">
+              <div class="col-sm-12 btn-wrapper">
+                <button (click)="onNoClick()"
+                  class="btn-success btn register-btn"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 btn-wrapper">
+                <button
+                  [ngStyle]="{position: 'relative'}"
+                  [ngClass]="{spinner:true,
+                    disabled:
+                      !value.firstName ||
+                      !value.lastName ||
+                      !value.username ||
+                      !value.password ||
+                      !value.confirmPassword ||
+                      !value.dateOfBirth ||
+                      !value.email
+                  }"
+                  class="btn-success btn register-btn"
+                  (click)="onSubmitRegister()"
+                  
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <a href="" class="ask-link">Already have an account?</a>
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+  

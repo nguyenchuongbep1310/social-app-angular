@@ -22,6 +22,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditprofileComponent } from './components/editprofile/editprofile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     NewpasswordComponent,
     ResetsucessComponent,
     WallComponent,
+    EditprofileComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,5 +52,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],
+  entryComponents:[EditprofileComponent]
 })
 export class AppModule { }
