@@ -42,12 +42,13 @@ namespace DatingApp.Infrastructure.Service
                 if (computedHash[i] != user.PasswordHash[i]) 
                 {
                     return new UserDto { IsSuccess = false };
+                 
                 }              
             }
 
             return new UserDto
             {
-                Username = user.UserName,
+                //Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 IsSuccess = true
                 
