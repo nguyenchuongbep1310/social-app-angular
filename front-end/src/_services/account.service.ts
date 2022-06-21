@@ -39,8 +39,16 @@ export class AccountService {
     return null;
   }
 
-  get lastName(): string {
-    return this.tokenInfo && this.tokenInfo.name + " " + this.tokenInfo.family_name;
+  get name(): string {
+    return this.tokenInfo && this.tokenInfo.name;
+  }
+
+  get familyName(): string {
+    return this.tokenInfo && this.tokenInfo.family_name;
+  }
+
+  get fullname(): string {
+    return this.tokenInfo && this.name + " " + this.familyName;
   }
 
   get email(): string {

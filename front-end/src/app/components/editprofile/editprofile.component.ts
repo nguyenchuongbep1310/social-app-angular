@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 @Component({
   selector: 'editprofile',
   templateUrl: './editprofile.component.html',
@@ -11,7 +12,7 @@ export class EditprofileComponent implements OnInit {
 
   constructor(
     private elRef: ElementRef,
-    private accountService: AccountService,
+    public accountService: AccountService,
     private _router: Router,
     public dialog: MatDialog
   ) {}

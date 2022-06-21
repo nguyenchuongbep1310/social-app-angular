@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { of, throwIfEmpty } from 'rxjs';
 import { AccountService } from 'src/_services/account.service';
 
 @Component({

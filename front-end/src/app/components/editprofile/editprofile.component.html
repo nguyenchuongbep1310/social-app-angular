@@ -14,7 +14,7 @@
                 (blur)="blur(value, 'firstName')"
                 type="text"
                 class="form-control"
-                placeholder="First name"
+                placeholder={{accountService.name}}
                 aria-label="First name"
                 aria-describedby="addon-wrapping"
                 [ngClass]="{ 'border-red': value.firstName === '' }"
@@ -27,7 +27,7 @@
                 [ngClass]="{ 'border-red': value.lastName === '' }"
                 type="text"
                 class="form-control"
-                placeholder="Last name"
+                placeholder={{accountService.familyName}}
                 aria-label="Last name"
                 aria-describedby="addon-wrapping"
               />
@@ -102,7 +102,7 @@
                 [ngClass]="{ 'border-red': value.email === '' }"
                 type="email"
                 class="form-control"
-                placeholder="Email"
+                placeholder={{accountService.email}}
                 aria-label="Email"
                 aria-describedby="addon-wrapping"
               />
@@ -116,7 +116,7 @@
               <input
                 type="tel"
                 class="form-control"
-                placeholder="Phone number"
+                placeholder={{accountService.phone}}
                 aria-label="Phone number"
                 aria-describedby="addon-wrapping"
               />

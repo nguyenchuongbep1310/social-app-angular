@@ -9,7 +9,7 @@
             alt="Ungap profile picture"
             class="profile-picture"
           />
-          <p>{{accountService.lastName}}</p>
+          <p>{{accountService.fullname}}</p>
           <button class="edit-profile-btn button" (click)="editProfile()" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +138,7 @@
               class="small-avt"
             />
             <div>
-              <p> {{accountService.lastName}} <span>updated a post</span></p>
+              <p> {{accountService.fullname}} <span>updated a post</span></p>
               <p class="post-date">June 15<span>th</span></p>
             </div>
           </div>
