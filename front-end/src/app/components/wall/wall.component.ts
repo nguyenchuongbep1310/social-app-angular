@@ -12,7 +12,7 @@ export class WallComponent implements OnInit {
 
   constructor( public accountService: AccountService, private dialog: MatDialog) { }
 
-
+ 
   ngOnInit(): void {
   }
 

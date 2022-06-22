@@ -11,7 +11,7 @@ export class AccountService {
       'Content-Type': 'application/json',
     })
   }
-
+ 
   baseUrl = 'https://localhost:44371/api/'
 
 
@@ -46,6 +46,11 @@ export class AccountService {
   get familyName(): string {
     return this.tokenInfo && this.tokenInfo.family_name;
   }
+
+  get fullname(): string {
+    return this.tokenInfo && this.name + " " + this.familyName;
+  }
+
   get email(): string {
     return this.tokenInfo && this.tokenInfo.email;
   }
