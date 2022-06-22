@@ -16,6 +16,5 @@ namespace DatingApp.Core.Entities
         public string Phone { get; set; }
         public string Avatar { get; set; }
         public string CoverPhoto { get; set; }
-
     }
 }

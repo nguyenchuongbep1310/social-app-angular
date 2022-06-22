@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DatingApp.Application.DTO;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
@@ -38,27 +39,7 @@ namespace DatingApp.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
-        {
-            //1.Get file name
-            string fileName = registerDto.Avatar.FileName;
-
-            //2. declare folderName to save
-            string folderName = Path.Combine("Share", "Images");
-            string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            if (fileName.Length > 0)
-            {
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var dbPath = Path.Combine(folderName, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    registerDto.Avatar.CopyTo(stream);
-                }
-            }
-            else
-            {
-                return BadRequest();
-            }
-
+        {          
             if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
                 return BadRequest("This username is already in use. Please use another one");
@@ -90,6 +71,36 @@ namespace DatingApp.Controllers
             }
             
         }
+
+        [HttpPost("edit-profile")]
+        public async Task<IActionResult> EditProfile([FromForm] ProfileDto profileDto)
+        {
+            try
+            {
+                await _accountService.EditProfile(profileDto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Error");
+            }
+        }
+
+        [HttpGet("user-profile")]
+        public async Task<IActionResult> GetUserProfile(string username)
+        {
+            try
+            {
+                ProfileInfoDto profileInfoDto = await _accountService.GetUserProfile(username);
+                return Ok(profileInfoDto);
+            }
+            catch
+            {
+                return BadRequest("Error");
+            }
+        }
+
+
 
         //private async Task<bool> UserExists(string username)
         //{

@@ -1,4 +1,5 @@
-﻿using DatingApp.Core.DTO;
+﻿using DatingApp.Application.DTO;
+using DatingApp.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,9 @@ namespace DatingApp.Application.Interfaces
         Task <UserDto> Login(LoginDto loginDto);
 
         Task Register(RegisterDto registerDto);
+
+        Task EditProfile(ProfileDto profileDto);
+
+        Task <ProfileInfoDto> GetUserProfile(string username);
     }
 }

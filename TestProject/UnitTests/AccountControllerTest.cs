@@ -51,7 +51,7 @@ namespace TestProject
                 Gender = "Male",
                 Phone = "0978785678",
                 DateOfBirth = "19/04/2000",
-                Avatar = "",
+                //Avatar = "",
             };
 
             _userRepository.Setup(x => x.CheckUsernameExist("trung1")).ReturnsAsync(false);

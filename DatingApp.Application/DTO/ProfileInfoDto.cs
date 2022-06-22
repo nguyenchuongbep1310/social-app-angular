@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Application.DTO
 {
-    public class ProfileDto
+    public class ProfileInfoDto
     {
-        public string UserName { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -21,8 +19,5 @@ namespace DatingApp.Application.DTO
         public string Gender { get; set; }
 
         public string Phone { get; set; }
-
-        public IFormFile Avatar { get; set; }
-        public IFormFile CoverPhoto { get; set; }
     }
 }
