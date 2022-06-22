@@ -1,48 +1,47 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'editprofile',
   templateUrl: './editprofile.component.html',
-  styleUrls: ['./editprofile.component.css']
+  styleUrls: ['./editprofile.component.css'],
 })
 export class EditprofileComponent implements OnInit {
-
   constructor(
-    private elRef: ElementRef,
     public accountService: AccountService,
     private _router: Router,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   public value: {
-    firstName: any;
-    lastName: any;
-    username: any;
-    password: any;
-    confirmPassword: any;
+    firstName: string;
+    lastName: string;
+    username: string;
     dateOfBirth: any;
-    gender: any;
+    gender: string;
     avatar: any;
-    email: any;
-    phone: any;
+    coverPhoto: any;
+    email: string;
+    phone: string;
   } = {
-    firstName: null,
-    lastName: null,
-    username: null,
-    password: null,
-    confirmPassword: null,
-    dateOfBirth: null,
-    gender: "Male",
+    firstName: this.accountService.name,
+    lastName: this.accountService.familyName,
+    username: this.accountService.userName,
+    dateOfBirth: this.accountService.birthDay,
+    gender: 'Male',
     avatar: null,
-    email: null,
-    phone: null,
+    coverPhoto: null,
+    email: this.accountService.email,
+    phone: this.accountService.phone,
   };
-  public hitCancel:boolean=false;
+  public hitCancel: boolean = false;
 
   public getInput(event: Event, value: any, str: string) {
     value[str] = (event.target as HTMLInputElement).value;
@@ -57,10 +56,12 @@ export class EditprofileComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialog.closeAll()
+    this.dialog.closeAll();
   }
- 
 
+  onSave() {
+    console.log(this.value);
+  }
 
   public onSubmitRegister(): void {
     let myDate = new Date(this.value.dateOfBirth);
@@ -69,10 +70,10 @@ export class EditprofileComponent implements OnInit {
     this.value.dateOfBirth = date;
 
     this.accountService.register(this.value).subscribe((response) => {
-      if (response.success == true) {              
-        alert("Your account has been created successfully.");
+      if (response.success == true) {
+        alert('Your account has been created successfully.');
         this.navigateToLogin();
       }
-    });    
+    });
   }
 }
