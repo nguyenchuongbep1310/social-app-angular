@@ -23,14 +23,15 @@ export class AccountService {
 
   // }
 
-  get tokenInfo(): { name: string, family_name: string, email: string, nameid:string, birthdate:string } {
+  get tokenInfo(): { name: string, family_name: string, email: string, nameid:string, birthdate:string, Phone:string } {
+
     const token = localStorage.getItem('token');
     if (token) {
       //parse token 
       // get username
       // return username
+      var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string, Phone:string } = jwt_decode(token);
 
-      var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string } = jwt_decode(token);
       // console.log(decoded.name);
       // console.log(decoded.family_name);
 
@@ -39,10 +40,12 @@ export class AccountService {
     return null;
   }
 
-  get lastName(): string {
-    return this.tokenInfo && this.tokenInfo.name + " " + this.tokenInfo.family_name;
+  get name(): string {
+    return this.tokenInfo && this.tokenInfo.name;
   }
-
+  get familyName(): string {
+    return this.tokenInfo && this.tokenInfo.family_name;
+  }
   get email(): string {
     return this.tokenInfo && this.tokenInfo.email;
   }
@@ -55,6 +58,9 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.birthdate;
   }
 
+  get phone(): string {
+    return this.tokenInfo && this.tokenInfo.Phone;
+  }
   
 
   public login(model: any) {
