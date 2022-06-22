@@ -184,7 +184,9 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <label for="profile-picture" class="gray-label">Profile</label>
+            <label for="profile-picture" class="gray-label"
+              >Profile picture</label
+            >
             <input
               id="profile-picture"
               class="form-control"
@@ -203,8 +205,9 @@
         <div class="row">
           <div class="col-sm-12 btn-wrapper">
             <button
-              [ngStyle]="{position: 'relative'}"
-              [ngClass]="{spinner:true,
+              [ngStyle]="{ position: 'relative' }"
+              [ngClass]="{
+                spinner: true,
                 disabled:
                   !value.firstName ||
                   !value.lastName ||

@@ -46,6 +46,12 @@
           <div *ngIf="value.password === ''" class="col-12">
             <p class="empty-err">Please enter your password</p>
           </div>
+          <div
+            class="col-12"
+            *ngIf="errFromAPI && value.password && value.username"
+          >
+            <p class="empty-err">{{ errFromAPI }}</p>
+          </div>
           <div class="col-12 flex-nowrap">
             <button
               [ngClass]="{

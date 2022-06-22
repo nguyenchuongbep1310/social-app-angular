@@ -48,7 +48,7 @@ import { EditprofileComponent } from './components/editprofile/editprofile.compo
     CommonModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModul
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],
