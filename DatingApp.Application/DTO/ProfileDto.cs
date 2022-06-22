@@ -1,17 +1,15 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DatingApp.Core.DTO
+namespace DatingApp.Application.DTO
 {
-    public class RegisterDto
+    public class ProfileDto
     {
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-
-        public string ConfirmPassword { get; set; }
-
+        public string UserName { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -21,9 +19,10 @@ namespace DatingApp.Core.DTO
         public string DateOfBirth { get; set; }
 
         public string Gender { get; set; }
-       
+
         public string Phone { get; set; }
 
         public IFormFile Avatar { get; set; }
+        public IFormFile CoverPhoto { get; set; }
     }
 }

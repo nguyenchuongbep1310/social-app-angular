@@ -1,12 +1,15 @@
-﻿using DatingApp.Application.Interfaces;
+﻿using DatingApp.Application.DTO;
+using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -39,11 +42,10 @@ namespace DatingApp.Infrastructure.Service
 
             for (int i = 0; i < computedHash.Length; i++)
             {
-                if (computedHash[i] != user.PasswordHash[i]) 
+                if (computedHash[i] != user.PasswordHash[i])
                 {
                     return new UserDto { IsSuccess = false };
-                 
-                }              
+                }
             }
 
             return new UserDto
@@ -51,13 +53,26 @@ namespace DatingApp.Infrastructure.Service
                 //Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 IsSuccess = true
-                
+
             };
         }
 
         public async Task Register(RegisterDto registerDto)
         {
-            
+            string folderSave = Path.Combine("Share", "Images");
+            string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
+            string nameOfProfilePic = null;
+
+            if (registerDto.Avatar != null)
+            {
+                nameOfProfilePic = Guid.NewGuid().ToString() + "-" + registerDto.Avatar.FileName;
+                var fullPath = Path.Combine(pathToSave, nameOfProfilePic);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    registerDto.Avatar.CopyTo(stream);
+                }
+            }
+
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
@@ -71,8 +86,9 @@ namespace DatingApp.Infrastructure.Service
                 Gender = registerDto.Gender,
                 Email = registerDto.Email,
                 Phone = registerDto.Phone,
-                Avatar = registerDto.Avatar,
+                Avatar = nameOfProfilePic,
             };
+
             _userRepository.Insert(user);
             _userRepository.Save();
 
@@ -88,6 +104,60 @@ namespace DatingApp.Infrastructure.Service
                         "<p>+Edit your Profile</p>"
             };
             await _sendMailService.SendMail(content);
+        }
+
+        public async Task EditProfile(ProfileDto profileDto)
+        {
+            string folderSave = Path.Combine("Share", "Images");
+            string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
+            string nameOfProfilePic = null;
+            string nameOfCoverPhoto = null;
+
+            if (profileDto.Avatar != null)
+            {
+                nameOfProfilePic = Guid.NewGuid().ToString() + "-" + profileDto.Avatar.FileName;
+                var fullPath = Path.Combine(pathToSave, nameOfProfilePic);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    profileDto.Avatar.CopyTo(stream);
+                }
+            }
+            if (profileDto.CoverPhoto != null)
+            {
+                nameOfCoverPhoto = Guid.NewGuid().ToString() + "-" + profileDto.Avatar.FileName;
+                var fullPath = Path.Combine(pathToSave, nameOfCoverPhoto);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    profileDto.CoverPhoto.CopyTo(stream);
+                }
+            }
+
+            AppUser userNeedToUpdate = await _userRepository.GetByUsername(profileDto.UserName);
+            userNeedToUpdate.FirstName = profileDto.FirstName;
+            userNeedToUpdate.LastName = profileDto.LastName;
+            userNeedToUpdate.Email = profileDto.Email;
+            userNeedToUpdate.DateOfBirth = profileDto.DateOfBirth;
+            userNeedToUpdate.Gender = profileDto.Gender;
+            userNeedToUpdate.Phone = profileDto.Phone;
+
+            if (nameOfProfilePic != null) userNeedToUpdate.Avatar = nameOfProfilePic;
+            if (nameOfCoverPhoto != null) userNeedToUpdate.CoverPhoto = nameOfCoverPhoto;
+
+            _userRepository.Update(userNeedToUpdate);
+            _userRepository.Save();
+        }
+
+        public async Task<ProfileInfoDto> GetUserProfile(string username)
+        {
+            AppUser user = await _userRepository.GetByUsername(username);
+            return new ProfileInfoDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                Gender = user.Gender,
+            };
         }
     }
 }
