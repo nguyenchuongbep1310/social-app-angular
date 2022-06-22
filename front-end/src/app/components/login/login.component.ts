@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
 import * as jwt_decode from 'jwt-decode';
@@ -9,6 +9,7 @@ import * as jwt_decode from 'jwt-decode';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('myPassword') myPassword;
   model: any = {};
   loggedIn: boolean;
 
@@ -66,5 +67,17 @@ export class LoginComponent implements OnInit {
 
   blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
+  }
+
+  eyeOff = false;
+
+  onEyeClick() {
+    this.myPassword.nativeElement.type = 'text';
+    this.eyeOff = true;
+  }
+
+  onEyeOffClick() {
+    this.myPassword.nativeElement.type = 'password';
+    this.eyeOff = false;
   }
 }
