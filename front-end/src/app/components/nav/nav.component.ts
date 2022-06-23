@@ -73,4 +73,8 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token')
     this._router.navigateByUrl('/login');
   }
+
+  navigateToPersonalWall(){
+    this._router.navigateByUrl('/personal-wall');
+  }
 }
