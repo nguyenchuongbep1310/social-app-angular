@@ -68,11 +68,11 @@ export class EditprofileComponent implements OnInit {
 
     this.value.dateOfBirth = date;
 
-    this.accountService.register(this.value).subscribe((response) => {
-      if (response.success == true) {              
-        alert("Your account has been created successfully.");
-        this.navigateToLogin();
-      }
-    });    
+    // this.accountService.register(this.value).subscribe((response) => {
+    //   if (response.success == true) {              
+    //     alert("Your account has been created successfully.");
+    //     this.navigateToLogin();
+    //   }
+    // });    
   }
 }
