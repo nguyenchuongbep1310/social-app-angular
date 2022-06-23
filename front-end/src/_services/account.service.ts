@@ -11,8 +11,8 @@ export class AccountService {
       'Content-Type': 'application/json',
     })
   }
-
-  //baseUrl = 'https://localhost:44371/api/'
+ 
+  baseUrl = 'https://localhost:44371/api/'
 
 
 
@@ -23,24 +23,32 @@ export class AccountService {
 
   // }
 
-  get tokenInfo(): { name: string, family_name: string, email: string, nameid:string, birthdate:string } {
+  get tokenInfo(): { name: string, family_name: string, email: string, nameid:string, birthdate:string, Phone:string } {
+
     const token = localStorage.getItem('token');
     if (token) {
       //parse token 
       // get username
       // return username
+      var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string, Phone:string } = jwt_decode(token);
 
-      var decoded: { name: string, family_name: string, email: string, nameid:string, birthdate:string } = jwt_decode(token);
-      console.log(decoded.name);
-      console.log(decoded.family_name);
+      // console.log(decoded.name);
+      // console.log(decoded.family_name);
 
       return decoded;
     }
     return null;
   }
 
-  get lastName(): string {
-    return this.tokenInfo && this.tokenInfo.name + " " + this.tokenInfo.family_name;
+  get name(): string {
+    return this.tokenInfo && this.tokenInfo.name;
+  }
+  get familyName(): string {
+    return this.tokenInfo && this.tokenInfo.family_name;
+  }
+
+  get fullname(): string {
+    return this.tokenInfo && this.name + " " + this.familyName;
   }
 
   get email(): string {
@@ -55,15 +63,18 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.birthdate;
   }
 
+  get phone(): string {
+    return this.tokenInfo && this.tokenInfo.Phone;
+  }
   
 
   public login(model: any) {
-    const url = `${environment.baseUrl + 'account/login'}`;
+    const url = `${this.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 
   public register(model: any) {
-    const url = `${environment.baseUrl + 'Account/register'}`;
+    const url = `${this.baseUrl + 'Account/register'}`;
     return this.http.post<any>(url, model, this.httpOptions)
   }
 

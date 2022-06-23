@@ -137,3 +137,6 @@ body {
     grid-template-columns: 1fr 2fr;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

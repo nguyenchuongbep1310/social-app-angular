@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { of, throwIfEmpty } from 'rxjs';
 import { AccountService } from 'src/_services/account.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class NavComponent implements OnInit {
     private element: ElementRef,
     private _router: Router,
     public accountService: AccountService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.stickyBar();
@@ -48,7 +47,7 @@ export class NavComponent implements OnInit {
       threshold: 0,
       rootMargin: `-${navHeight}px`,
     });
-
+    if(!container) return;
     navObserver.observe(container);
   }
 
@@ -74,7 +73,7 @@ export class NavComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  navigateToPersonalWall(){
+  navigateToPersonalWall() {
     this._router.navigateByUrl('/personal-wall');
   }
 }

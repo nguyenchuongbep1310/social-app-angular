@@ -50,7 +50,7 @@ namespace DatingApp.Infrastructure.Service
 
             return new UserDto
             {
-                Username = user.UserName,
+                //Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 IsSuccess = true
 

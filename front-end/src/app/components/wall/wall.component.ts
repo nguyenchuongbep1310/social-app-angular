@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { EditprofileComponent } from '../editprofile/editprofile.component';
 
 @Component({
   selector: 'wall',
@@ -8,9 +10,15 @@ import { AccountService } from 'src/_services/account.service';
 })
 export class WallComponent implements OnInit {
 
-  constructor(public accountService: AccountService) { }
+  constructor( public accountService: AccountService, private dialog: MatDialog) { }
 
+ 
   ngOnInit(): void {
   }
 
+  editProfile()
+  {
+    this.dialog.open(EditprofileComponent);
+    
+  }
 }
