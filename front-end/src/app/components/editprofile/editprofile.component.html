@@ -117,6 +117,7 @@
         <div class="row">
           <div class="col-sm-12">
             <input
+              (input)="getInput($event, value, 'phone')"
               type="tel"
               class="form-control"
               placeholder="Phone number"
@@ -239,7 +240,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12 btn-wrapper" (click)="onSave()">
+            <div class="col-sm-12 btn-wrapper">
               <button
                 [ngStyle]="{ position: 'relative' }"
                 [ngClass]="{
@@ -252,7 +253,7 @@
                     !value.email
                 }"
                 class="btn-success btn register-btn"
-                (click)="onSubmitRegister()"
+                (click)="onSave()"
               >
                 Save
               </button>

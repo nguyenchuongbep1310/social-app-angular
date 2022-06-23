@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null,
     dateOfBirth: null,
-    gender: "Male",
+    gender: 'Male',
     avatar: null,
     email: null,
     phone: null,
@@ -58,11 +58,14 @@ export class RegisterComponent implements OnInit {
 
     this.value.dateOfBirth = date;
 
+    console.log(this.value);
+
     this.accountService.register(this.value).subscribe((response) => {
-      if (response.success == true) {              
-        alert("Your account has been created successfully.");
+      console.log(response);
+      if (response.success == true) {
+        alert('Your account has been created successfully.');
         this.navigateToLogin();
       }
-    });    
+    });
   }
 }

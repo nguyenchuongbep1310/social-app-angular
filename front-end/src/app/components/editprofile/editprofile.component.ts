@@ -35,7 +35,7 @@ export class EditprofileComponent implements OnInit {
     lastName: this.accountService.familyName,
     username: this.accountService.userName,
     dateOfBirth: this.accountService.birthDay,
-    gender: 'Male',
+    gender: this.accountService.gender,
     avatar: null,
     coverPhoto: null,
     email: this.accountService.email,
@@ -60,18 +60,21 @@ export class EditprofileComponent implements OnInit {
   }
 
   onSave() {
-    this.accountService.editProfile({});
+    this.onEditProfile();
   }
 
-  public onSubmitRegister(): void {
+  public onEditProfile(): void {
     let myDate = new Date(this.value.dateOfBirth);
-    let date = myDate.toLocaleDateString('en-AU');
+    let date = myDate.toISOString().split('T')[0];
+
+    console.log(date);
 
     this.value.dateOfBirth = date;
 
-    this.accountService.register(this.value).subscribe((response) => {
+    this.accountService.editProfile(this.value).subscribe((response) => {
+      console.log(response);
       if (response.success == true) {
-        alert('Your account has been created successfully.');
+        alert('Your account has been changed successfully');
         this.navigateToLogin();
       }
     });

@@ -28,7 +28,7 @@ export class AccountService {
     nameid: string;
     birthdate: string;
     Phone: string;
-    // gender: string;
+    gender: string;
   } {
     const token = localStorage.getItem('token');
     if (token) {
@@ -42,7 +42,7 @@ export class AccountService {
         nameid: string;
         birthdate: string;
         Phone: string;
-        // gender: string;
+        gender: string;
       } = jwt_decode(token);
 
       // console.log(decoded.name);
@@ -80,9 +80,9 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.Phone;
   }
 
-  // get gender(): boolean {
-  //   return this.tokenInfo && this.tokenInfo.gender;
-  // }
+  get gender(): string {
+    return this.tokenInfo && this.tokenInfo.gender;
+  }
 
   public login(model: any) {
     const url = `${this.baseUrl + 'account/login'}`;
@@ -97,5 +97,10 @@ export class AccountService {
   public editProfile(model: any) {
     const url = `${this.baseUrl + '/api/Account/edit-profile'}`;
     return this.http.post<any>(url, model, this.httpOptions);
+  }
+
+  public getUserProfile(username: string) {
+    const url = `${this.baseUrl + '/api/Account/user-profile'}`;
+    return this.http.get<any>(url);
   }
 }

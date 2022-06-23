@@ -114,6 +114,7 @@
         <div class="row">
           <div class="col-sm-12">
             <input
+              (input)="getInput($event, value, 'phone')"
               type="tel"
               class="form-control"
               placeholder="Phone number"
@@ -219,7 +220,6 @@
               }"
               class="btn-success btn register-btn"
               (click)="onSubmitRegister()"
-              
             >
               Register
             </button>
