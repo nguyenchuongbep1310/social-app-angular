@@ -11,6 +11,7 @@ import { NewpasswordComponent } from './components/newpassword/newpassword.compo
 import { ResetsucessComponent } from './components/resetsucess/resetsucess.component';
 import { AuthGuardService as AuthGuard } from 'src/_services/auth.guard';
 import { WallComponent } from './components/wall/wall.component';
+import { ImageComponent } from './components/image/image.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
   { path: 'personal-wall', component: WallComponent, canActivate: [AuthGuard] },
+  { path: 'image', component: ImageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
