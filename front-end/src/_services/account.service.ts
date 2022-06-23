@@ -93,4 +93,9 @@ export class AccountService {
     const url = `${this.baseUrl + 'Account/register'}`;
     return this.http.post<any>(url, model, this.httpOptions);
   }
+
+  public editProfile(model: any) {
+    const url = `${this.baseUrl + '/api/Account/edit-profile'}`;
+    return this.http.post<any>(url, model, this.httpOptions);
+  }
 }

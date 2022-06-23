@@ -60,7 +60,7 @@ export class EditprofileComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.value);
+    this.accountService.editProfile({});
   }
 
   public onSubmitRegister(): void {
