@@ -47,7 +47,7 @@
     <li class="flex-12px" (click)="navigateToPersonalWall()">
       <img
         [src]="
-          profile.avatar === null
+          profile.avatar
             ? profile.avatar
             : 'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg'
         "
@@ -118,7 +118,7 @@
             <img
               class="logout-img"
               [src]="
-                profile.avatar === null
+                profile.avatar
                   ? profile.avatar
                   : 'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg'
               "
