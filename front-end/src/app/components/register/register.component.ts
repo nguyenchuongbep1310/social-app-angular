@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
 
@@ -9,7 +9,6 @@ import { AccountService } from 'src/_services/account.service';
 })
 export class RegisterComponent implements OnInit {
   constructor(
-    private elRef: ElementRef,
     private accountService: AccountService,
     private _router: Router
   ) {}
@@ -62,10 +61,7 @@ export class RegisterComponent implements OnInit {
 
     this.value.dateOfBirth = date;
 
-    console.log(this.value);
-
     this.accountService.register(this.value).subscribe((response) => {
-      console.log(response);
       if (response.success == true) {
         alert('Your account has been created successfully.');
         this.navigateToLogin();

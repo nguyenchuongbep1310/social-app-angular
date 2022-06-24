@@ -27,15 +27,6 @@ export class LoginComponent implements OnInit {
     password: null,
   };
 
-  // login()
-  // {
-  //   this.accountService.login(this.model).subscribe(response =>{
-  //     console.log(response);
-  //     this.loggedIn = true;
-  //   }, error =>{
-  //     console.log(error);
-  //   })
-  // }
   public onSubmitLogin(): void {
     this.accountService.login(this.value).subscribe(
       (response) => {

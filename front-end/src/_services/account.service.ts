@@ -52,9 +52,6 @@ export class AccountService {
         gender: string;
       } = jwt_decode(token);
 
-      // console.log(decoded.name);
-      // console.log(decoded.family_name);
-
       return decoded;
     }
     return null;

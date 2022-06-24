@@ -65,7 +65,6 @@ export class EditprofileComponent implements OnInit {
 
   onSave() {
     this.onEditProfile();
-    console.log(this.value);
   }
 
   public onEditProfile(): void {
