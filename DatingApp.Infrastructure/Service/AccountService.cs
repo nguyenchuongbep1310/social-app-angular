@@ -158,6 +158,8 @@ namespace DatingApp.Infrastructure.Service
                 DateOfBirth = user.DateOfBirth,
                 Phone = user.Phone,
                 Gender = user.Gender,
+                Avatar = user.Avatar,
+                CoverPhoto = user.CoverPhoto,
             };
         }
     }

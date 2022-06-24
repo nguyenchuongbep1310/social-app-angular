@@ -56,8 +56,7 @@ namespace DatingApp.Controllers
             else
             {
                 return BadRequest(loginResult);
-            }
-            
+            }   
         }
 
         [HttpPost("edit-profile")]
@@ -74,9 +73,9 @@ namespace DatingApp.Controllers
             }
         }
 
-        [HttpGet("user-profile")]
-        public async Task<IActionResult> GetUserProfile(string username)
-        {
+        [HttpPost("user-profile")]
+        public async Task<IActionResult> GetUserProfile([FromForm] string username)
+        {   
             try
             {
                 ProfileInfoDto profileInfoDto = await _accountService.GetUserProfile(username);
@@ -87,35 +86,6 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
-
-        [HttpGet("user-profile-picture")]
-        public async Task<IActionResult> GetProfilePicture(string username)
-        {
-            AppUser user = await _userRepository.GetByUsername(username);
-
-            if(user.Avatar != null)
-            {
-                var fileStream = await System.IO.File.ReadAllBytesAsync(@"./Share/Images/" + user.Avatar);
-                return File(fileStream, "application/octet-stream");
-            }
-
-            return BadRequest();
-        }
-
-        [HttpGet("user-cover-photo")]
-        public async Task<IActionResult> GetCoverPhoto(string username)
-        {
-            AppUser user = await _userRepository.GetByUsername(username);
-
-            if (user.CoverPhoto != null)
-            {
-                var fileStream = await System.IO.File.ReadAllBytesAsync(@"./Share/Images/" + user.CoverPhoto);
-                return File(fileStream, "application/octet-stream");
-            }
-
-            return BadRequest();
-        }
-
 
 
 

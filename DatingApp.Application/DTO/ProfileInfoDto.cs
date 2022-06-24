@@ -19,5 +19,7 @@ namespace DatingApp.Application.DTO
         public string Gender { get; set; }
 
         public string Phone { get; set; }
+        public string Avatar { get; set; }
+        public string CoverPhoto { get; set; }
     }
 }
