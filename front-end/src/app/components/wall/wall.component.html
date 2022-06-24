@@ -9,7 +9,7 @@
         <div class="short-intro border-bottom">
           <img
             [src]="
-              profile.avatar === null
+              profile.avatar
                 ? profile.avatar
                 : 'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg'
             "
@@ -131,7 +131,7 @@
       <div class="write-post sub">
         <img
           [src]="
-            profile.avatar === null
+            profile.avatar
               ? profile.avatar
               : 'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg'
           "
@@ -145,7 +145,7 @@
           <div class="post-header">
             <img
               [src]="
-                profile.avatar === null
+                profile.avatar
                   ? profile.avatar
                   : 'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg'
               "
