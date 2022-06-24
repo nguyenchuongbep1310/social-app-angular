@@ -189,18 +189,13 @@
               >Profile picture</label
             >
             <input
+              (change)="onFileChanged($event)"
               id="profile-picture"
               class="form-control"
               type="file"
               id="formFile"
               placeholder="Upload your photo..."
             />
-          </div>
-          <div *ngIf="value.avatar === ''" class="col-sm-12">
-            <p class="empty-err">
-              The photo is different from the standard requirement. Please be
-              informed that the quality of photos will be reduced
-            </p>
           </div>
         </div>
         <div class="row">

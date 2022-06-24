@@ -12,6 +12,12 @@ export class AccountService {
     }),
   };
 
+  private httpOptions2 = {
+    headers: new HttpHeaders({
+      // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+    }),
+  };
+
   baseUrl = 'https://localhost:44371/api/';
 
   constructor(private http: HttpClient) {}
@@ -89,18 +95,26 @@ export class AccountService {
     return this.http.post<any>(url, model, this.httpOptions);
   }
 
+  // public register(model: any) {
+  //   const url = `${this.baseUrl + 'Account/register'}`;
+  //   return this.http.post<any>(url, model, this.httpOptions2)
+  // }
+
   public register(model: any) {
     const url = `${this.baseUrl + 'Account/register'}`;
-    return this.http.post<any>(url, model, this.httpOptions);
-  }
 
-  public editProfile(model: any) {
-    const url = `${this.baseUrl + '/api/Account/edit-profile'}`;
-    return this.http.post<any>(url, model, this.httpOptions);
-  }
+    var formData: any = new FormData();
+    formData.append('username', model.username);
+    formData.append('password', model.password);
+    formData.append('confirmPassword', model.confirmPassword);
+    formData.append('firstName', model.firstName);
+    formData.append('lastName', model.lastName);
+    formData.append('email', model.email);
+    formData.append('dateOfBirth', model.dateOfBirth);
+    formData.append('gender', model.gender);
+    formData.append('phone', model.phone);
+    formData.append('avatar', model.avatar);
 
-  public getUserProfile(username: string) {
-    const url = `${this.baseUrl + '/api/Account/user-profile'}`;
-    return this.http.get<any>(url);
+    return this.http.post<any>(url, formData, this.httpOptions2);
   }
 }

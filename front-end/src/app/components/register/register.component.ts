@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     confirmPassword: any;
     dateOfBirth: any;
     gender: any;
-    avatar: any;
+    avatar: any[];
     email: any;
     phone: any;
   } = {
@@ -46,6 +46,10 @@ export class RegisterComponent implements OnInit {
 
   public blur(value: any, str: string) {
     if (value[str] === null) value[str] = '';
+  }
+
+  onFileChanged(event: any) {
+    this.value.avatar = event.target.files;
   }
 
   public navigateToLogin() {

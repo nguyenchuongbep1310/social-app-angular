@@ -155,6 +155,7 @@ namespace DatingApp.Infrastructure.Service
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
                 Phone = user.Phone,
                 Gender = user.Gender,
             };

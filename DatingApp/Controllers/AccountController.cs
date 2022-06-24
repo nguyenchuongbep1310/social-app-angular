@@ -25,18 +25,6 @@ namespace DatingApp.Controllers
             _accountService = accountService;
         }
 
-
-        /*
-         *1.Get file from request
-         *  1.1 If file name is null => return
-         * 
-         *2.Get file path
-         *  2.1 Check file path: if file path doesn't exist => save file
-         *  2.2                  if file path exists => message
-         *3.Set file path to AppUser
-         *4.Update file path to database
-         */
-
         [HttpPost("register")]
         public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
         {          
@@ -99,6 +87,35 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
+
+        [HttpGet("user-profile-picture")]
+        public async Task<IActionResult> GetProfilePicture(string username)
+        {
+            AppUser user = await _userRepository.GetByUsername(username);
+
+            if(user.Avatar != null)
+            {
+                var fileStream = await System.IO.File.ReadAllBytesAsync(@"./Share/Images/" + user.Avatar);
+                return File(fileStream, "application/octet-stream");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("user-cover-photo")]
+        public async Task<IActionResult> GetCoverPhoto(string username)
+        {
+            AppUser user = await _userRepository.GetByUsername(username);
+
+            if (user.CoverPhoto != null)
+            {
+                var fileStream = await System.IO.File.ReadAllBytesAsync(@"./Share/Images/" + user.CoverPhoto);
+                return File(fileStream, "application/octet-stream");
+            }
+
+            return BadRequest();
+        }
+
 
 
 
