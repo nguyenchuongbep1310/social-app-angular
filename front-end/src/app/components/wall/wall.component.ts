@@ -46,11 +46,10 @@ export class WallComponent implements OnInit {
     return null;
   }
 
-  public username = "";
+  private username = "";
  
   ngOnInit(): void { 
-    var tokenInfo = this.tokenInfo;
-    this.username = tokenInfo.nameid;
+    this.username = this.tokenInfo.nameid,
 
     this.imageService.getProfileInfo(this.username).subscribe((response) => {
       this.profile.firstName = response.firstName,

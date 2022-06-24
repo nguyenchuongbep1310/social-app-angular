@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 })
 
 export class ImageService {
+  private token = localStorage.getItem('token');
+
   private httpOptions = {
     headers: new HttpHeaders({
-
+      'Authorization': 'Bearer ' + this.token,
     })
   }
   
@@ -23,8 +25,10 @@ export class ImageService {
   public getProfileInfo(username: string)
   {
     const url = `${this.baseUrl + 'Account/user-profile'}`;
+
     var formData: any = new FormData();
     formData.append("username", username);
+
     return this.http.post<any>(url, formData, this.httpOptions);
   }
 } 

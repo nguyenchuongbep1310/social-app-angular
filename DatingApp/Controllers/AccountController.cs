@@ -10,6 +10,7 @@ using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -73,6 +74,7 @@ namespace DatingApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("user-profile")]
         public async Task<IActionResult> GetUserProfile([FromForm] string username)
         {   
@@ -86,7 +88,6 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
-
 
 
         //private async Task<bool> UserExists(string username)
