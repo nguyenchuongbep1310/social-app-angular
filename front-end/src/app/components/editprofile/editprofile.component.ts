@@ -59,23 +59,23 @@ export class EditprofileComponent implements OnInit {
     this.dialog.closeAll();
   }
 
+  onFileChanged(event: any, s: string) {
+    this.value[s] = event.target.files[0];
+  }
+
   onSave() {
     this.onEditProfile();
+    console.log(this.value);
   }
 
   public onEditProfile(): void {
     let myDate = new Date(this.value.dateOfBirth);
-    let date = myDate.toISOString().split('T')[0];
-
-    console.log(date);
+    let date = myDate.toLocaleDateString('en-AU');
 
     this.value.dateOfBirth = date;
 
-    this.accountService.register(this.value).subscribe((response) => {
-      if (response.success == true) {
-        alert('Your account has been created successfully.');
-        this.navigateToLogin();
-      }
+    this.accountService.editProfile(this.value).subscribe((response) => {
+      location.reload();
     });
   }
 }

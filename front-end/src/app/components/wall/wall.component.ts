@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditprofileComponent } from '../editprofile/editprofile.component';
-import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
 
 @Component({
@@ -13,9 +12,12 @@ import jwt_decode from 'jwt-decode';
 export class WallComponent implements OnInit {
   constructor(
     public accountService: AccountService,
-    private dialog: MatDialog,
-    public imageService: ImageService
+    private dialog: MatDialog
   ) {}
+
+  ngOnInit(): void {
+    this.accountService.getAvatarAndCover(this.profile);
+  }
 
   public profile: {
     firstName: any;
@@ -28,59 +30,16 @@ export class WallComponent implements OnInit {
     phone: any;
     coverPhoto: any;
   } = {
-    firstName: null,
-    lastName: null,
-    username: null,
-    dateOfBirth: null,
-    gender: 'Male',
-    avatar: null,
-    email: null,
-    phone: null,
-    coverPhoto: null,
+    firstName: this.accountService.name,
+    lastName: this.accountService.familyName,
+    username: this.accountService.userName,
+    dateOfBirth: this.accountService.birthDay,
+    gender: this.accountService.gender,
+    avatar: '',
+    email: this.accountService.email,
+    phone: this.accountService.phone,
+    coverPhoto: '',
   };
-
-  get tokenInfo(): {
-    name: string;
-    family_name: string;
-    email: string;
-    nameid: string;
-    birthdate: string;
-    Phone: string;
-  } {
-    const token = localStorage.getItem('token');
-    if (token) {
-      var decoded: {
-        name: string;
-        family_name: string;
-        email: string;
-        nameid: string;
-        birthdate: string;
-        Phone: string;
-      } = jwt_decode(token);
-      return decoded;
-    }
-    return null;
-  }
-
-  public username = '';
-
-  ngOnInit(): void {
-    var tokenInfo = this.tokenInfo;
-    this.username = tokenInfo.nameid;
-
-    this.imageService.getProfileInfo(this.username).subscribe((response) => {
-      (this.profile.firstName = response.firstName),
-        (this.profile.lastName = response.lastName),
-        (this.profile.email = response.email),
-        (this.profile.gender = response.gender),
-        (this.profile.phone = response.phone),
-        (this.profile.dateOfBirth = response.dateOfBirth),
-        (this.profile.avatar =
-          'https://localhost:44371/images/' + response.avatar),
-        (this.profile.coverPhoto =
-          'https://localhost:44371/images/' + response.coverPhoto);
-    });
-  }
 
   editProfile() {
     this.dialog.open(EditprofileComponent);

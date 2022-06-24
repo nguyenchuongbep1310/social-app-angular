@@ -195,6 +195,7 @@
               >Profile photo</label
             >
             <input
+              (change)="onFileChanged($event, 'avatar')"
               id="profile-picture"
               class="form-control"
               type="file"
@@ -214,7 +215,8 @@
           <div class="col-sm-12">
             <label for="profile-picture" class="gray-label">Cover Photo</label>
             <input
-              id="profile-picture"
+              (change)="onFileChanged($event, 'coverPhoto')"
+              id="cover-photo"
               class="form-control"
               type="file"
               id="formFile"

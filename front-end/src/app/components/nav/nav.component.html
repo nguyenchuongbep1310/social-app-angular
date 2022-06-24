@@ -45,10 +45,7 @@
   </div>
   <ul class="third-column">
     <li class="flex-12px" (click)="navigateToPersonalWall()">
-      <img
-        src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
-        alt="profile-picture"
-      />
+      <img [src]="profile.avatar" alt="profile-picture" />
       <p>{{ accountService.name }}</p>
     </li>
     <li>
@@ -113,7 +110,7 @@
           <div class="flex-12px profile-logout-container">
             <img
               class="logout-img"
-              src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
+              [src]="profile.avatar"
               alt="profile-picture"
               (click)="navigateToPersonalWall()"
             />

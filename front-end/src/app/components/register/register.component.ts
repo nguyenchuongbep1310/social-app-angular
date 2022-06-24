@@ -48,8 +48,8 @@ export class RegisterComponent implements OnInit {
     if (value[str] === null) value[str] = '';
   }
 
-  onFileChanged(event: any) {
-    this.value.avatar = event.target.files;
+  public onFileChanged(event: any) {
+    this.value.avatar = event.target.files[0];
   }
 
   public navigateToLogin() {

@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,11 +22,10 @@ export class AccountService {
 
   baseUrl = 'https://localhost:44371/api/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public imageService: ImageService) {}
 
   // login(model: any){
   //   return this.http.post(this.baseUrl + 'account/login', model);
-
   // }
 
   get tokenInfo(): {
@@ -90,15 +91,20 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.gender;
   }
 
+  public getAvatarAndCover(profile) {
+    this.imageService
+      .getProfileInfo(this.tokenInfo.nameid)
+      .subscribe((response) => {
+        profile.avatar = 'https://localhost:44371/images/' + response.avatar;
+        profile.coverPhoto =
+          'https://localhost:44371/images/' + response.coverPhoto;
+      });
+  }
+
   public login(model: any) {
     const url = `${this.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions);
   }
-
-  // public register(model: any) {
-  //   const url = `${this.baseUrl + 'Account/register'}`;
-  //   return this.http.post<any>(url, model, this.httpOptions2)
-  // }
 
   public register(model: any) {
     const url = `${this.baseUrl + 'Account/register'}`;
@@ -114,6 +120,23 @@ export class AccountService {
     formData.append('gender', model.gender);
     formData.append('phone', model.phone);
     formData.append('avatar', model.avatar);
+
+    return this.http.post<any>(url, formData, this.httpOptions2);
+  }
+
+  public editProfile(model: any) {
+    const url = `${this.baseUrl + 'Account/edit-profile'}`;
+
+    var formData: any = new FormData();
+    formData.append('username', model.username);
+    formData.append('firstName', model.firstName);
+    formData.append('lastName', model.lastName);
+    formData.append('email', model.email);
+    formData.append('phone', model.phone);
+    formData.append('dateOfBirth', model.dateOfBirth);
+    formData.append('gender', model.gender);
+    formData.append('avatar', model.avatar);
+    formData.append('coverPhoto', model.coverPhoto);
 
     return this.http.post<any>(url, formData, this.httpOptions2);
   }
