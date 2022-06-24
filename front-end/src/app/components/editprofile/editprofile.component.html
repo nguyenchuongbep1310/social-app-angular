@@ -45,75 +45,6 @@
             </p>
           </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-sm-12">
-              <input
-                (input)="getInput($event, value, 'username')"
-                (blur)="blur(value, 'username')"
-                [ngClass]="{ 'border-red': value.username === '' }"
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="addon-wrapping"
-              />
-            </div>
-            <div *ngIf="value.username === ''" class="col-sm-12">
-              <p class="empty-err">Please enter your username</p>
-            </div>
-          </div> -->
-        <!-- <div class="row">
-            <div class="col-sm-12">
-              <input
-                (input)="getInput($event, value, 'password')"
-                (blur)="blur(value, 'password')"
-                [ngClass]="{ 'border-red': value.password === '' }"
-                type="password"
-                class="form-control"
-                placeholder="Password"
-                aria-label="Password"
-                aria-describedby="addon-wrapping"
-              />
-            </div>
-            <div *ngIf="value.password === ''" class="col-sm-12">
-              <p class="empty-err">Please enter your password</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <input
-                (input)="getInput($event, value, 'confirmPassword')"
-                (blur)="blur(value, 'confirmPassword')"
-                [ngClass]="{ 'border-red': value.confirmPassword === '' }"
-                type="password"
-                class="form-control"
-                placeholder="Confirm password"
-                aria-label="Confirm password"
-                aria-describedby="addon-wrapping"
-              />
-            </div>
-            <div *ngIf="value.confirmPassword === ''" class="col-sm-12">
-              <p class="empty-err">Please confirm your password</p>
-            </div>
-          </div> -->
-        <div class="row">
-          <div class="col-sm-12">
-            <input
-              (input)="getInput($event, value, 'email')"
-              (blur)="blur(value, 'email')"
-              [ngClass]="{ 'border-red': value.email === '' }"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              aria-label="Email"
-              aria-describedby="addon-wrapping"
-              [value]="value.email"
-            />
-          </div>
-          <div *ngIf="value.email === ''" class="col-sm-12">
-            <p class="empty-err">Please enter a valid email address</p>
-          </div>
-        </div>
         <div class="row">
           <div class="col-sm-12">
             <input
@@ -125,12 +56,6 @@
               aria-describedby="addon-wrapping"
               [value]="value.phone"
             />
-          </div>
-          <div *ngIf="value.phone === ''" class="col-sm-12">
-            <p class="empty-err">
-              Please enter a valid phone number which starts with 0 and must
-              have 10 digits
-            </p>
           </div>
         </div>
         <div class="row">
@@ -145,7 +70,7 @@
               aria-label="Confirm password"
               aria-describedby="addon-wrapping"
               id="birthday"
-              [value]="value.dateOfBirth"
+              [value]="formatDate()"
             />
           </div>
           <div class="col-6">
@@ -204,12 +129,6 @@
               value="fihfakhafkhjaskfhjdsakj.jpeg"
             />
           </div>
-          <div *ngIf="value.avatar === ''" class="col-sm-12">
-            <p class="empty-err">
-              The photo is different from the standard requirement. Please be
-              informed that the quality of photos will be reduced
-            </p>
-          </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
@@ -223,20 +142,11 @@
               placeholder="Upload your photo..."
             />
           </div>
-          <div *ngIf="value.avatar === ''" class="col-sm-12">
-            <p class="empty-err">
-              The photo is different from the standard requirement. Please be
-              informed that the quality of photos will be reduced
-            </p>
-          </div>
         </div>
         <div class="block">
           <div class="row">
             <div class="col-sm-12 btn-wrapper">
-              <button
-                (click)="onNoClick()"
-                class="btn-success btn register-btn"
-              >
+              <button (click)="onNoClick()" class="btn-cancel btn register-btn">
                 Cancel
               </button>
             </div>
