@@ -56,8 +56,7 @@ namespace DatingApp.Controllers
             else
             {
                 return BadRequest(loginResult);
-            }
-            
+            }   
         }
 
         [HttpPost("edit-profile")]

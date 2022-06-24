@@ -189,6 +189,7 @@
               >Profile picture</label
             >
             <input
+            (change)="getInput($event, value, 'avatar')"
               id="profile-picture"
               class="form-control"
               type="file"
