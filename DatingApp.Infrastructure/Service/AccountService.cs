@@ -79,7 +79,6 @@ namespace DatingApp.Infrastructure.Service
                 UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 DateOfBirth = registerDto.DateOfBirth,

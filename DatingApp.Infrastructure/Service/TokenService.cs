@@ -21,14 +21,15 @@ namespace DatingApp.Service
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Name, user.FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                //new Claim(JwtRegisteredClaimNames.Name, user.FirstName),
+                //new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+                //new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                //new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                //new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth),
+                //new Claim(JwtRegisteredClaimNames.Gender, user.Gender),
+                //new Claim("Phone", user.Phone)
+
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth),
-                new Claim(JwtRegisteredClaimNames.Gender, user.Gender),
-                new Claim("Phone", user.Phone)
-                
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
