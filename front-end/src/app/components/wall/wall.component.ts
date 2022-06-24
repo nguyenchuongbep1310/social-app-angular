@@ -16,7 +16,7 @@ export class WallComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accountService.getAvatarAndCover(this.profile);
+    this.accountService.getProfile(this.profile);
   }
 
   public profile: {
@@ -30,14 +30,14 @@ export class WallComponent implements OnInit {
     phone: any;
     coverPhoto: any;
   } = {
-    firstName: this.accountService.name,
-    lastName: this.accountService.familyName,
-    username: this.accountService.userName,
-    dateOfBirth: this.accountService.birthDay,
-    gender: this.accountService.gender,
+    firstName: null,
+    lastName: null,
+    username: null,
+    dateOfBirth: null,
+    gender: null,
     avatar: '',
-    email: this.accountService.email,
-    phone: this.accountService.phone,
+    email: null,
+    phone: null,
     coverPhoto: '',
   };
 

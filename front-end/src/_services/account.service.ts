@@ -39,9 +39,6 @@ export class AccountService {
   } {
     const token = localStorage.getItem('token');
     if (token) {
-      //parse token
-      // get username
-      // return username
       var decoded: {
         name: string;
         family_name: string;
@@ -88,13 +85,28 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.gender;
   }
 
-  public getAvatarAndCover(profile) {
+  public getProfile(profile) {
     this.imageService
       .getProfileInfo(this.tokenInfo.nameid)
       .subscribe((response) => {
+        profile.username = this.userName;
+        profile.firstName = response.firstName;
+        profile.lastName = response.lastName;
+        profile.dateOfBirth = response.dateOfBirth;
+        profile.gender = response.gender;
+        profile.email = response.email;
+        profile.phone = response.phone;
         profile.avatar = 'https://localhost:44371/images/' + response.avatar;
-        profile.coverPhoto =
-          'https://localhost:44371/images/' + response.coverPhoto;
+
+        if (response.coverPhoto) {
+          console.log('exist');
+          profile.coverPhoto =
+            'https://localhost:44371/images/' + response.coverPhoto;
+        } else {
+          console.log('not exist');
+          profile.coverPhoto =
+            'https://images.unsplash.com/photo-1552402770-a90aa30f8aa1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80';
+        }
       });
   }
 

@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.stickyBar();
-    this.accountService.getAvatarAndCover(this.profile);
+    this.accountService.getProfile(this.profile);
   }
 
   public profile = {
