@@ -114,6 +114,7 @@
         <div class="row">
           <div class="col-sm-12">
             <input
+              (input)="getInput($event, value, 'phone')"
               type="tel"
               class="form-control"
               placeholder="Phone number"
@@ -188,18 +189,13 @@
               >Profile picture</label
             >
             <input
+              (change)="onFileChanged($event)"
               id="profile-picture"
               class="form-control"
               type="file"
               id="formFile"
               placeholder="Upload your photo..."
             />
-          </div>
-          <div *ngIf="value.avatar === ''" class="col-sm-12">
-            <p class="empty-err">
-              The photo is different from the standard requirement. Please be
-              informed that the quality of photos will be reduced
-            </p>
           </div>
         </div>
         <div class="row">
@@ -219,7 +215,6 @@
               }"
               class="btn-success btn register-btn"
               (click)="onSubmitRegister()"
-              
             >
               Register
             </button>

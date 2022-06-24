@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
+import { ImageComponent } from './components/image/image.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { EditprofileComponent } from './components/editprofile/editprofile.compo
     ResetsucessComponent,
     WallComponent,
     EditprofileComponent,
+    ImageComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,10 @@ using FluentValidation;
 using DatingApp.Application.Validation;
 using DatingApp.Core.DTO;
 using DatingApp.Infrastructure.Repositories;
+using DatingApp.Application.DTO;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace DatingApp
 {
@@ -67,6 +71,9 @@ namespace DatingApp
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();
             services.AddTransient<IValidator<RegisterDto>, RegisterDtoValidation>();
+            services.AddTransient<IValidator<ProfileDto>, ProfileDtoValidation>();
+
+            services.AddDirectoryBrowser();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +98,13 @@ namespace DatingApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+
+            //config static folder to get images
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Share/Images")), RequestPath = new PathString("/images")
             });
         }
     }

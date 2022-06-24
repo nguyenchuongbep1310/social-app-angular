@@ -75,6 +75,34 @@
   background-color: #3ba526;
 }
 
+.password-input {
+  position: relative;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50% !important;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.eye-icon {
+  width: 15px;
+  height: 15px;
+  stroke: #555;
+}
+
+.eye-btn:hover {
+  background-color: #f0f2f5;
+}
+
 @media (max-width: 768px) {
   .app-heading-box {
     padding-right: inherit;

@@ -12,11 +12,16 @@ export class NavComponent implements OnInit {
     private element: ElementRef,
     private _router: Router,
     public accountService: AccountService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.stickyBar();
+    this.accountService.getAvatarAndCover(this.profile);
   }
+
+  public profile = {
+    avatar: '',
+  };
 
   hidden: string = 'hidden';
   menu: boolean = false;
@@ -47,7 +52,7 @@ export class NavComponent implements OnInit {
       threshold: 0,
       rootMargin: `-${navHeight}px`,
     });
-    if(!container) return;
+    if (!container) return;
     navObserver.observe(container);
   }
 
@@ -69,7 +74,7 @@ export class NavComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     this._router.navigateByUrl('/login');
   }
 

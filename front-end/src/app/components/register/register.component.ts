@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     confirmPassword: any;
     dateOfBirth: any;
     gender: any;
-    avatar: any;
+    avatar: any[];
     email: any;
     phone: any;
   } = {
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null,
     dateOfBirth: null,
-    gender: "Male",
+    gender: 'Male',
     avatar: null,
     email: null,
     phone: null,
@@ -48,6 +48,10 @@ export class RegisterComponent implements OnInit {
     if (value[str] === null) value[str] = '';
   }
 
+  public onFileChanged(event: any) {
+    this.value.avatar = event.target.files[0];
+  }
+
   public navigateToLogin() {
     this._router.navigateByUrl('/login');
   }
@@ -58,11 +62,14 @@ export class RegisterComponent implements OnInit {
 
     this.value.dateOfBirth = date;
 
+    console.log(this.value);
+
     this.accountService.register(this.value).subscribe((response) => {
-      if (response.success == true) {              
-        alert("Your account has been created successfully.");
+      console.log(response);
+      if (response.success == true) {
+        alert('Your account has been created successfully.');
         this.navigateToLogin();
       }
-    });    
+    });
   }
 }

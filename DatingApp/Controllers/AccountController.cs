@@ -1,8 +1,10 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DatingApp.Application.DTO;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
@@ -24,8 +26,8 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Resgister(RegisterDto registerDto)
-        {
+        public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
+        {          
             if (await this._userRepository.CheckUsernameExist(registerDto.Username))
             {
                 return BadRequest("This username is already in use. Please use another one");
@@ -54,9 +56,38 @@ namespace DatingApp.Controllers
             else
             {
                 return BadRequest(loginResult);
-            }
-            
+            }   
         }
+
+        [HttpPost("edit-profile")]
+        public async Task<IActionResult> EditProfile([FromForm] ProfileDto profileDto)
+        {
+            try
+            {
+                await _accountService.EditProfile(profileDto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Error");
+            }
+        }
+
+        [HttpPost("user-profile")]
+        public async Task<IActionResult> GetUserProfile([FromForm] string username)
+        {   
+            try
+            {
+                ProfileInfoDto profileInfoDto = await _accountService.GetUserProfile(username);
+                return Ok(profileInfoDto);
+            }
+            catch
+            {
+                return BadRequest("Error");
+            }
+        }
+
+
 
         //private async Task<bool> UserExists(string username)
         //{
