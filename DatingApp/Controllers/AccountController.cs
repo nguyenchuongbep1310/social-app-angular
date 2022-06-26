@@ -10,6 +10,7 @@ using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,6 +55,7 @@ namespace DatingApp.Controllers
             }   
         }
 
+        [Authorize]
         [HttpPost("edit-profile")]
         public async Task<IActionResult> EditProfile([FromForm] ProfileDto profileDto)
         {

@@ -123,7 +123,7 @@ namespace DatingApp.Infrastructure.Service
             }
             if (profileDto.CoverPhoto != null)
             {
-                nameOfCoverPhoto = Guid.NewGuid().ToString() + "-" + profileDto.Avatar.FileName;
+                nameOfCoverPhoto = Guid.NewGuid().ToString() + "-" + profileDto.CoverPhoto.FileName;
                 var fullPath = Path.Combine(pathToSave, nameOfCoverPhoto);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {

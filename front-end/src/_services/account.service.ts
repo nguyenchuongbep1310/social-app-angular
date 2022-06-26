@@ -17,6 +17,7 @@ export class AccountService {
   private httpOptions2 = {
     headers: new HttpHeaders({
       // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }),
   };
 
