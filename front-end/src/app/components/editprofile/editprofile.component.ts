@@ -46,17 +46,12 @@ export class EditprofileComponent implements OnInit {
   };
 
   public formatDate() {
-    var d = new Date(this.value.dateOfBirth),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+    var d = this.value.dateOfBirth.split('/');
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+    console.log(d.reverse().join('-'));
+    console.log('--------------');
 
-    console.log([year, month, day].join('-'));
-
-    return [year, month, day].join('-');
+    return d.reverse().join('-');
   }
 
   public hitCancel: boolean = false;
