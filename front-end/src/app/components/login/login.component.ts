@@ -18,7 +18,12 @@ export class LoginComponent implements OnInit {
     private accountService: AccountService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+  if (token) {
+    this.navigateToDashBoard();
+  }
+}
 
   errFromAPI: string = '';
 
