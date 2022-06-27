@@ -96,7 +96,11 @@ export class AccountService {
         profile.dateOfBirth = response.dateOfBirth;
         profile.gender = response.gender;
         profile.email = response.email;
-        profile.phone = response.phone;
+        if (!response.phone) {
+          profile.phone = '';
+        } else {
+          profile.phone = response.phone;
+        }
         if (response.avatar) {
           profile.avatar = 'https://localhost:44371/images/' + response.avatar;
         } else {

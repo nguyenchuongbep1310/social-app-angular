@@ -42,7 +42,7 @@ export class EditprofileComponent implements OnInit {
     avatar: '',
     coverPhoto: '',
     email: null,
-    phone: null,
+    phone: '',
   };
 
   public formatDate() {
@@ -82,11 +82,12 @@ export class EditprofileComponent implements OnInit {
   }
 
   public onEditProfile(): void {
-    let myDate = new Date(this.value.dateOfBirth);
-    let date = myDate.toLocaleDateString('en-AU');
+    if (this.value.dateOfBirth.includes('-')) {
+      let myDate = new Date(this.value.dateOfBirth);
+      let date = myDate.toLocaleDateString('en-AU');
 
-    this.value.dateOfBirth = date;
-
+      this.value.dateOfBirth = date;
+    }
     this.accountService.editProfile(this.value).subscribe((response) => {
       location.reload();
     });
