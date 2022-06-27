@@ -101,7 +101,7 @@ export class AccountService {
           profile.avatar = 'https://localhost:44371/images/' + response.avatar;
         } else {
           profile.avatar =
-            'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg';
+            'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=';
         }
 
         if (response.coverPhoto) {
@@ -109,7 +109,7 @@ export class AccountService {
             'https://localhost:44371/images/' + response.coverPhoto;
         } else {
           profile.coverPhoto =
-            'https://images.unsplash.com/photo-1552402770-a90aa30f8aa1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80';
+            'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
         }
       });
   }
