@@ -96,7 +96,12 @@ export class AccountService {
         profile.gender = response.gender;
         profile.email = response.email;
         profile.phone = response.phone;
-        profile.avatar = 'https://localhost:44371/images/' + response.avatar;
+        if (response.avatar) {
+          profile.avatar = 'https://localhost:44371/images/' + response.avatar;
+        } else {
+          profile.avatar =
+            'https://i.pinimg.com/474x/32/3c/59/323c593af4d11350497e38e4899d6835.jpg';
+        }
 
         if (response.coverPhoto) {
           profile.coverPhoto =
