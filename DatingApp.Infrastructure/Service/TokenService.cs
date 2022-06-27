@@ -28,7 +28,6 @@ namespace DatingApp.Service
                 new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth),
                 new Claim(JwtRegisteredClaimNames.Gender, user.Gender),
                 new Claim("Phone", user.Phone)
-                
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);

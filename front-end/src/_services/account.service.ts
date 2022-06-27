@@ -17,6 +17,7 @@ export class AccountService {
   private httpOptions2 = {
     headers: new HttpHeaders({
       // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }),
   };
 
@@ -150,6 +151,6 @@ export class AccountService {
     formData.append('avatar', model.avatar);
     formData.append('coverPhoto', model.coverPhoto);
 
-    return this.http.post<any>(url, formData, this.httpOptions2);
+    return this.http.patch<any>(url, formData, this.httpOptions2);
   }
 }

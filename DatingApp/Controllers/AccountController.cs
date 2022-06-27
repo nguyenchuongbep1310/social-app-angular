@@ -10,6 +10,7 @@ using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,12 +29,8 @@ namespace DatingApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
         {          
-            if (await this._userRepository.CheckUsernameExist(registerDto.Username))
-            {
-                return BadRequest("This username is already in use. Please use another one");
-            } 
-
-            if (await this._userRepository.CheckEmailExist(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
+            if (await _userRepository.CheckUsernameExist(registerDto.Username)) return BadRequest("This username is already in use. Please use another one");
+            if (await _userRepository.CheckEmailExist(registerDto.Email)) return BadRequest("This email is already in use. Please use another one");
 
             await _accountService.Register(registerDto);
 
@@ -47,19 +44,19 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var loginResult = await this._accountService.Login(loginDto);
+            var loginResult = await _accountService.Login(loginDto);
             if (loginResult.IsSuccess)
             {
                 return Ok(loginResult);
             }
-
             else
             {
                 return BadRequest(loginResult);
             }   
         }
 
-        [HttpPost("edit-profile")]
+        [Authorize]
+        [HttpPatch("edit-profile")]
         public async Task<IActionResult> EditProfile([FromForm] ProfileDto profileDto)
         {
             try
@@ -86,22 +83,5 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
-
-
-
-        //private async Task<bool> UserExists(string username)
-        //{
-        //    return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
-        //}
-
-        //private async Task<bool> EmailExists(string email)
-        //{
-        //    return await _context.Users.AnyAsync(x => x.Email == email.ToLower());
-        //}
-
-        //private async Task<bool> EmailExists(string userEmail)
-        //{
-        //    return await _userRepository.EmailExist(userEmail);
-        //}
     }
 }

@@ -79,7 +79,6 @@ namespace DatingApp.Infrastructure.Service
                 UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 DateOfBirth = registerDto.DateOfBirth,
@@ -124,7 +123,7 @@ namespace DatingApp.Infrastructure.Service
             }
             if (profileDto.CoverPhoto != null)
             {
-                nameOfCoverPhoto = Guid.NewGuid().ToString() + "-" + profileDto.Avatar.FileName;
+                nameOfCoverPhoto = Guid.NewGuid().ToString() + "-" + profileDto.CoverPhoto.FileName;
                 var fullPath = Path.Combine(pathToSave, nameOfCoverPhoto);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
