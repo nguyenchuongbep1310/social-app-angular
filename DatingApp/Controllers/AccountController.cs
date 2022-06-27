@@ -70,6 +70,7 @@ namespace DatingApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("user-profile")]
         public async Task<IActionResult> GetUserProfile([FromForm] string username)
         {   

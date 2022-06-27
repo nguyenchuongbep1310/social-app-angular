@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ImageService {
   private httpOptions = {
-    headers: new HttpHeaders({}),
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    }),
   };
 
   baseUrl = 'https://localhost:44371/api/';
