@@ -17,9 +17,12 @@ export class EditprofileComponent implements OnInit {
     public accountService: AccountService,
     private _router: Router,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.accountService.getProfile(this.value);
+  }
 
   ngOnInit(): void {}
+
   public value: {
     firstName: string;
     lastName: string;
@@ -31,16 +34,31 @@ export class EditprofileComponent implements OnInit {
     email: string;
     phone: string;
   } = {
-    firstName: this.accountService.name,
-    lastName: this.accountService.familyName,
-    username: this.accountService.userName,
-    dateOfBirth: this.accountService.birthDay,
-    gender: this.accountService.gender,
-    avatar: null,
-    coverPhoto: null,
-    email: this.accountService.email,
-    phone: this.accountService.phone,
+    firstName: null,
+    lastName: null,
+    username: null,
+    dateOfBirth: null,
+    gender: null,
+    avatar: '',
+    coverPhoto: '',
+    email: null,
+    phone: null,
   };
+
+  public formatDate() {
+    var d = new Date(this.value.dateOfBirth),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    console.log([year, month, day].join('-'));
+
+    return [year, month, day].join('-');
+  }
+
   public hitCancel: boolean = false;
 
   public getInput(event: Event, value: any, str: string) {
