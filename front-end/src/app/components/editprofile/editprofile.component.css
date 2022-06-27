@@ -39,7 +39,7 @@
   color: #777;
   text-align: center;
 }
-.block{
+.block {
   display: flex;
   justify-content: center;
 }
@@ -74,6 +74,15 @@
 
 .register-btn:hover {
   background-color: #3ba526;
+}
+
+.btn-cancel {
+  background-color: #f1f3f5;
+  color: #333;
+}
+
+.btn-cancel.btn.register-btn:hover {
+  background-color: #e7e8ea;
 }
 
 .ask-link:link,
