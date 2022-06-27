@@ -56,7 +56,7 @@ namespace DatingApp.Controllers
         }
 
         [Authorize]
-        [HttpPost("edit-profile")]
+        [HttpPatch("edit-profile")]
         public async Task<IActionResult> EditProfile([FromForm] ProfileDto profileDto)
         {
             try
