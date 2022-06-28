@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     gender: 'Male',
     avatar: null,
     email: null,
-    phone: null,
+    phone: '',
   };
 
   public getInput(event: Event, value: any, str: string) {
