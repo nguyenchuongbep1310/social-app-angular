@@ -13,10 +13,12 @@ export class WallComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.accountService.getProfile(this.profile);
+  }
 
   ngOnInit(): void {
-    this.accountService.getProfile(this.profile);
+    
   }
 
   public profile: {
