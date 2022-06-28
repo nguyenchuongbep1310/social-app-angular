@@ -91,18 +91,21 @@ namespace DatingApp.Infrastructure.Service
             _userRepository.Insert(user);
             _userRepository.Save();
 
-            MailContent content = new MailContent
+            if(_userRepository.GetByUsername(user.UserName) != null)
             {
-                To = user.Email,
-                Subject = "Welcome to UNGAP",
-                Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
+                MailContent content = new MailContent
+                {
+                    To = user.Email,
+                    Subject = "Welcome to UNGAP",
+                    Body = "<p>Your account has been created - now it will be easier than ever to share and connect with your friends and family</p>" +
                         "<br />" +
                         "<p>Here are three ways for you to get the most out of it:</p>" +
                         "<p>+Find the people you know</p>" +
                         "<p>+Upload a Profile Photo</p>" +
                         "<p>+Edit your Profile</p>"
-            };
-            await _sendMailService.SendMail(content);
+                };
+                await _sendMailService.SendMail(content);
+            }          
         }
 
         public async Task EditProfile(ProfileDto profileDto)

@@ -20,14 +20,14 @@ namespace DatingApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public IEnumerable<AppUser> GetAll()
+        public async Task<IEnumerable<AppUser>> GetAll()
         {
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
-        public AppUser GetById(int userID)
+        public async Task<AppUser> GetById(int userID)
         {
-            return _context.Users.Find(userID);
+            return await _context.Users.FindAsync(userID);
         }
 
         public Task<AppUser> GetByUsername(string userName)

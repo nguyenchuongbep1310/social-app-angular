@@ -14,8 +14,8 @@ namespace DatingApp.Application.Interfaces
         void Update(AppUser user);
         void Delete(int userID);
         void Save();
-        IEnumerable<AppUser> GetAll();
-        AppUser GetById(int userID); 
+        Task<IEnumerable<AppUser>> GetAll();
+        Task<AppUser> GetById(int userID); 
         Task<bool> CheckEmailExist(string userEmail);
         Task<bool> CheckUsernameExist(string username);
         Task<AppUser> GetByUsername(string userName);
