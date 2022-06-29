@@ -10,7 +10,7 @@ namespace DatingApp.Application.DTO
 {
     public class PostDto
     {
-        public AppUser Author { get; set; }
+        public int UserId { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime ModifiedDate { get; set; } = DateTime.Now;
         public string Text { get; set; }

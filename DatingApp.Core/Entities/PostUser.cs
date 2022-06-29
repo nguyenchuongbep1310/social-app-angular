@@ -9,12 +9,12 @@ namespace DatingApp.Core.Entities
 {
     public class PostUser
     {
-        [Key]
-        public int PostId { get; set; }
-        public AppUser Author { get; set; }
+        public int PostId { get; set; }     
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime ModifiedDate { get; set; } = DateTime.Now;
         public string Text { get; set; }
         public string Images { get; set; }
+        public int UserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

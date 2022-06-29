@@ -45,6 +45,7 @@ namespace DatingApp.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var loginResult = await _accountService.Login(loginDto);
+
             if (loginResult.IsSuccess)
             {
                 return Ok(loginResult);

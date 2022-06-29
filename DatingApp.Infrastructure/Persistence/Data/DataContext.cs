@@ -10,6 +10,23 @@ namespace DatingApp.Infrastructure.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuider)
+        {
+            modelBuider.Entity<PostUser>()
+                .ToTable("Posts")
+                .HasKey(p => p.PostId);
+
+            modelBuider.Entity<AppUser>()
+                .ToTable("Users")
+                .HasKey(p => p.Id);
+
+            modelBuider.Entity<PostUser>()
+                .HasOne(p => p.AppUser)
+                .WithMany(u => u.Posts)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
         public virtual DbSet<AppUser> Users { get; set; }
         public virtual DbSet<PostUser> Posts { get; set; }
     }

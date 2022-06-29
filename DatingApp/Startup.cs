@@ -24,6 +24,7 @@ using DatingApp.Application.DTO;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using DatingApp.Infrastructure.Persistence.Repositories;
 
 namespace DatingApp
 {
@@ -41,6 +42,7 @@ namespace DatingApp
         {
             services.AddTransient<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddDbContext<DataContext>(option => {
                 option.UseSqlServer(_config.GetConnectionString("MyDB"));
@@ -67,7 +69,7 @@ namespace DatingApp
             services.Configure<MailSettings>(mailsettings);
             services.AddTransient<ISendMailService, SendMailService>();
             services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IPostService, PostServie>();
+            services.AddTransient<IPostService, PostService>();
 
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();

@@ -71,9 +71,6 @@ namespace DatingApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -86,20 +83,30 @@ namespace DatingApp.Infrastructure.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("PostId");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
                 {
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "AppUser")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Author");
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DatingApp.Core.Entities
 {
@@ -16,5 +17,6 @@ namespace DatingApp.Core.Entities
         public string Phone { get; set; }
         public string Avatar { get; set; }
         public string CoverPhoto { get; set; }
+        public ICollection<PostUser> Posts { get; set; } 
     }
 }
