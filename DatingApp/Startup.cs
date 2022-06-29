@@ -67,11 +67,13 @@ namespace DatingApp
             services.Configure<MailSettings>(mailsettings);
             services.AddTransient<ISendMailService, SendMailService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IPostService, PostServie>();
 
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();
             services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidation>();
             services.AddScoped<IValidator<ProfileDto>, ProfileDtoValidation>();
+            
 
             services.AddDirectoryBrowser();           
         }
