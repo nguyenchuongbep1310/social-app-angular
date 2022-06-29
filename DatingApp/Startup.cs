@@ -39,7 +39,7 @@ namespace DatingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddTransient<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<DataContext>(option => {
@@ -65,13 +65,13 @@ namespace DatingApp
             services.AddOptions(); // Active Options
             var mailsettings = _config.GetSection("MailSettings");  // read config
             services.Configure<MailSettings>(mailsettings);
-            services.AddScoped<ISendMailService, SendMailService>();
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddTransient<ISendMailService, SendMailService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();
-            services.AddTransient<IValidator<RegisterDto>, RegisterDtoValidation>();
-            services.AddTransient<IValidator<ProfileDto>, ProfileDtoValidation>();
+            services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidation>();
+            services.AddScoped<IValidator<ProfileDto>, ProfileDtoValidation>();
 
             services.AddDirectoryBrowser();           
         }
