@@ -14,7 +14,7 @@ import { WallComponent } from './components/wall/wall.component';
 import { ImageComponent } from './components/image/image.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, },
+  { path: 'login', component: LoginComponent },
   {
     path: 'register',
     component: RegisterComponent,
@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   { path: 'reset-password', component: ForgotComponent },
   { path: 'email-validation', component: ValidationComponent },
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
   { path: 'personal-wall', component: WallComponent, canActivate: [AuthGuard] },
-  { path: 'image', component: ImageComponent},
+  { path: 'image', component: ImageComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 

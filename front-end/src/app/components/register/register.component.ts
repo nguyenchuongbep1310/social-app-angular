@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
 
       return dateFormat;
     }
-    return 'MM/DD/YYYY';
+    return 'YYYY/MM/DD';
   }
 
   public onSubmitRegister(): void {
