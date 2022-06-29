@@ -1,0 +1,34 @@
+<div class="wp">
+  <div class="wp-child">
+    <p class="wp-heading">Write post</p>
+    <div class="wp-body">
+      <div class="post-header">
+        <img
+          src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t39.30808-6/279575997_1454118705018799_3915865435304318524_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=FlAJDtQPFAQAX9P-u-u&_nc_ht=scontent.fsgn13-2.fna&oh=00_AT8eAke-N0wV_CbzpXx2dbUVU2CVmiaSs0n0bR9FhMBTmg&oe=62C042C2"
+          alt="Ungap profile picture"
+          class="small-avt"
+        />
+        <div>
+          <p style="font-size: 16px">Nhật Hy</p>
+        </div>
+      </div>
+      <div style="margin-top: 12px">
+        <textarea placeholder="what's on your mind" name="post"></textarea>
+      </div>
+      <div class="img-upload">
+        <img id="output" width="100%" />
+      </div>
+      <div class="add-box">
+        <p>Add to post</p>
+        <input
+          (change)="loadFile($event)"
+          id="add-photo"
+          class="form-control"
+          type="file"
+          id="formFile"
+          placeholder="Upload your photo..."
+        />
+      </div>
+    </div>
+  </div>
+</div>

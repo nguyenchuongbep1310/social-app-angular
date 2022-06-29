@@ -25,6 +25,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
 import { ImageComponent } from './components/image/image.component';
 import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
+import { UploadPostModule } from './components/upload-post/upload-post.module';
 
 @NgModule({
   declarations: [
@@ -53,9 +54,14 @@ import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
     NgbModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    UploadPostModule,
   ],
-  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, JwtHelperService],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent],
-  entryComponents:[EditprofileComponent]
+  entryComponents: [EditprofileComponent],
 })
-export class AppModule { }
+export class AppModule {}
