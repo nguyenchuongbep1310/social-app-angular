@@ -8,7 +8,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavComponent } from './components/nav/nav.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { ValidationComponent } from './components/validation/validation.component';
@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
 import { ImageComponent } from './components/image/image.component';
+import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,7 @@ import { ImageComponent } from './components/image/image.component';
     BrowserAnimationsModule,
     MatDialogModule,
   ],
-  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, JwtHelperService],
   bootstrap: [AppComponent],
   entryComponents:[EditprofileComponent]
 })

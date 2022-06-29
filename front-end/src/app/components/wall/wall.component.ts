@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditprofileComponent } from '../editprofile/editprofile.component';
-import jwt_decode from 'jwt-decode';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'wall',
@@ -18,7 +19,8 @@ export class WallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    const url = `${environment.baseUrl + 'Users'}`;
+    this.http.get(url).subscribe(result => {console.log(result)}, error => {})
   }
 
   public profile: {

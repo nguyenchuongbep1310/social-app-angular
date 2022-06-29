@@ -3,14 +3,8 @@ using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
-using DatingApp.Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,12 +53,12 @@ namespace DatingApp.Infrastructure.Service
 
         public async Task Register(RegisterDto registerDto)
         {
-            string folderSave = Path.Combine("Share", "Images");
-            string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
-            string nameOfProfilePic = null;
+            var nameOfProfilePic = string.Empty;
 
             if (registerDto.Avatar != null)
             {
+                var folderSave = Path.Combine("Share", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
                 nameOfProfilePic = Guid.NewGuid().ToString() + "-" + registerDto.Avatar.FileName;
                 var fullPath = Path.Combine(pathToSave, nameOfProfilePic);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
