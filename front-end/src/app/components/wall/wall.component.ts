@@ -13,7 +13,8 @@ import { environment } from 'src/environments/environment';
 export class WallComponent implements OnInit {
   constructor(
     public accountService: AccountService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private http: HttpClient
   ) {
     this.accountService.getProfile(this.profile);
   }
