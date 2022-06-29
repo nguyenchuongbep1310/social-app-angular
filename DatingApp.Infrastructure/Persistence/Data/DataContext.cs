@@ -11,5 +11,6 @@ namespace DatingApp.Infrastructure.Data
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
+        public virtual DbSet<PostUser> Posts { get; set; }
     }
 }
