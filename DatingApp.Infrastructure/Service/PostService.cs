@@ -73,7 +73,7 @@ namespace DatingApp.Infrastructure.Service
         public async Task<PostUser> GetById(int postId, int userId)
         {
             PostUser postUser = await _postRepository.GetById(postId);
-            if (postUser.UserId != userId) throw new Exception();
+            if (postUser.UserId != userId) return null;
 
             return postUser;
         }
@@ -83,7 +83,7 @@ namespace DatingApp.Infrastructure.Service
             try
             {           
                 PostUser postToUpdate = await _postRepository.GetById(postId);
-                if (postToUpdate.UserId != postDto.UserId) return false;
+                if (postToUpdate == null || postToUpdate.UserId != postDto.UserId) return false;
 
                 string nameOfPostPic = string.Empty;
                 if (postDto.Images != null)
