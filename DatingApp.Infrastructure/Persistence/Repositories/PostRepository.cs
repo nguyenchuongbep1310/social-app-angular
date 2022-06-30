@@ -44,9 +44,9 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             return await _context.Posts.FindAsync(postId);
         }
 
-        public Task<IEnumerable<PostUser>> GetAllOfUser(int userId)
+        public async Task<IEnumerable<PostUser>> GetAllOfAUser(int userId)
         {
-            throw new NotImplementedException();
+            return await _context.Posts.Where(p => p.UserId == userId).ToListAsync();
         }
 
         private bool disposed = false;

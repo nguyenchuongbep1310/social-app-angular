@@ -40,9 +40,8 @@ namespace DatingApp.Infrastructure.Service
                 PostUser newPost = new PostUser();
                 newPost.Text = postDto.Text;
                 newPost.Images = nameOfPostPic;
-                newPost.CreatedDate = postDto.CreatedDate;
-                newPost.ModifiedDate = postDto.ModifiedDate;
                 newPost.UserId = postDto.UserId;
+                newPost.CreatedDate = DateTime.Now;
 
                 await _postRepository.Insert(newPost);
             }
@@ -58,16 +57,17 @@ namespace DatingApp.Infrastructure.Service
         {
 
             PostUser postToDelete = await _postRepository.GetById(postId);
-            if (postToDelete.UserId != userId) return false;
+            if (postToDelete == null || postToDelete.UserId != userId) return false;
 
             await _postRepository.Delete(postId);
 
             return true;
         }
 
-        public Task<IEnumerable<PostUser>> GetAllPostsOfUser(int userId)
+        public async Task<IEnumerable<PostUser>> GetAllPostsOfUser(int userId)
         {
-            throw new NotImplementedException();
+            IEnumerable<PostUser> postUsers = await _postRepository.GetAllOfAUser(userId);
+            return postUsers;
         }
 
         public async Task<PostUser> GetById(int postId, int userId)
@@ -98,8 +98,7 @@ namespace DatingApp.Infrastructure.Service
                     }
                     postToUpdate.Text = postDto.Text;
                     postToUpdate.Images = nameOfPostPic;
-                    postToUpdate.CreatedDate = postDto.CreatedDate;
-                    postToUpdate.ModifiedDate = postDto.ModifiedDate;
+                    postToUpdate.UpdatedDate = DateTime.Now;
                 }
 
                 await _postRepository.Update(postToUpdate);

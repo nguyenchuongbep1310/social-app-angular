@@ -148,6 +148,7 @@ namespace DatingApp.Infrastructure.Service
             AppUser user = await _userRepository.GetByUsername(username);
             return new ProfileInfoDto
             {
+                UserId = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,

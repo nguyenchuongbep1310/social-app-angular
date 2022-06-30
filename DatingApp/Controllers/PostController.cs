@@ -20,6 +20,12 @@ namespace DatingApp.Controllers
             _postService = postService;
         }
 
+        [HttpGet()]
+        public async Task<IEnumerable<PostUser>> GetAllPostsOfAUser(int userId)
+        {
+            return await _postService.GetAllPostsOfUser(userId);
+        }
+
         [HttpGet("{postId}")]
         public async Task<PostUser> GetPostById(int postId, int userId)
         {

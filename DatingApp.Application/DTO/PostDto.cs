@@ -11,8 +11,6 @@ namespace DatingApp.Application.DTO
     public class PostDto
     {
         public int UserId { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime ModifiedDate { get; set; } = DateTime.Now;
         public string Text { get; set; }
         public IFormFile Images { get; set; }
     }

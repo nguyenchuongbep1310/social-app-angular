@@ -13,6 +13,6 @@ namespace DatingApp.Application.Interfaces
         Task Update(PostUser postUser);
         Task Delete(int postId);
         Task<PostUser> GetById(int postId);
-        Task<IEnumerable<PostUser>> GetAllOfUser(int userId);
+        Task<IEnumerable<PostUser>> GetAllOfAUser(int userId);
     }
 }
