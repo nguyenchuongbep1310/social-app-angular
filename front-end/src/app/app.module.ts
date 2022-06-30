@@ -26,6 +26,7 @@ import { EditprofileComponent } from './components/editprofile/editprofile.compo
 import { ImageComponent } from './components/image/image.component';
 import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
 import { UploadPostModule } from './components/upload-post/upload-post.module';
+import { PostModule } from './components/post/post.module';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { UploadPostModule } from './components/upload-post/upload-post.module';
     BrowserAnimationsModule,
     MatDialogModule,
     UploadPostModule,
+    PostModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

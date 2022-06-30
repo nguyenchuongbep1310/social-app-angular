@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 <div class="wall-wrapper" (click)="closeModal($event)">
   <div>
+    <div class="container"></div>
     <div class="container">
       <div class="wall-header">
         <div
@@ -136,27 +137,11 @@
           </button>
         </div>
         <div class="updated-posts sub">
-          <div class="post">
-            <div class="post-header">
-              <img
-                [src]="profile.avatar"
-                alt="Ungap profile picture"
-                class="small-avt"
-              />
-              <div>
-                <p>
-                  {{ profile.firstName + " " + profile.lastName }}
-                  <span>updated a post</span>
-                </p>
-
-                <p class="post-date">June 15<span>th</span></p>
-              </div>
-            </div>
-            <p class="post-status">
-              Eliminating the generation gap, location gap and emotional gap
-              among people.
-            </p>
-          </div>
+          <app-post
+            [avatar]="profile.avatar"
+            [firstName]="profile.firstName"
+            [lastName]="profile.lastName"
+          ></app-post>
         </div>
       </div>
     </div>

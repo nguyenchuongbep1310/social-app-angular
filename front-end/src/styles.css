@@ -124,6 +124,12 @@ button {
   cursor: pointer;
 }
 
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media (max-width: 450px) {
   .reset-container {
     max-width: 350px;

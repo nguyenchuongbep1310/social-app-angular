@@ -1,0 +1,53 @@
+.updated-posts.sub {
+  padding: 12px 0;
+}
+
+.post {
+  font-size: 12px;
+}
+
+.post-header {
+  display: flex;
+  padding: 0 12px;
+  align-items: center;
+  column-gap: 12px;
+  margin-bottom: 8px;
+}
+
+.post-header p {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.post-header p span {
+  font-weight: 400;
+  color: #555;
+}
+
+.post-header .post-date {
+  font-weight: 400;
+  font-size: 10px;
+  display: flex;
+  align-items: start;
+}
+
+.post-date span {
+  font-size: 8px;
+  margin-left: 1px;
+}
+
+.post-status {
+  padding: 0 12px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.small-avt {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.post-img {
+  width: 100%;
+}

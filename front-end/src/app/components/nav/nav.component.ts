@@ -37,7 +37,6 @@ export class NavComponent implements OnInit {
 
   stickyBar() {
     const nav = document.querySelector('nav');
-    const navHeight = nav.getBoundingClientRect().height;
     const container = document.querySelector('.container');
 
     const stickyNav = function (entries) {
@@ -49,8 +48,8 @@ export class NavComponent implements OnInit {
 
     const navObserver = new IntersectionObserver(stickyNav, {
       root: null,
-      threshold: 0,
-      rootMargin: `-${navHeight}px`,
+      threshold: 1,
+      rootMargin: `100px`,
     });
     if (!container) return;
     navObserver.observe(container);
