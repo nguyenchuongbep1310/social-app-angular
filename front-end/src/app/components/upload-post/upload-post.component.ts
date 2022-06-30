@@ -18,4 +18,6 @@ export class UploadPostComponent implements OnInit {
     var image = document.getElementById('output');
     image.setAttribute('src', URL.createObjectURL(event.target.files[0]));
   }
+
+  addPost() {}
 }

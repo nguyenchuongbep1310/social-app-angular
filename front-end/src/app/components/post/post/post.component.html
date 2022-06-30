@@ -11,6 +11,11 @@
     </div>
   </div>
   <p class="post-status">
-    Eliminating the generation gap, location gap and emotional gap among people.
+    {{ status }}
   </p>
+  <img
+    [src]="'https://localhost:44371/images/' + image"
+    alt="Ungap post image"
+    class="post-img"
+  />
 </div>

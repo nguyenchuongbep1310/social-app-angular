@@ -1,17 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
+import { PostService } from 'src/_services/post.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
-  constructor(public accountService: AccountService) {
-    this.accountService.getProfile(this.profile);
+export class DashboardComponent implements OnInit {
+  constructor(
+    public accountService: AccountService,
+    public postService: PostService
+  ) {
+    this.accountService.getPosts(this.profile, this.posts);
   }
 
+  ngOnInit(): void {
+    console.log(this.posts);
+  }
+
+  public posts = { posts: null };
+
   public profile: {
+    userId: number;
     firstName: any;
     lastName: any;
     username: any;
@@ -22,6 +33,7 @@ export class DashboardComponent {
     phone: any;
     coverPhoto: any;
   } = {
+    userId: null,
     firstName: null,
     lastName: null,
     username: null,

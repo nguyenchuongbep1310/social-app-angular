@@ -16,7 +16,8 @@ export class WallComponent implements OnInit {
     private dialog: MatDialog,
     private http: HttpClient
   ) {
-    this.accountService.getProfile(this.profile);
+    this.accountService.getPosts(this.profile, this.posts);
+    console.log(this.posts);
   }
 
   ngOnInit(): void {
@@ -28,6 +29,8 @@ export class WallComponent implements OnInit {
       (error) => {}
     );
   }
+
+  public posts = { posts: null };
 
   public profile: {
     firstName: any;

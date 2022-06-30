@@ -141,6 +141,9 @@
             [avatar]="profile.avatar"
             [firstName]="profile.firstName"
             [lastName]="profile.lastName"
+            *ngFor="let post of posts.posts"
+            [status]="post.text"
+            [image]="post.images"
           ></app-post>
         </div>
       </div>
