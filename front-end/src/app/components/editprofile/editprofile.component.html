@@ -66,7 +66,7 @@
                 {{ formatDate() }}
               </p>
               <input
-                style="display: inline; width: 25%"
+                style="display: inline; width: 44px"
                 (input)="getInput($event, value, 'dateOfBirth')"
                 (blur)="blur(value, 'dateOfBirth')"
                 [ngClass]="{ 'border-red': value.dateOfBirth === '' }"

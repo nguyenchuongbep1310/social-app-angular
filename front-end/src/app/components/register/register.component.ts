@@ -55,6 +55,16 @@ export class RegisterComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
+  public formatDate() {
+    if (this.value.dateOfBirth) {
+      var d = this.value.dateOfBirth.split('/');
+      const dateFormat = d.reverse().join('-');
+
+      return dateFormat;
+    }
+    return 'YYYY/MM/DD';
+  }
+
   public onSubmitRegister(): void {
     let myDate = new Date(this.value.dateOfBirth);
     let date = myDate.toLocaleDateString('en-AU');
