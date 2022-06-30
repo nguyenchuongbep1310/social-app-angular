@@ -1,3 +1,18 @@
+.post-header {
+  display: flex;
+  padding: 0 12px;
+  align-items: center;
+  column-gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.small-avt {
+  width: 40px;
+  border-radius: 50%;
+}
+
 .wp {
   position: relative;
   width: 100%;
@@ -16,18 +31,38 @@
   flex-direction: column;
 }
 
-.wp-heading {
-  font-size: 1.8rem;
-  font-weight: 500;
-  text-align: center;
+.wp-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  justify-items: start;
   margin-bottom: 1.2rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 4px 0;
+  padding: 4px 12px 4px 16px;
+}
+
+.wp-heading {
+  margin-bottom: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: start;
+}
+
+.wp-header button {
+  justify-self: end;
+  padding: 4px 8px;
+  border-radius: 5px;
+  background-color: #42b72a;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.wp-header button:hover {
+  background-color: #3ba526;
 }
 
 .wp-body {
-  height: 60vh;
-  overflow-y: scroll;
+  max-height: 65vh;
   align-self: stretch;
   padding: 0 1.2rem;
 }
@@ -59,6 +94,10 @@ textarea:focus {
   margin-bottom: 1.2rem;
 }
 
+.add-box p {
+  font-weight: 500;
+}
+
 .add-img-btn {
   justify-self: end;
   display: flex;
@@ -74,4 +113,6 @@ textarea:focus {
 
 .img-upload {
   margin-bottom: 1.2rem;
+  overflow-y: scroll;
+  max-height: 300px;
 }

@@ -105,6 +105,7 @@ p {
 
 .wall {
   background-color: #e9ebee;
+  min-height: 52vh;
 }
 
 .wall .container {
@@ -308,4 +309,17 @@ h4 {
   .profile-picture {
     width: 100px;
   }
+}
+
+.wall-wrapper {
+  position: relative;
+}
+
+.wp-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 98vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

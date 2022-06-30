@@ -4,6 +4,13 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .padding-12px {
   padding: 12px;
 }
@@ -111,6 +118,12 @@ body {
   justify-self: end;
 }
 
+button {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 @media (max-width: 450px) {
   .reset-container {
     max-width: 350px;
@@ -138,5 +151,11 @@ body {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

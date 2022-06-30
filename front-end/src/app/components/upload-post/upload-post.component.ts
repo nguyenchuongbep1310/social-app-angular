@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-upload-post',
@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class UploadPostComponent implements OnInit {
   constructor() {}
 
+  @Input() avatar;
+  @Input() fullName;
+
   ngOnInit(): void {}
 
   loadFile(event: any) {
+    document.querySelector('.img-upload').classList.remove('hidden');
     var image = document.getElementById('output');
-    console.log(image.getAttribute('src'));
     image.setAttribute('src', URL.createObjectURL(event.target.files[0]));
-    console.log(image.getAttribute('src'));
   }
 }

@@ -21,7 +21,12 @@ export class WallComponent implements OnInit {
 
   ngOnInit(): void {
     const url = `${environment.baseUrl + 'Users'}`;
-    this.http.get(url).subscribe(result => {console.log(result)}, error => {})
+    this.http.get(url).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {}
+    );
   }
 
   public profile: {
@@ -48,5 +53,18 @@ export class WallComponent implements OnInit {
 
   editProfile() {
     this.dialog.open(EditprofileComponent);
+  }
+
+  displayModal(event: any) {
+    event.stopPropagation();
+    const wpContainer = document.querySelector('.wp-container');
+    wpContainer.classList.remove('hidden');
+  }
+
+  closeModal(event: any) {
+    const wpContainer = document.querySelector('.wp-container');
+    if (!event.target.closest('.wp-child')) {
+      wpContainer.classList.add('hidden');
+    }
   }
 }
