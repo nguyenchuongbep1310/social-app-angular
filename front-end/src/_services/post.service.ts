@@ -13,6 +13,13 @@ export class PostService {
     }),
   };
 
+  private httpOptions2 = {
+    headers: new HttpHeaders({
+      // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    }),
+  };
+
   baseUrl = 'https://localhost:44371/api/';
 
   constructor(private http: HttpClient, public imageService: ImageService) {}
@@ -48,5 +55,16 @@ export class PostService {
     return this.http.get<any>(url).subscribe((response) => {
       posts.posts = response;
     });
+  }
+
+  public createPost(userId, text, images) {
+    const url = `${this.baseUrl + 'Post'}`;
+
+    const formData: any = new FormData();
+    formData.append('userId', userId);
+    formData.append('text', text);
+    formData.append('images', images);
+
+    return this.http.post<any>(url, formData, this.httpOptions);
   }
 }

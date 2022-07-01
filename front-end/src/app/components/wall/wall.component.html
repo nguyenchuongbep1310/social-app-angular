@@ -1,7 +1,6 @@
 <app-nav></app-nav>
 <div class="wall-wrapper" (click)="closeModal($event)">
   <div>
-    <div class="container"></div>
     <div class="container">
       <div class="wall-header">
         <div
@@ -136,21 +135,21 @@
             What's on your mind?
           </button>
         </div>
-        <div class="updated-posts sub">
-          <app-post
-            [avatar]="profile.avatar"
-            [firstName]="profile.firstName"
-            [lastName]="profile.lastName"
-            *ngFor="let post of posts.posts"
-            [status]="post.text"
-            [image]="post.images"
-          ></app-post>
-        </div>
+        <app-post
+          [avatar]="profile.avatar"
+          [firstName]="profile.firstName"
+          [lastName]="profile.lastName"
+          *ngFor="let post of posts.posts"
+          [status]="post.text"
+          [image]="post.images"
+          [date]="displayDate(post.createdDate)"
+        ></app-post>
       </div>
     </div>
   </div>
   <div class="wp-container hidden">
     <app-upload-post
+      [userId]="profile.userId"
       [avatar]="profile.avatar"
       [fullName]="profile.firstName + ' ' + profile.lastName"
     ></app-upload-post>

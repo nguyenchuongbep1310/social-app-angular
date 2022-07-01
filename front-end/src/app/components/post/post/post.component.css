@@ -4,9 +4,14 @@
 
 .post {
   font-size: 12px;
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 12px;
 }
 
 .post-header {
+  align-self: start;
   display: flex;
   padding: 0 12px;
   align-items: center;
@@ -38,6 +43,7 @@
 }
 
 .post-status {
+  align-self: start;
   padding: 0 12px;
   color: #555;
   margin-bottom: 8px;
@@ -49,5 +55,5 @@
 }
 
 .post-img {
-  width: 100%;
+  width: 50%;
 }

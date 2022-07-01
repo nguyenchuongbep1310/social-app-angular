@@ -2,7 +2,7 @@
   <div class="wp-child">
     <div class="wp-header">
       <p class="wp-heading">Create post</p>
-      <button class="button">Post</button>
+      <button (click)="addPost()" class="button">Post</button>
     </div>
     <div class="wp-body">
       <div class="post-header">
@@ -12,7 +12,11 @@
         </div>
       </div>
       <div style="margin-top: 12px">
-        <textarea placeholder="what's on your mind" name="post"></textarea>
+        <textarea
+          (input)="getStatus($event)"
+          placeholder="what's on your mind"
+          name="post"
+        ></textarea>
       </div>
       <div class="img-upload hidden">
         <img id="output" width="100%" />

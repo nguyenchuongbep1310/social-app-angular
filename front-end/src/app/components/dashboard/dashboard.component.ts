@@ -15,8 +15,27 @@ export class DashboardComponent implements OnInit {
     this.accountService.getPosts(this.profile, this.posts);
   }
 
-  ngOnInit(): void {
-    console.log(this.posts);
+  ngOnInit(): void {}
+
+  displayDate(date) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const d = new Date(date);
+    const monthName = months[d.getMonth()];
+    const day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
+    return monthName + ' ' + day;
   }
 
   public posts = { posts: null };
@@ -49,12 +68,14 @@ export class DashboardComponent implements OnInit {
     event.stopPropagation();
     const wpContainer = document.querySelector('.wp-container');
     wpContainer.classList.remove('hidden');
+    document.querySelector('body').style.overflowY = 'hidden';
   }
 
   closeModal(event: any) {
-    const wpContainer = document.querySelector('.wp-container');
     if (!event.target.closest('.wp-child')) {
+      const wpContainer = document.querySelector('.wp-container');
       wpContainer.classList.add('hidden');
+      document.querySelector('body').style.overflowY = 'inherit';
     }
   }
 }
