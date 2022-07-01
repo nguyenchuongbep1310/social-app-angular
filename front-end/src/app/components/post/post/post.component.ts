@@ -12,7 +12,7 @@ export class PostComponent implements OnInit {
   @Input() firstName;
   @Input() lastName;
   @Input() status;
-  @Input() image;
+  @Input() image = '';
   @Input() date;
 
   ngOnInit(): void {}

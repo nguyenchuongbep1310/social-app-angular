@@ -44,7 +44,7 @@ export class PostService {
   public getPosts(userId, posts) {
     const url = `${this.baseUrl + 'Post?userId=' + userId}`;
     return this.http.get<any>(url).subscribe((response) => {
-      posts.posts = response;
+      posts.posts = response.reverse();
     });
   }
 
