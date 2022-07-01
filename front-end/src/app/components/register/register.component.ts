@@ -71,6 +71,8 @@ export class RegisterComponent implements OnInit {
 
     this.value.dateOfBirth = date;
 
+    console.log(this.value.avatar);
+
     this.accountService.register(this.value).subscribe((response) => {
       if (response.success == true) {
         alert('Your account has been created successfully.');
