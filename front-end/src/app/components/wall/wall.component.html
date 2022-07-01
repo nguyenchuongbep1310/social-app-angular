@@ -139,7 +139,7 @@
           [avatar]="profile.avatar"
           [firstName]="profile.firstName"
           [lastName]="profile.lastName"
-          *ngFor="let post of posts.posts"
+          *ngFor="let post of posts.posts.reverse()"
           [status]="post.text"
           [image]="post.images"
           [date]="displayDate(post.createdDate)"

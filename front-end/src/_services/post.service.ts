@@ -8,16 +8,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class PostService {
   private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-
-  private httpOptions2 = {
-    headers: new HttpHeaders({
-      // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
-    }),
+    headers: new HttpHeaders({}),
   };
 
   baseUrl = 'https://localhost:44371/api/';
@@ -59,6 +50,8 @@ export class PostService {
 
   public createPost(userId, text, images) {
     const url = `${this.baseUrl + 'Post'}`;
+
+    console.log(userId);
 
     const formData: any = new FormData();
     formData.append('userId', userId);
