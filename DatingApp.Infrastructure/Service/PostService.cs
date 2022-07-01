@@ -73,7 +73,7 @@ namespace DatingApp.Infrastructure.Service
         public async Task<PostUser> GetById(int postId, int userId)
         {
             PostUser postUser = await _postRepository.GetById(postId);
-            if (postUser.UserId != userId) return null;
+            if (postUser == null || postUser.UserId != userId) return null;
 
             return postUser;
         }
