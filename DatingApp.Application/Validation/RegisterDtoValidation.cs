@@ -70,7 +70,7 @@ namespace DatingApp.Application.Validation
             RuleFor(user => user.Email)
                 .NotEmpty().WithMessage("Please enter your email")
                 .NotNull().WithMessage("Please enter your email")
-                .Matches(@"^[a-z0-9]*([a-z0-9_.-])(?!.*[_.-]{2})*[a-z0-9]+@gmail.com$").WithMessage("Must be a valid email which consists of lowercase alphabet letters, numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com");
+                .Matches(@"^[a-z0-9]*([a-z0-9_.-])(?!.*[_.-]{2})*[a-z0-9]+@gmail\.com$").WithMessage("Must be a valid email which consists of lowercase alphabet letters, numbers, underscores '_', periods '.'. An underscore, period must be followed by one or more letter or number. An email domain format is just only gmail.com");
 
             // validation phone number
             RuleFor(user => user.Phone)
