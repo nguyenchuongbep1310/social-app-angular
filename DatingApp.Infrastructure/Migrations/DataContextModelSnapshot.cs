@@ -93,6 +93,31 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CurrentUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FriendId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrentUserId");
+
+                    b.HasIndex("FriendId");
+
+                    b.ToTable("Relationships");
+                });
+
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
                 {
                     b.HasOne("DatingApp.Core.Entities.AppUser", "AppUser")
@@ -104,8 +129,31 @@ namespace DatingApp.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+                {
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "Friend")
+                        .WithMany("CurrentUsers")
+                        .HasForeignKey("CurrentUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "CurrentUser")
+                        .WithMany("Friends")
+                        .HasForeignKey("FriendId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CurrentUser");
+
+                    b.Navigation("Friend");
+                });
+
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
                 {
+                    b.Navigation("CurrentUsers");
+
+                    b.Navigation("Friends");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

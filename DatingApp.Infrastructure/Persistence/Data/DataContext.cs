@@ -29,9 +29,22 @@ namespace DatingApp.Infrastructure.Data
                 .WithMany(u => u.Posts)
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuider.Entity<Relationships>()
+                .HasOne(p => p.CurrentUser)
+                .WithMany(u => u.Friends)
+                .HasForeignKey(s => s.FriendId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuider.Entity<Relationships>()
+                .HasOne(p => p.Friend)
+                .WithMany(u => u.CurrentUsers)
+                .HasForeignKey(s => s.CurrentUserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
         public virtual DbSet<PostUser> Posts { get; set; }
+        public virtual DbSet<Relationships> Relationships { get; set; }
     }
 }
