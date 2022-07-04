@@ -23,6 +23,10 @@ namespace DatingApp.Application.Validation
 
             RuleFor(post => post.Text)
                 .MaximumLength(32).WithMessage("The maximum length of uploaded status is 1000 words. Please try again.");
+
+            RuleFor(post => post.Images)
+                .Must(post => post.Equals("image/jpeg") || post.Equals("image/jpg") || post.Equals("image/png"))
+                .WithMessage("File type is not valid");
         }
     }
 }
