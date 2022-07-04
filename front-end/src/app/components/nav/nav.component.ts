@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
   public profile = {
     avatar: '',
     firstName: '',
+    lastName: '',
   };
 
   hidden: string = 'hidden';
