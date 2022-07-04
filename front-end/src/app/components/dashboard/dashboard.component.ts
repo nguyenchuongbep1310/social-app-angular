@@ -17,6 +17,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // ngDoCheck(): void {
+  //   console.log('hello');
+  //   if (window.localStorage.getItem('token')) {
+  //     this.accountService.getPosts(this.profile, this.posts);
+  //   }
+  // }
+
   displayDate(date) {
     const months = [
       'January',

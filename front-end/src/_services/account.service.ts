@@ -92,9 +92,8 @@ export class AccountService {
   }
 
   public getProfile(profile) {
-    this.imageService
-      .getProfileInfo(this.tokenInfo.nameid)
-      .subscribe((response) => {
+    this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
+      (response) => {
         profile.userId = response.userId;
         profile.username = this.userName;
         profile.firstName = response.firstName;
@@ -121,13 +120,14 @@ export class AccountService {
           profile.coverPhoto =
             'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
         }
-      });
+      },
+      (error) => console.log(error)
+    );
   }
 
   public getPosts(profile, posts) {
-    this.imageService
-      .getProfileInfo(this.tokenInfo.nameid)
-      .subscribe((response) => {
+    this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
+      (response) => {
         profile.userId = response.userId;
         profile.username = this.userName;
         profile.firstName = response.firstName;
@@ -155,7 +155,9 @@ export class AccountService {
             'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
         }
         this.postService.getPosts(response.userId, posts);
-      });
+      },
+      (error) => console.log(error)
+    );
   }
 
   public login(model: any) {
