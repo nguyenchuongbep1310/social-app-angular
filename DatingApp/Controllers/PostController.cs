@@ -20,6 +20,7 @@ namespace DatingApp.Controllers
             _postService = postService;
         }
 
+        [Authorize]
         [HttpGet()]
         public async Task<IActionResult> GetAllPostsOfAUser(int userId)
         {
@@ -30,6 +31,7 @@ namespace DatingApp.Controllers
             return Ok(postsUser);
         }
 
+        [Authorize]
         [HttpGet("{postId}")]
         public async Task<IActionResult> GetPostById(int postId, int userId)
         {
@@ -39,6 +41,7 @@ namespace DatingApp.Controllers
             return Ok(postUser);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
         {
@@ -47,6 +50,7 @@ namespace DatingApp.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPatch]
         public async Task<IActionResult> EditPost([FromForm] PostDto postDto, int postId)
         {
@@ -55,6 +59,7 @@ namespace DatingApp.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{postId}")]
         public async Task<IActionResult> DeletePost(int postId, int userId)
         {
