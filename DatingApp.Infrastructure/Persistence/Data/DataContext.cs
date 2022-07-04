@@ -9,9 +9,24 @@ namespace DatingApp.Infrastructure.Data
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+
+        }
+
         public DataContext(DbContextOptions options) : base(options)
         {
 
+        }
+
+        private const string connectionString = @"Data Source=localhost,1433;Database=datingapp; User ID=SA;Password=Chuongbep1310@@";
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            if (!options.IsConfigured)
+            {
+                base.OnConfiguring(options);
+                options.UseSqlServer(connectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuider)
