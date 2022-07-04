@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +15,11 @@ export class ImageService {
 
   constructor(private http: HttpClient) {}
 
-  public getProfileInfo(username: string) {
+  public getProfileInfo(username: string): any {
     const url = `${this.baseUrl + 'Account/user-profile'}`;
     const formData: any = new FormData();
     formData.append('username', username);
+    console.log(this.httpOptions);
     return this.http.post<any>(url, formData, this.httpOptions);
   }
 }

@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-  if (token) {
-    this.navigateToDashBoard();
+    if (token) {
+      this.navigateToDashBoard();
+    }
   }
-}
 
   errFromAPI: string = '';
 
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.value).subscribe(
       (response) => {
         if (response) {
+          console.log(response.token);
           localStorage.setItem('token', response.token);
           this.navigateToDashBoard();
         }

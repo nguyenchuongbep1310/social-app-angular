@@ -29,7 +29,6 @@ export class UploadPostComponent implements OnInit {
   }
 
   addPost() {
-    console.log(this.image);
     this.postService
       .createPost(this.userId, this.status, this.image)
       .subscribe((response) => {
