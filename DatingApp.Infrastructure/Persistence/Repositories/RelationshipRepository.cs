@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using DatingApp.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Infrastructure.Persistence.Repositories
 {
@@ -15,24 +17,30 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public Task Delete(int Id)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            Relationships relationshipsToDelete = await _context.Relationships.FindAsync(Id);
+            _context.Relationships.Remove(relationshipsToDelete);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Relationships>> GetAllOfAUser(int Id)
+        public async Task<IEnumerable<Relationships>> GetAllOfAUser(int Id)
         {
-            throw new NotImplementedException();
+            return await _context.Relationships.Where(p => p.Id == Id).ToListAsync();
         }
 
-        public Task<Relationships> Insert(Relationships relationships)
+        public async Task<Relationships> Insert(Relationships relationships)
         {
-            throw new NotImplementedException();
+             _context.Relationships.Add(relationships);
+            await _context.SaveChangesAsync();
+
+            return relationships;
         }
 
-        public Task Update(Relationships relationships)
+        public async Task Update(Relationships relationships)
         {
-            throw new NotImplementedException();
+            _context.Entry(relationships).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
