@@ -14,6 +14,6 @@ namespace DatingApp.Core.Entities
         public string Images { get; set; }
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
-        
+        public ICollection<Comment> Comments { get; set; }
     }
 }
