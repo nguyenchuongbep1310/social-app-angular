@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditprofileComponent } from '../editprofile/editprofile.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'wall',
@@ -14,19 +15,27 @@ export class WallComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute
   ) {
     this.accountService.getPosts(this.profile, this.posts);
   }
 
   ngOnInit(): void {
-    const url = `${environment.baseUrl + 'Users'}`;
-    this.http.get(url).subscribe(
-      (result) => {
-        console.log(result);
-      },
-      (error) => {}
+    this.activatedRoute.queryParams.subscribe(
+      query => {
+        if(query && query.username) {
+          // call api query by username
+        }
+      }
     );
+    // const url = `${environment.baseUrl + 'Users'}`;
+    // this.http.get(url).subscribe(
+    //   (result) => {
+    //     console.log(result);
+    //   },
+    //   (error) => {}
+    // );
   }
 
   public posts = { posts: null };

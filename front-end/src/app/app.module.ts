@@ -6,7 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavComponent } from './components/nav/nav.component';
@@ -27,6 +27,7 @@ import { ImageComponent } from './components/image/image.component';
 import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
 import { UploadPostModule } from './components/upload-post/upload-post.module';
 import { PostModule } from './components/post/post.module';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PostModule } from './components/post/post.module';
     WallComponent,
     EditprofileComponent,
     ImageComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { PostModule } from './components/post/post.module';
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    JwtHelperService,
+    JwtHelperService
   ],
   bootstrap: [AppComponent],
   entryComponents: [EditprofileComponent],

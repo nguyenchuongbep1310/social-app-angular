@@ -8,6 +8,8 @@ import { AccountService } from 'src/_services/account.service';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
+  searchQuery: string;
+
   constructor(
     private element: ElementRef,
     private _router: Router,
@@ -78,5 +80,12 @@ export class NavComponent implements OnInit {
 
   navigateToPersonalWall() {
     this._router.navigateByUrl('/personal-wall');
+  }
+
+  search() {
+    if (this.searchQuery && this.searchQuery.length > 0) {
+
+      this._router.navigateByUrl(`/personal-wall?username=${this.searchQuery}`);
+    }
   }
 }

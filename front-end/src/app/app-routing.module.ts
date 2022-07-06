@@ -12,30 +12,37 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
 import { AuthGuardService as AuthGuard } from 'src/_services/auth.guard';
 import { WallComponent } from './components/wall/wall.component';
 import { ImageComponent } from './components/image/image.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: 'register',
     component: RegisterComponent,
   },
   {
-    path: 'home',
-    component: DashboardComponent,
+    path: '',
     canActivate: [AuthGuard],
+    component: LayoutComponent,
+    children: [{
+      path: 'home',
+      component: DashboardComponent,
+    },
+    { path: 'personal-wall', component: WallComponent },
+    ]
   },
+
   { path: 'reset-password', component: ForgotComponent },
   { path: 'email-validation', component: ValidationComponent },
   { path: 'recover-code', component: CodeComponent },
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
-  { path: 'personal-wall', component: WallComponent, canActivate: [AuthGuard] },
   { path: 'image', component: ImageComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
   declarations: [],
   imports: [RouterModule.forRoot(routes)],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
