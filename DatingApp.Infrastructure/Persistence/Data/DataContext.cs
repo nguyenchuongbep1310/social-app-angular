@@ -41,23 +41,10 @@ namespace DatingApp.Infrastructure.Data
                 .WithMany(u => u.CurrentUsers)
                 .HasForeignKey(s => s.CurrentUserId)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuider.Entity<Comment>()
-                .HasOne(c => c.User)
-                .WithMany(u => u.Comments)
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuider.Entity<Comment>()
-                .HasOne(c => c.Post)
-                .WithMany(p => p.Comments)
-                .HasForeignKey(s => s.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
         public virtual DbSet<PostUser> Posts { get; set; }
         public virtual DbSet<Relationships> Relationships { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
     }
 }
