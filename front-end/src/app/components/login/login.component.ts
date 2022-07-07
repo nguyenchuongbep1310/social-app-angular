@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         if (response) {
           console.log(response.token);
           localStorage.setItem('token', response.token);
-          this.navigateToDashBoard();
+          console.log('token nha',localStorage.getItem('token'));
+          if(localStorage.getItem('token')) this.navigateToDashBoard();
         }
       },
       (error) => {

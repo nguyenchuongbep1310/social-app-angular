@@ -9,10 +9,12 @@ namespace DatingApp.Application.Interfaces
 {
     public interface IPostRepository
     {
-        Task<PostUser> Insert(PostUser postUser);
-        Task Update(PostUser postUser);
-        Task Delete(int postId);
+        Task<PostUser> Add(PostUser post);
+
+        Task Delete(PostUser post);
+
         Task<PostUser> GetById(int postId);
-        Task<IEnumerable<PostUser>> GetAllOfAUser(int userId);
+
+        Task<List<PostUser>> GetAll(int userId);
     }
 }

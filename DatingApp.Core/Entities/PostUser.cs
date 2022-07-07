@@ -11,7 +11,7 @@ namespace DatingApp.Core.Entities
     {
         public int PostId { get; set; }     
         public string Text { get; set; }
-        public string Images { get; set; }
+        public string Image { get; set; }
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
     }
