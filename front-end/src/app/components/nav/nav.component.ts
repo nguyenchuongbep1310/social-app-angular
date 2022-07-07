@@ -21,6 +21,8 @@ export class NavComponent implements OnInit {
 
   public profile = {
     avatar: '',
+    firstName: '',
+    lastName: '',
   };
 
   hidden: string = 'hidden';
@@ -36,24 +38,20 @@ export class NavComponent implements OnInit {
   }
 
   stickyBar() {
-    const nav = document.querySelector('nav');
-    const navHeight = nav.getBoundingClientRect().height;
-    const container = document.querySelector('.container');
+    window.onscroll = function () {
+      var nav = document.querySelector('nav');
+      var sticky = nav.offsetTop + 100;
 
-    const stickyNav = function (entries) {
-      const [entry] = entries;
+      function myFunction() {
+        if (window.pageYOffset > sticky) {
+          nav.classList.add('sticky');
+        } else {
+          nav.classList.remove('sticky');
+        }
+      }
 
-      if (!entry.isIntersecting) nav.classList.add('sticky');
-      else nav.classList.remove('sticky');
+      myFunction();
     };
-
-    const navObserver = new IntersectionObserver(stickyNav, {
-      root: null,
-      threshold: 0,
-      rootMargin: `-${navHeight}px`,
-    });
-    if (!container) return;
-    navObserver.observe(container);
   }
 
   onMenuClick() {

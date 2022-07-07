@@ -1,0 +1,22 @@
+<div class="post flex-column-center">
+  <div class="post-header">
+    <img [src]="avatar" alt="Ungap profile picture" class="small-avt" />
+    <div>
+      <p>
+        {{ firstName + " " + lastName }}
+        <span>updated a post</span>
+      </p>
+
+      <p class="post-date">{{ date }}<span>th</span></p>
+    </div>
+  </div>
+  <p class="post-status">
+    {{ status }}
+  </p>
+  <img
+    *ngIf="image"
+    [src]="'https://localhost:44371/images/' + image"
+    alt="Ungap post image"
+    class="post-img"
+  />
+</div>

@@ -46,7 +46,7 @@
   <ul class="third-column">
     <li class="flex-12px" (click)="navigateToPersonalWall()">
       <img [src]="profile.avatar" alt="profile-picture" />
-      <p>{{ accountService.name }}</p>
+      <p>{{ profile.firstName }}</p>
     </li>
     <li>
       <div class="mess-btn btn">
@@ -116,7 +116,7 @@
             />
             <div>
               <p style="font-weight: 500; font-size: 14px">
-                {{ accountService.fullname }}
+                {{ profile.firstName + " " + profile.lastName }}
               </p>
               <p>View your profile</p>
             </div>
