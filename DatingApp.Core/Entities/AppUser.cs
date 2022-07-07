@@ -20,6 +20,5 @@ namespace DatingApp.Core.Entities
         public ICollection<PostUser> Posts { get; set; } 
         public ICollection<Relationships> CurrentUsers { get; set; } 
         public ICollection<Relationships> Friends { get; set; }
-        public ICollection<Comment> Comments { get; set; }
     }
 }
