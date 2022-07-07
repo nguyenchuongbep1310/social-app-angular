@@ -146,6 +146,7 @@ namespace DatingApp.Infrastructure.Service
         public async Task<ProfileInfoDto> GetUserProfile(string username)
         {
             AppUser user = await _userRepository.GetByUsername(username);
+            if (user == null) { return null; }
             return new ProfileInfoDto
             {
                 UserId = user.Id,

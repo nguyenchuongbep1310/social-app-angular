@@ -30,10 +30,13 @@ export class AccountService {
     public postService: PostService
   ) {}
 
-  // login(model: any){
-  //   return this.http.post(this.baseUrl + 'account/login', model);
+  login(model: any){
+    return this.http.post<any>(this.baseUrl + 'account/login', model);
+  }
+ // public login(model: any) {
+  //   const url = `${this.baseUrl + 'account/login'}`;
+  //   return this.http.post<any>(url, model, this.httpOptions);
   // }
-
   get tokenInfo(): {
     name: string;
     family_name: string;
@@ -77,6 +80,7 @@ export class AccountService {
 
   get userName(): string {
     return this.tokenInfo && this.tokenInfo.nameid;
+    //return localStorage.getItem(this.userName);
   }
 
   get birthDay(): string {
@@ -160,10 +164,7 @@ export class AccountService {
     );
   }
 
-  public login(model: any) {
-    const url = `${this.baseUrl + 'account/login'}`;
-    return this.http.post<any>(url, model, this.httpOptions);
-  }
+ 
 
   public register(model: any) {
     const url = `${this.baseUrl + 'Account/register'}`;
@@ -199,4 +200,12 @@ export class AccountService {
 
     return this.http.patch<any>(url, formData, this.httpOptions2);
   }
+
+
+  public getUserProfileInfo(username: string): any {
+    const url = `${this.baseUrl + 'Account/user-profile'}?username=${username}`;
+ 
+    return this.http.get<any>(url);
+  }
+
 }

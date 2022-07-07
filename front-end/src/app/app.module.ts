@@ -28,6 +28,7 @@ import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
 import { UploadPostModule } from './components/upload-post/upload-post.module';
 import { PostModule } from './components/post/post.module';
 import { LayoutComponent } from './components/layout/layout.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     EditprofileComponent,
     ImageComponent,
     LayoutComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

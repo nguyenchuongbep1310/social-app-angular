@@ -13,6 +13,7 @@ import { AuthGuardService as AuthGuard } from 'src/_services/auth.guard';
 import { WallComponent } from './components/wall/wall.component';
 import { ImageComponent } from './components/image/image.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
   { path: 'image', component: ImageComponent },
+  {path:'search', component:SearchComponent},
 ];
 
 @NgModule({

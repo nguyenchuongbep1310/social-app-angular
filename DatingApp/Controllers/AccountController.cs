@@ -71,9 +71,9 @@ namespace DatingApp.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("user-profile")]
-        public async Task<IActionResult> GetUserProfile([FromForm] string username)
+        [AllowAnonymous]
+        [HttpGet("user-profile")]
+        public async Task<IActionResult> GetUserProfile(string username)
         {   
             try
             {

@@ -84,8 +84,14 @@ export class NavComponent implements OnInit {
 
   search() {
     if (this.searchQuery && this.searchQuery.length > 0) {
+    
+      // this.accountService.getUserProfileInfo(this.searchQuery).subscribe(
+      //   (Response) => {
+      //     console.log(Response);
+      //   }
+      // );
 
-      this._router.navigateByUrl(`/personal-wall?username=${this.searchQuery}`);
+      this._router.navigateByUrl(`/search?username=${this.searchQuery}`);
     }
   }
 }

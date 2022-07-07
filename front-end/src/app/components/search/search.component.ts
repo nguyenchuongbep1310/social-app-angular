@@ -7,18 +7,18 @@ import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'wall',
-  templateUrl: './wall.component.html',
-  styleUrls: ['./wall.component.css'],
+  selector: 'search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
 })
-export class WallComponent implements OnInit {
+export class SearchComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private dialog: MatDialog,
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
   ) {
-    this.accountService.getPosts(this.profile, this.posts);
+    
   }
 
   ngOnInit(): void {
