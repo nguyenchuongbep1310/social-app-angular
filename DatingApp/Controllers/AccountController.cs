@@ -85,5 +85,12 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
+       
+        [HttpGet("search-user-profile")]
+        public async Task<IActionResult> SearchUserProfile([FromQuery] string username)
+        {
+            ProfileInfoDto profileInfoDto = await _accountService.GetUserProfile(username);
+            return Ok(profileInfoDto);
+        }
     }
 }
