@@ -43,6 +43,7 @@ namespace DatingApp
             services.AddTransient<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddTransient<IPostService, PostService>();
 
             services.AddDbContext<DataContext>(option => {
                 option.UseSqlServer(_config.GetConnectionString("MyDB"));
@@ -68,13 +69,13 @@ namespace DatingApp
             var mailsettings = _config.GetSection("MailSettings");  // read config
             services.Configure<MailSettings>(mailsettings);
             services.AddTransient<ISendMailService, SendMailService>();
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IAccountService, AccountService>();          
 
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();
             services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidation>();
             services.AddScoped<IValidator<ProfileDto>, ProfileDtoValidation>();
+            services.AddScoped<IValidator<CommentDto>, CommentDtoValidation>();
             
 
             services.AddDirectoryBrowser();           
