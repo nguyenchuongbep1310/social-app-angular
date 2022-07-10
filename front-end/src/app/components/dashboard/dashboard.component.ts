@@ -12,10 +12,13 @@ export class DashboardComponent implements OnInit {
     public accountService: AccountService,
     public postService: PostService
   ) {
+    console.log('abc1');
     this.accountService.getPosts(this.profile, this.posts);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('abc');
+  }
 
   // ngDoCheck(): void {
   //   console.log('hello');

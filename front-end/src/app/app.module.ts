@@ -27,6 +27,8 @@ import { ImageComponent } from './components/image/image.component';
 import { JwtInterceptor } from 'src/_interceptor/jwt.interceptor';
 import { UploadPostModule } from './components/upload-post/upload-post.module';
 import { PostModule } from './components/post/post.module';
+import { SearchUserComponent } from './components/search-user/search-user.component';
+import { UploadPostComponent } from './components/upload-post/upload-post.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +37,12 @@ import { PostModule } from './components/post/post.module';
     RegisterComponent,
     DashboardComponent,
     NavComponent,
-    ForgotComponent,
-    ValidationComponent,
-    CodeComponent,
-    NewpasswordComponent,
-    ResetsucessComponent,
     WallComponent,
+    UploadPostComponent,
+    SearchUserComponent,
     EditprofileComponent,
     ImageComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -55,8 +55,8 @@ import { PostModule } from './components/post/post.module';
     NgbModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    UploadPostModule,
     PostModule,
+    UploadPostModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

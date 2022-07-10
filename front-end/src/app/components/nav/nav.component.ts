@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
+import {NgModel} from '@angular/forms'
 
 @Component({
   selector: 'app-nav',
@@ -24,6 +25,8 @@ export class NavComponent implements OnInit {
     firstName: '',
     lastName: '',
   };
+
+  searchQuery: string = '';
 
   hidden: string = 'hidden';
   menu: boolean = false;
@@ -78,5 +81,34 @@ export class NavComponent implements OnInit {
 
   navigateToPersonalWall() {
     this._router.navigateByUrl('/personal-wall');
+  }
+
+  
+  searchUser() {
+    if (this.searchQuery && this.searchQuery.length > 0) {
+
+      console.log(this.searchQuery)
+
+      this.accountService.getProfileInfo(this.searchQuery).subscribe(
+          (Response) => {
+          if(Response) 
+          {
+            this._router.navigateByUrl(`/search-user?username=${this.searchQuery}`);
+          }
+          else
+          {
+            alert("User does not exists!!!");
+          }
+        }
+      )
+    
+      // this.accountService.getUserProfileInfo(this.searchQuery).subscribe(
+      //   (Response) => {
+      //     console.log(Response);
+      //   }
+      // );
+
+      // this._router.navigateByUrl(`/search?username=${this.searchQuery}`);
+    }
   }
 }

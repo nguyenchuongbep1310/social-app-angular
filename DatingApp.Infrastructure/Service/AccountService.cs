@@ -151,6 +151,7 @@ namespace DatingApp.Infrastructure.Service
             return new ProfileInfoDto
             {
                 UserId = user.Id,
+                UserName = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,

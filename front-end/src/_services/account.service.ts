@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
@@ -198,5 +198,23 @@ export class AccountService {
     formData.append('coverPhoto', model.coverPhoto);
 
     return this.http.patch<any>(url, formData, this.httpOptions2);
+  }
+
+  public getProfileInfo(username: string): any {
+    const url = `${this.baseUrl + 'Account/search-user-profile'}`;
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("username", username);
+
+    return this.http.get<any>(url, {params: queryParams});
+  }
+
+  public getPostSearchUser(userId: number): any {
+   const url = `${this.baseUrl + 'Post'}`;
+
+   let queryParams = new HttpParams();
+    queryParams = queryParams.append("UserId", userId);
+
+    return this.http.get<any>(url, {params: queryParams});
   }
 }
