@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using DatingApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using DatingApp.Core.Interfaces;
 
 namespace DatingApp.Infrastructure.Persistence.Repositories
 {

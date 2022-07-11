@@ -1,11 +1,7 @@
 using DatingApp.Application.Interfaces;
 using DatingApp.Controllers;
 using DatingApp.Core.DTO;
-using DatingApp.Core.Entities;
-using DatingApp.Core.Interfaces;
-using DatingApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DatingApp.Application.DTO;
-using DatingApp.Core.DTO;
+﻿using DatingApp.Application.DTO;
 using FluentValidation;
 
 namespace DatingApp.Application.Validation

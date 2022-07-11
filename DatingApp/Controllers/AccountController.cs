@@ -1,18 +1,9 @@
-using System;
-using System.Globalization;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Application.DTO;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.DTO;
-using DatingApp.Core.Entities;
-using DatingApp.Core.Interfaces;
-using DatingApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {

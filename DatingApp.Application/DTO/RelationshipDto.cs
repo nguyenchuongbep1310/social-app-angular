@@ -1,9 +1,8 @@
-﻿using System;
-using DatingApp.Core.Entities;
+﻿using DatingApp.Core.Entities;
 
 namespace DatingApp.Application.DTO
 {
-	public class RelationshipDto
+    public class RelationshipDto
 	{
         public int CurrentUserId { get; set; }
         public int FriendId { get; set; }

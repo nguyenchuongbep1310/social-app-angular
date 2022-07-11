@@ -1,13 +1,10 @@
-﻿using DatingApp.Application.DTO;
-using DatingApp.Application.DTO.Posts;
+﻿using DatingApp.Application.DTO.Posts;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DatingApp.Infrastructure.Service

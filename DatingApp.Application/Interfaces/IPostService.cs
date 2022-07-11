@@ -1,5 +1,4 @@
 ﻿using DatingApp.Application.DTO.Posts;
-using DatingApp.Core.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
