@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'reset-success', component: ResetsucessComponent },
   { path: 'personal-wall', component: WallComponent, canActivate: [AuthGuard] },
   { path: 'image', component: ImageComponent },
-  { path: 'search-user', component: SearchUserComponent },
+  { path: 'search-user', component: SearchUserComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
