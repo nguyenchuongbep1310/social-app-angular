@@ -39,7 +39,5 @@ export class PostComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    console.log(this.image);
-  }
+  ngOnInit(): void {}
 }
