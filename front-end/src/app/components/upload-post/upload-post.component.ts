@@ -29,10 +29,18 @@ export class UploadPostComponent implements OnInit {
   }
 
   addPost() {
-    this.postService
+    if(this.image || this.status )
+    {
+      this.postService
       .createPost(this.userId, this.status, this.image)
       .subscribe((response) => {
+        // console.log(this.image)
         window.location.reload();
+        // console.log(response)
       });
+    }
+    else {
+      alert('Nothing to create post!')
+    }
   }
 }

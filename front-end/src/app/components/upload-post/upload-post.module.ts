@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 import { UploadPostComponent } from './upload-post.component';
 
 @NgModule({
-  declarations: [UploadPostComponent],
+  declarations: [
+
+  ],
   imports: [CommonModule],
-  exports: [UploadPostComponent],
+  exports: [],
 })
 export class UploadPostModule {}

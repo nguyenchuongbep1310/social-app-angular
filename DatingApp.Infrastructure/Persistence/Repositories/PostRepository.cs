@@ -18,24 +18,16 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<PostUser> Insert(PostUser postUser)
+        public async Task<PostUser> Add(PostUser post)
         {
-            _context.Posts.Add(postUser);
+            _context.Posts.Add(post);
             await _context.SaveChangesAsync();
-
-            return postUser;
+            return post;
         }
 
-        public async Task Update(PostUser postUser)
+        public async Task Delete(PostUser post)
         {
-            _context.Entry(postUser).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task Delete(int postId)
-        {
-            PostUser postToDelete = await _context.Posts.FindAsync(postId);
-            _context.Posts.Remove(postToDelete);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
 
@@ -44,7 +36,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             return await _context.Posts.FindAsync(postId);
         }
 
-        public async Task<IEnumerable<PostUser>> GetAllOfAUser(int userId)
+        public async Task<List<PostUser>> GetAll(int userId)
         {
             return await _context.Posts.Where(p => p.UserId == userId).ToListAsync();
         }

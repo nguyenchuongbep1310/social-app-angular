@@ -1,4 +1,5 @@
 ﻿using DatingApp.Application.DTO;
+using DatingApp.Application.DTO.Posts;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -20,52 +21,34 @@ namespace DatingApp.Controllers
             _postService = postService;
         }
 
-        [Authorize]
-        [HttpGet()]
-        public async Task<IActionResult> GetAllPostsOfAUser(int userId)
+        [HttpGet]
+        public async Task<IActionResult> GetAllPostsOfAUser([FromQuery] GetUserPostRequest request)
         {
-            if (userId == 0) return BadRequest();
-
-            var postsUser = await _postService.GetAllPostsOfUser(userId);
-
+            var postsUser = await _postService.GetAllPostOfUser(request);
             return Ok(postsUser);
         }
 
-        [Authorize]
-        [HttpGet("{postId}")]
-        public async Task<IActionResult> GetPostById(int postId, int userId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPostById([FromQuery] GetPostRequest request)
         {
-            var postUser = await _postService.GetById(postId, userId);
-            if (postUser == null) return BadRequest();
-
+            var postUser = await _postService.GetPostById(request);
             return Ok(postUser);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromForm] PostDto postDto)
+        public async Task<IActionResult> CreateNewPost([FromForm] AddPostRequest request)
         {
-            if (!await _postService.Create(postDto)) return BadRequest();
-
-            return Ok();
+            var newPost = await _postService.CreateNewPost(request);
+            return Ok(newPost);
         }
 
         [Authorize]
-        [HttpPatch]
-        public async Task<IActionResult> EditPost([FromForm] PostDto postDto, int postId)
+        [HttpDelete]
+        public async Task<IActionResult> DeletePost([FromForm] DeletePostRequest request)
         {
-            if (!await _postService.Update(postDto, postId)) return BadRequest();
-
+            await _postService.DeletePost(request);
             return Ok();
-        }
-
-        [Authorize]
-        [HttpDelete("{postId}")]
-        public async Task<IActionResult> DeletePost(int postId, int userId)
-        {
-            if (!await _postService.Delete(postId, userId)) return BadRequest();
-
-            return NoContent();
         }   
     }
 }

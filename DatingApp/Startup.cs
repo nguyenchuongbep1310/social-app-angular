@@ -75,7 +75,6 @@ namespace DatingApp
             services.AddMvc().AddFluentValidation();
             services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidation>();
             services.AddScoped<IValidator<ProfileDto>, ProfileDtoValidation>();
-            services.AddScoped<IValidator<CommentDto>, CommentDtoValidation>();
             
 
             services.AddDirectoryBrowser();           

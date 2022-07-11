@@ -18,8 +18,11 @@
         [lastName]="profile.lastName"
         *ngFor="let post of posts.posts"
         [status]="post.text"
-        [image]="post.images"
+        [image]="post.image"
         [date]="displayDate(post.createdDate)"
+        [postId]="post.id"
+        [userId]="post.userId"
+        [displayDeleteBtn]="true"
       ></app-post>
     </div>
     <div class="wp-container hidden">

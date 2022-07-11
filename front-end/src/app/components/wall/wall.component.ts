@@ -22,23 +22,13 @@ export class WallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(
-      query => {
-        if(query && query.username) {
-          // call api query by username
-          this.accountService.getUserProfileInfo(query.username).subscribe(result => {
-            console.log(result)
-          });
-        }
-      }
-    );
     // const url = `${environment.baseUrl + 'Users'}`;
     // this.http.get(url).subscribe(
     //   (result) => {
-    //     console.log(result);
     //   },
     //   (error) => {}
     // );
+    console.log(this.posts);
   }
 
   public posts = { posts: null };

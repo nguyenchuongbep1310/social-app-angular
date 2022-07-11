@@ -141,8 +141,11 @@
           [lastName]="profile.lastName"
           *ngFor="let post of posts.posts"
           [status]="post.text"
-          [image]="post.images"
+          [image]="post.image"
           [date]="displayDate(post.createdDate)"
+          [userId]="profile.userId"
+          [postId]="post.id"
+          [displayDeleteBtn]="true"
         ></app-post>
       </div>
     </div>

@@ -1,4 +1,5 @@
 ﻿using DatingApp.Application.DTO;
+using DatingApp.Application.DTO.Posts;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -20,95 +21,67 @@ namespace DatingApp.Infrastructure.Service
             _postRepository = postRepository;
         }
 
-        public async Task<bool> Create(PostDto postDto)
+        public async Task<AddPostResponse> CreateNewPost(AddPostRequest request)
         {
-            try
+            string nameOfPostPicture = string.Empty;
+            if (request.Image != null)
             {
-                string nameOfPostPic = string.Empty;
-                if (postDto.Images != null)
+                var folderSave = Path.Combine("Share", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
+                nameOfPostPicture = Guid.NewGuid().ToString() + "-" + request.Image.FileName;
+                var fullPath = Path.Combine(pathToSave, nameOfPostPicture);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    var folderSave = Path.Combine("Share", "Images");
-                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
-                    nameOfPostPic = Guid.NewGuid().ToString() + "-" + postDto.Images.FileName;
-                    var fullPath = Path.Combine(pathToSave, nameOfPostPic);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        postDto.Images.CopyTo(stream);
-                    }
+                request.Image.CopyTo(stream);
                 }
-
-                PostUser newPost = new PostUser();
-                newPost.Text = postDto.Text;
-                newPost.Images = nameOfPostPic;
-                newPost.UserId = postDto.UserId;
-                newPost.CreatedDate = DateTime.Now;
-
-                await _postRepository.Insert(newPost);
             }
-            catch
+
+            PostUser newPost = new PostUser();
+            newPost.Text = request.Text;
+            newPost.Image = nameOfPostPicture;
+            newPost.UserId = request.UserId;
+            newPost.CreatedDate = DateTime.Now;
+            await _postRepository.Add(newPost);
+
+            return new AddPostResponse {
+                Id = newPost.PostId,
+                Text = newPost.Text,
+                Image = newPost.Image,
+                UserId = newPost.UserId,
+                CreatedDate = newPost.CreatedDate,
+            };
+        }
+
+        public async Task DeletePost(DeletePostRequest request)
+        {
+            PostUser postToDelete = await _postRepository.GetById(request.Id);
+            await _postRepository.Delete(postToDelete);
+        }
+
+        public async Task<List<GetUserPostResponse>> GetAllPostOfUser(GetUserPostRequest request)
+        {
+            var postUsers =  await _postRepository.GetAll(request.UserId);
+
+            return postUsers.Select(post => new GetUserPostResponse() {
+                Id = post.PostId,
+                UserId = post.UserId,
+                Text = post.Text,
+                Image = post.Image,
+                CreatedDate = post.CreatedDate,
+            }).ToList();
+        }
+
+        public async Task<GetPostResponse> GetPostById(GetPostRequest request)
+        {
+            PostUser postUser = await _postRepository.GetById(request.Id);
+            return new GetPostResponse()
             {
-                return false;
-            }
-
-            return true;
-        }
-
-        public async Task<bool> Delete(int postId, int userId)
-        {
-
-            PostUser postToDelete = await _postRepository.GetById(postId);
-            if (postToDelete == null || postToDelete.UserId != userId) return false;
-
-            await _postRepository.Delete(postId);
-
-            return true;
-        }
-
-        public async Task<IEnumerable<PostUser>> GetAllPostsOfUser(int userId)
-        {
-            IEnumerable<PostUser> postUsers = await _postRepository.GetAllOfAUser(userId);
-            return postUsers;
-        }
-
-        public async Task<PostUser> GetById(int postId, int userId)
-        {
-            PostUser postUser = await _postRepository.GetById(postId);
-            if (postUser == null || postUser.UserId != userId) return null;
-
-            return postUser;
-        }
-
-        public async Task<bool> Update(PostDto postDto, int postId)
-        {
-            try
-            {           
-                PostUser postToUpdate = await _postRepository.GetById(postId);
-                if (postToUpdate == null || postToUpdate.UserId != postDto.UserId) return false;
-
-                string nameOfPostPic = string.Empty;
-                if (postDto.Images != null)
-                {
-                    var folderSave = Path.Combine("Share", "Images");
-                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderSave);
-                    nameOfPostPic = Guid.NewGuid().ToString() + "-" + postDto.Images.FileName;
-                    var fullPath = Path.Combine(pathToSave, nameOfPostPic);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        postDto.Images.CopyTo(stream);
-                    }
-                    postToUpdate.Text = postDto.Text;
-                    postToUpdate.Images = nameOfPostPic;
-                    postToUpdate.UpdatedDate = DateTime.Now;
-                }
-
-                await _postRepository.Update(postToUpdate);
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
+                Id = postUser.PostId,
+                Text = postUser.Text,
+                Image = postUser.Image,
+                UserId = postUser.UserId,
+                CreatedDate = postUser.CreatedDate,
+            };
         }
     }
 }

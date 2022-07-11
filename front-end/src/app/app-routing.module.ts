@@ -12,8 +12,8 @@ import { ResetsucessComponent } from './components/resetsucess/resetsucess.compo
 import { AuthGuardService as AuthGuard } from 'src/_services/auth.guard';
 import { WallComponent } from './components/wall/wall.component';
 import { ImageComponent } from './components/image/image.component';
-import { LayoutComponent } from './components/layout/layout.component';
-import { SearchComponent } from './components/search/search.component';
+import { SearchUserComponent } from './components/search-user/search-user.component';
+import { NavComponent } from './components/nav/nav.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,15 +23,10 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: '',
+    path: 'home',
+    component: DashboardComponent,
     canActivate: [AuthGuard],
-    component: LayoutComponent,
-    children: [{
-      path: 'home',
-      component: DashboardComponent,
-    },
-    { path: 'personal-wall', component: WallComponent },
-    ]
+
   },
 
   { path: 'reset-password', component: ForgotComponent },
@@ -40,11 +35,13 @@ const routes: Routes = [
   { path: 'new-password', component: NewpasswordComponent },
   { path: 'reset-success', component: ResetsucessComponent },
   { path: 'image', component: ImageComponent },
-  {path:'search', component:SearchComponent},
+  { path: 'search-user', component: SearchUserComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [RouterModule.forRoot(routes)],
 })
 export class AppRoutingModule { }

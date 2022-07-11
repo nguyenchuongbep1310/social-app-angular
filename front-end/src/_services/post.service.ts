@@ -8,12 +8,13 @@ import jwt_decode from 'jwt-decode';
 })
 export class PostService {
   private httpOptions = {
-    headers: new HttpHeaders({}),
+    headers: new HttpHeaders({
+      
+    }),
   };
 
   private httpOptions2 = {
     headers: new HttpHeaders({
-      // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     }),
   };
@@ -55,7 +56,7 @@ export class PostService {
     });
   }
 
-  public createPost(userId, text, images): any {
+  public createPost(userId, text, image): any {
     if (!window.localStorage.getItem('token')) {
       window.location.reload();
       return;
@@ -65,8 +66,21 @@ export class PostService {
     const formData: any = new FormData();
     formData.append('userId', userId);
     formData.append('text', text);
-    formData.append('images', images);
+    formData.append('image', image);
 
     return this.http.post<any>(url, formData, this.httpOptions2);
+  }
+
+  public deletePost(userId, postId) {
+    const url = `${this.baseUrl + 'Post'} `;
+
+    const formData = new FormData();
+    formData.append('UserId', userId);
+    formData.append('Id', postId);
+
+    return this.http.delete(url, {
+      headers: this.httpOptions2.headers,
+      body: formData
+    });
   }
 }

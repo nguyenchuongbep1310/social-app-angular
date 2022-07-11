@@ -13,9 +13,13 @@ export class DashboardComponent implements OnInit {
     public postService: PostService
   ) {
     this.accountService.getPosts(this.profile, this.posts);
+    
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.accountService.getProfileInfo()
+    // this.accountService.getPostSearchUser();
+  }
 
   // ngDoCheck(): void {
   //   console.log('hello');

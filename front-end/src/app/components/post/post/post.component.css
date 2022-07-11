@@ -3,6 +3,7 @@
 }
 
 .post {
+  position: relative;
   font-size: 12px;
   padding: 12px;
   background-color: #fff;
@@ -56,4 +57,28 @@
 
 .post-img {
   width: 50%;
+}
+
+.dots-btn {
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  top: 2%;
+  width: 2.5rem;
+  background-color: transparent;
+}
+
+.dots-btn svg {
+  stroke: #777;
+}
+
+.delete-btn {
+  position: absolute;
+  right: -11%;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.delete-btn:hover {
+  background-color: rgb(236, 236, 236);
 }

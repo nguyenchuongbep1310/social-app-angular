@@ -12,6 +12,7 @@ namespace DatingApp.Application.DTO.Posts
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Text { get; set; }
-        public IFormFile Image { get; set; }
+        public string Image { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

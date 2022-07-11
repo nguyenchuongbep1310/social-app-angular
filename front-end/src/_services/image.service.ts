@@ -19,7 +19,6 @@ export class ImageService {
     const url = `${this.baseUrl + 'Account/user-profile'}`;
     const formData: any = new FormData();
     formData.append('username', username);
-    console.log(this.httpOptions);
     return this.http.post<any>(url, formData, this.httpOptions);
   }
 }
