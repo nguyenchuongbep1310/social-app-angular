@@ -74,6 +74,7 @@ namespace DatingApp.Infrastructure.Service
         public async Task<GetPostResponse> GetPostById(GetPostRequest request)
         {
             PostUser postUser = await _postRepository.GetById(request.Id);
+
             return new GetPostResponse()
             {
                 Id = postUser.PostId,
@@ -81,6 +82,7 @@ namespace DatingApp.Infrastructure.Service
                 Image = postUser.Image,
                 UserId = postUser.UserId,
                 CreatedDate = postUser.CreatedDate,
+                LikesCount = postUser.CountLikes(),
             };
         }
     }

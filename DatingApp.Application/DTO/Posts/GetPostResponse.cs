@@ -13,5 +13,8 @@ namespace DatingApp.Application.DTO.Posts
         public string Text { get; set; }
         public string Image { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        //test
+        public int LikesCount { get; set; }
     }
 }

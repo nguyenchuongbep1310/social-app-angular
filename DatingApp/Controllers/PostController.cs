@@ -49,6 +49,14 @@ namespace DatingApp.Controllers
         {
             await _postService.DeletePost(request);
             return Ok();
-        }   
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLikesOfPost([FromQuery] GetPostRequest request)
+        {
+            var postUser = await _postService.GetPostById(request);
+
+            return Ok(postUser);
+        }
     }
 }
