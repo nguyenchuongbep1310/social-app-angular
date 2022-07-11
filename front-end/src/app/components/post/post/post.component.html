@@ -10,7 +10,7 @@
       <p class="post-date">{{ date }}<span>th</span></p>
     </div>
   </div>
-  <p class="post-status">
+  <p *ngIf="status !== 'undefined'" class="post-status">
     {{ status }}
   </p>
   <img

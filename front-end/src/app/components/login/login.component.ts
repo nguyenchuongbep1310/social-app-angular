@@ -36,9 +36,7 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.value).subscribe(
       (response) => {
         if (response) {
-          console.log(response.token);
           localStorage.setItem('token', response.token);
-          console.log('token nha',localStorage.getItem('token'));
           if(localStorage.getItem('token')) this.navigateToDashBoard();
         }
       },

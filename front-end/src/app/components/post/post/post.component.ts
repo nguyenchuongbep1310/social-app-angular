@@ -12,7 +12,7 @@ export class PostComponent implements OnInit {
   @Input() avatar;
   @Input() firstName;
   @Input() lastName;
-  @Input() status;
+  @Input() status = '';
   @Input() image = '';
   @Input() date;
   @Input() userId;
@@ -36,5 +36,7 @@ export class PostComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.status)
+  }
 }
