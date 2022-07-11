@@ -32,9 +32,9 @@ export class UploadPostComponent implements OnInit {
     this.postService
       .createPost(this.userId, this.status, this.image)
       .subscribe((response) => {
-        console.log(this.image)
+        // console.log(this.image)
         window.location.reload();
-        console.log(response)
+        // console.log(response)
       });
   }
 }

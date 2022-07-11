@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditprofileComponent } from '../editprofile/editprofile.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'search',
@@ -16,16 +16,23 @@ export class SearchUserComponent implements OnInit {
     public accountService: AccountService,
     private dialog: MatDialog,
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
     
   }
 
   ngOnInit(): void {
 
+
     this.activatedRoute.queryParams.subscribe(
       query => {
         if(query && query.username) {
+
+          if(query.username === this.accountService.userName)
+          {
+            this.navigateToPersonalWall()
+          }
 
           // call api query by username
           this.accountService.getProfileInfo(query.username).subscribe(Response => {
@@ -44,7 +51,6 @@ export class SearchUserComponent implements OnInit {
             this.accountService.getPostSearchUser(this.profile.userId).subscribe(
               Response => {
                 this.posts = Response
-                console.log(this.posts)
               }
             )
           });          
@@ -98,6 +104,10 @@ export class SearchUserComponent implements OnInit {
     const monthName = months[d.getMonth()];
     const day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
     return monthName + ' ' + day;
+  }
+
+  navigateToPersonalWall() {
+    this._router.navigateByUrl('/personal-wall');
   }
 
 }

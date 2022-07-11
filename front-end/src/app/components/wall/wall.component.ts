@@ -23,7 +23,6 @@ export class WallComponent implements OnInit {
     const url = `${environment.baseUrl + 'Users'}`;
     this.http.get(url).subscribe(
       (result) => {
-        console.log(result);
       },
       (error) => {}
     );
