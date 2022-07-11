@@ -20,12 +20,13 @@ export class WallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const url = `${environment.baseUrl + 'Users'}`;
-    this.http.get(url).subscribe(
-      (result) => {
-      },
-      (error) => {}
-    );
+    // const url = `${environment.baseUrl + 'Users'}`;
+    // this.http.get(url).subscribe(
+    //   (result) => {
+    //   },
+    //   (error) => {}
+    // );
+    console.log(this.posts);
   }
 
   public posts = { posts: null };
