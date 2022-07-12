@@ -82,7 +82,6 @@ namespace DatingApp.Infrastructure.Service
                 Image = postUser.Image,
                 UserId = postUser.UserId,
                 CreatedDate = postUser.CreatedDate,
-                LikesCount = postUser.CountLikes(),
             };
         }
     }

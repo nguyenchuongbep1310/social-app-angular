@@ -12,7 +12,6 @@ namespace DatingApp.Infrastructure.Service
     public class LikeService : ILikeService
     {
         private readonly ILikeRepository _likeRepository;
-        private readonly IPostRepository _postRepository;
 
         public LikeService(ILikeRepository likeRepository, IPostRepository _postRepository)
         {
@@ -38,9 +37,15 @@ namespace DatingApp.Infrastructure.Service
             };
         }
 
-        public Task UpdateLike(UpdateLikeRequest request)
+        public async Task UpdateLike(UpdateLikeRequest request)
         {
-            throw new NotImplementedException();
+            PostLike updateLike = new PostLike();
+            updateLike.UserId = request.UserId;
+            updateLike.PostId = request.PostId;
+            updateLike.UpdatedDate = DateTime.Now;
+            updateLike.Status = "Deleted";
+
+            await _likeRepository.Update(updateLike);
         }
     }
 }

@@ -17,6 +17,6 @@ namespace DatingApp.Application.Interfaces
 
         Task<PostLike> GetById(int likeId);
 
-        Task<List<PostLike>> GetAll(int likeId);
+        Task<List<PostLike>> GetAll(int postId);
     }
 }
