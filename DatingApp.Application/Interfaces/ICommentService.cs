@@ -10,6 +10,6 @@ namespace DatingApp.Application.Interfaces
     public interface ICommentService
     {
         Task<AddCommentResponse> CreateNewComment(AddCommentRequest request);
-        Task UpdateComment(UpdateCommentRequest request);
+        Task DeleteComment(DeleteCommentRequest request);
     }
 }

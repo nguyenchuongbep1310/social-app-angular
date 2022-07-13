@@ -17,6 +17,6 @@ namespace DatingApp.Core.Interfaces
 
         Task<PostComment> GetById(int commentId);
 
-        Task<List<PostComment>> GetAll(int postId);
+        Task<List<PostComment>> GetAll();
     }
 }

@@ -30,19 +30,20 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<PostLike>> GetAll(int likeId)
-        {
-            throw new NotImplementedException();
+        public async Task<List<PostLike>> GetAll(int postId)
+        {         
+            return await _context.Likes.Where(l => l.PostId == postId).ToListAsync();
         }
 
-        public Task<PostLike> GetById(int likeId)
+        public async Task<PostLike> GetById(int likeId)
         {
-            throw new NotImplementedException();
+            return await _context.Likes.FindAsync(likeId);
         }
 
         public async Task<PostLike> Update(PostLike like)
         {
             _context.Entry(like).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return await _context.Likes.FindAsync(like.Id);
         }
     }

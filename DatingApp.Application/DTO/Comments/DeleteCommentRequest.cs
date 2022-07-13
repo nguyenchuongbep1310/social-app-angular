@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Application.DTO.Comments
 {
-    public class AddCommentRequest
+    public class DeleteCommentRequest
     {
-        public string Text { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
-        public int PostId { get; set; }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using DatingApp.Application.DTO;
+using DatingApp.Application.DTO.Comments;
+using DatingApp.Application.DTO.Likes;
 using DatingApp.Application.DTO.Posts;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
+using DatingApp.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,10 +18,15 @@ namespace DatingApp.Infrastructure.Service
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
+        private readonly ILikeRepository _likeRepository;
+        private readonly ICommentRepository _commentRepository;
 
-        public PostService(IPostRepository postRepository)
+        public PostService(IPostRepository postRepository, ILikeRepository likeRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
+            _likeRepository = likeRepository;
+            _commentRepository = commentRepository;
+
         }
 
         public async Task<AddPostResponse> CreateNewPost(AddPostRequest request)
@@ -83,6 +91,28 @@ namespace DatingApp.Infrastructure.Service
                 UserId = postUser.UserId,
                 CreatedDate = postUser.CreatedDate,
             };
+        }
+
+        public async Task<GetLikeResponse> CountLikeOfPost(int id)
+        {
+            var likesOfPost = await _likeRepository.GetAll(id);
+            return new GetLikeResponse
+            {
+                LikesOfPostNumber = likesOfPost.Count(),
+            };
+        }
+
+        public async Task<List<GetCommentResponse>> GetAllCommentOfAPost(int postId)
+        {
+            var commentsOfAPost = await _commentRepository.GetAll();
+
+            return commentsOfAPost.Where(c => c.PostId == postId).Select(c => new GetCommentResponse
+            {
+                Id = c.Id,
+                PostId = c.PostId,
+                UserId = c.UserId,
+                Text = c.Text,
+            }).ToList();
         }
     }
 }

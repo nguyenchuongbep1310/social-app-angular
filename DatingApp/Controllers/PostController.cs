@@ -16,7 +16,7 @@ namespace DatingApp.Controllers
     {
         private readonly IPostService _postService;
 
-        public PostController(IPostService postService)
+        public PostController(IPostService postService, ILikeService likeService)
         {
             _postService = postService;
         }
@@ -49,6 +49,21 @@ namespace DatingApp.Controllers
         {
             await _postService.DeletePost(request);
             return Ok();
+        }
+
+        [HttpGet("{postId}/CountLikes")]
+        public async Task<IActionResult> CountLikeOfPost(int postId)
+        {
+            var updatedLike = await _postService.CountLikeOfPost(postId);
+            return Ok(updatedLike);
+        }
+
+        [HttpGet("{postId}/GetComments")]
+        public async Task<IActionResult> GetAllCommentOfAPost(int postId)
+        {
+            var commentsOfPost = await _postService.GetAllCommentOfAPost(postId);
+
+            return Ok(commentsOfPost);
         }
     }
 }

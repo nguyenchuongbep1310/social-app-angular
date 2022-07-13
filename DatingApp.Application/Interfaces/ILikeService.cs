@@ -10,6 +10,6 @@ namespace DatingApp.Application.Interfaces
     public interface ILikeService
     {
         Task<AddLikeResponse> CreateNewLike(AddLikeRequest request);
-        Task UpdateLike(UpdateLikeRequest request);
+        Task<UpdateLikeResponse> UpdateLike(UpdateLikeRequest request);
     }
 }

@@ -16,11 +16,5 @@ namespace DatingApp.Core.Entities
         public AppUser AppUser { get; set; }
         public ICollection<PostComment> Comments { get; set; }
         public ICollection<PostLike> Likes { get; set; }
-        public int LikesCount { get; set; }
-
-        public int CountLikes()
-        {
-            return this.Likes.Count();
-        }
     }
 }

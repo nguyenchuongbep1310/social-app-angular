@@ -30,19 +30,20 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<PostComment>> GetAll(int postId)
+        public async Task<List<PostComment>> GetAll()
         {
-            return await _context.Comments.Where(p => p.PostId == postId).ToListAsync();
+            return await _context.Comments.ToListAsync();
         }
 
         public async Task<PostComment> GetById(int commentId)
         {
-            throw new NotImplementedException();
+            return await _context.Comments.FindAsync(commentId);
         }
 
         public async Task<PostComment> Update(PostComment comment)
         {
             _context.Entry(comment).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return await _context.Comments.FindAsync(comment.Id);
         }
 
