@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220707064226_Initial")]
-    partial class Initial
+    [Migration("20220712074334_InitDbs")]
+    partial class InitDbs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,29 +95,19 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserLike", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("CurrentUserId")
+                    b.Property<int>("SourceUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FriendId")
+                    b.Property<int>("LikedUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("SourceUserId", "LikedUserId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("LikedUserId");
 
-                    b.HasIndex("CurrentUserId");
-
-                    b.HasIndex("FriendId");
-
-                    b.ToTable("Relationships");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
@@ -131,30 +121,30 @@ namespace DatingApp.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserLike", b =>
                 {
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "Friend")
-                        .WithMany("CurrentUsers")
-                        .HasForeignKey("CurrentUserId")
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "LikedUser")
+                        .WithMany("LikedByUsers")
+                        .HasForeignKey("LikedUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "CurrentUser")
-                        .WithMany("Friends")
-                        .HasForeignKey("FriendId")
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "SourceUser")
+                        .WithMany("LikedUsers")
+                        .HasForeignKey("SourceUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CurrentUser");
+                    b.Navigation("LikedUser");
 
-                    b.Navigation("Friend");
+                    b.Navigation("SourceUser");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
                 {
-                    b.Navigation("CurrentUsers");
+                    b.Navigation("LikedByUsers");
 
-                    b.Navigation("Friends");
+                    b.Navigation("LikedUsers");
 
                     b.Navigation("Posts");
                 });

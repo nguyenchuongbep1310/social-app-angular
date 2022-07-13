@@ -16,8 +16,8 @@ namespace DatingApp.Core.Entities
         public string Phone { get; set; }
         public string Avatar { get; set; }
         public string CoverPhoto { get; set; }
-        public ICollection<PostUser> Posts { get; set; } 
-        public ICollection<Relationships> CurrentUsers { get; set; } 
-        public ICollection<Relationships> Friends { get; set; }
+        public ICollection<PostUser> Posts { get; set; }
+        public ICollection<UserLike> LikedByUsers { get; set; }
+        public ICollection<UserLike> LikedUsers { get; set; }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Core.Helpers
 {
-    internal class LikeParam
+    public class LikeParam : PaginationParams
     {
+        public int UserId { get; set; }
+        public string Predicate { get; set; }
     }
 }
