@@ -1,5 +1,4 @@
-﻿using API.Helpers;
-using DatingApp.Core.Entities;
+﻿using DatingApp.Core.Entities;
 using DatingApp.Core.Helpers;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
@@ -25,7 +24,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
-        public async Task<PagedList<AppUser>> GetUserLikes(LikeParam likesParams)
+        public async Task<AppUser> GetUserLikes(LikeParam likesParams)
         {
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
@@ -61,7 +60,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
                 LikedUsers = user.LikedUsers,
 
             });
-            return await PagedList<AppUser>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);
+            return await _context.Users.FindAsync(likedUsers);
         }
 
         public async Task<AppUser> GetUserWithLikes(int userId)

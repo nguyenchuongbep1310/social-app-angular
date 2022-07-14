@@ -44,6 +44,7 @@ namespace DatingApp
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddTransient<IPostService, PostService>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
 
             services.AddDbContext<DataContext>(option => {
                 option.UseSqlServer(_config.GetConnectionString("MyDB"));

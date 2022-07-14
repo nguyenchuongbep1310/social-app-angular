@@ -12,13 +12,13 @@ namespace DatingApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LikeController : ControllerBase
+    public class FriendController : ControllerBase
     {
         private readonly ILikesRepository _likesRepository;
         private readonly IUserRepository _userRepository;
     
 
-        public LikeController(ILikesRepository likesRepository, IUserRepository userRepository)
+        public FriendController(ILikesRepository likesRepository, IUserRepository userRepository)
         {
             _likesRepository = likesRepository;
             _userRepository = userRepository;
@@ -32,11 +32,7 @@ namespace DatingApp.Controllers
 
             if (likedUser == null) return NotFound();
 
-            if (sourceUser.UserName == username) return BadRequest("You cannot like yourself");
-
             var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
-
-            if (userLike != null) return BadRequest("You already like this user");
 
             userLike = new UserLike
             {
