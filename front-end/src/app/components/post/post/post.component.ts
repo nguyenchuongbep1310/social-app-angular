@@ -10,6 +10,7 @@ export class PostComponent implements OnInit {
   constructor(private postService: PostService) {}
 
   @ViewChild('deleteBtn') deleteBtn;
+  @ViewChild('likeBtnIcon') likeBtnIcon;
 
   @Input() avatar;
   @Input() firstName;
@@ -37,6 +38,16 @@ export class PostComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  likeBtnClick() {
+    if (
+      this.likeBtnIcon.nativeElement.className.includes('application-color')
+    ) {
+      this.likeBtnIcon.nativeElement.classList.remove('application-color');
+    } else {
+      this.likeBtnIcon.nativeElement.classList.add('application-color');
+    }
   }
 
   ngOnInit(): void {}

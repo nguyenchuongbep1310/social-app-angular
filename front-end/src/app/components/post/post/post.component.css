@@ -5,13 +5,13 @@
 .post {
   position: relative;
   font-size: 12px;
-  padding: 12px;
   background-color: #fff;
   border-radius: 5px;
   margin-bottom: 12px;
 }
 
 .post-header {
+  padding: 12px !important;
   align-self: start;
   display: flex;
   padding: 0 12px;
@@ -44,9 +44,10 @@
 }
 
 .post-status {
+  padding: 14px;
   align-self: start;
   padding: 0 12px;
-  color: #555;
+  color: #333;
   margin-bottom: 8px;
 }
 
@@ -55,8 +56,14 @@
   border-radius: 50%;
 }
 
+.post-img-box {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+}
+
 .post-img {
-  width: 50%;
+  width: 70%;
 }
 
 .dots-btn {
@@ -81,4 +88,39 @@
 
 .delete-btn:hover {
   background-color: rgb(236, 236, 236);
+}
+
+.like-comment {
+  align-self: start;
+  padding: 0 12px 12px 8px;
+  column-gap: 5rem;
+}
+
+.like-btn {
+  background-color: transparent;
+  padding: 0;
+  margin-left: 24px;
+  margin-right: 6px;
+}
+
+.comment-btn {
+  background-color: transparent;
+  padding: 0;
+}
+
+.like-btn i {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.like-btn .application-color {
+  color: #1877f2;
+}
+
+.like-counts {
+  margin: 0;
+}
+
+.comment-btn i::before {
+  width: 2rem;
+  color: #1877f2;
 }
