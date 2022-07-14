@@ -27,7 +27,7 @@ namespace DatingApp.Controllers
 
         [Authorize]
         [HttpPost("{username}")]
-        public async Task<ActionResult> AddLike(string username)
+        public async Task<ActionResult> AddFriend(string username)
         {
             var sourceUserId = User.GetUserId();
             var likedUser = await _userRepository.GetByUsername(username);
@@ -45,11 +45,33 @@ namespace DatingApp.Controllers
 
             sourceUser.LikedUsers.Add(userLike);
 
+            if(await _likesRepository.Complete()) return Ok();
+
             return Ok();
 
         }
 
-        
+        [Authorize]
+        [HttpDelete("{username}")]
+        public async Task<ActionResult> RemoveFriend(string username)
+        {
+            var sourceUserId = User.GetUserId();
+            var likedUser = await _userRepository.GetByUsername(username);
+            var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
+
+            if (likedUser == null) return NotFound();
+
+            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
+
+            sourceUser.LikedUsers.Remove(userLike);
+
+            if (await _likesRepository.Complete()) return Ok();
+
+            return Ok();
+
+        }
+
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] LikeParam likesParams, int id)
         {

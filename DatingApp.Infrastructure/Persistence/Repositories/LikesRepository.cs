@@ -60,12 +60,18 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
                 LikedUsers = user.LikedUsers,
 
             });
+            
             return await _context.Users.FindAsync(likedUsers);
         }
 
         public async Task<AppUser> GetUserWithLikes(int userId)
         {
             return await _context.Users.Include(x => x.LikedUsers).FirstOrDefaultAsync(x => x.Id == userId);
+        }
+
+        public async Task<bool> Complete()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

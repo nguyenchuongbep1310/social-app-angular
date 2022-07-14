@@ -11,5 +11,7 @@ namespace DatingApp.Core.Interfaces
 
         Task<AppUser> GetUserLikes(LikeParam likesParams);
 
+        Task<bool> Complete();
+
     }
 }
