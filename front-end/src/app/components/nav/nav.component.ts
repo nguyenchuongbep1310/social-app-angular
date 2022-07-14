@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
     lastName: '',
   };
 
-  searchQuery: string = '';
+  //searchQuery: string = '';
 
   hidden: string = 'hidden';
   menu: boolean = false;

@@ -3,6 +3,7 @@ using DatingApp.Core.Entities;
 using DatingApp.Core.Extension;
 using DatingApp.Core.Helpers;
 using DatingApp.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace DatingApp.Controllers
             _likesRepository = likesRepository;
             _userRepository = userRepository;
         }
+
+        [Authorize]
         [HttpPost("{username}")]
         public async Task<ActionResult> AddLike(string username)
         {
@@ -46,7 +49,7 @@ namespace DatingApp.Controllers
 
         }
 
-
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] LikeParam likesParams, int id)
         {

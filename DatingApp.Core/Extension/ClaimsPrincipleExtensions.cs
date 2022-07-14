@@ -11,7 +11,7 @@ namespace DatingApp.Core.Extension
     {
         public static int GetUserId(this ClaimsPrincipal user)
         {
-            return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            return int.Parse(user.FindFirst("Id")?.Value);
         }
     }
 }

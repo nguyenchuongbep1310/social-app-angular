@@ -25,6 +25,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using DatingApp.Infrastructure.Persistence.Repositories;
+using System.Collections.Generic;
 
 namespace DatingApp
 {
@@ -46,23 +47,22 @@ namespace DatingApp
             services.AddTransient<IPostService, PostService>();
             services.AddScoped<ILikesRepository, LikesRepository>();
 
-            services.AddDbContext<DataContext>(option => {
+            services.AddDbContext<DataContext>(option =>
+            {
                 option.UseSqlServer(_config.GetConnectionString("MyDB"));
             });
             services.AddControllers();
             services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>{
-                options.TokenValidationParameters = new TokenValidationParameters{
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
                     ValidateIssuerSigningKey = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                 };
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp", Version = "v1" });
             });
 
             // Config to send mail
@@ -70,15 +70,49 @@ namespace DatingApp
             var mailsettings = _config.GetSection("MailSettings");  // read config
             services.Configure<MailSettings>(mailsettings);
             services.AddTransient<ISendMailService, SendMailService>();
-            services.AddTransient<IAccountService, AccountService>();          
+            services.AddTransient<IAccountService, AccountService>();
 
             // Validation with fluent api
             services.AddMvc().AddFluentValidation();
             services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidation>();
             services.AddScoped<IValidator<ProfileDto>, ProfileDtoValidation>();
-            
 
-            services.AddDirectoryBrowser();           
+            services.AddDirectoryBrowser();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                    Reference = new OpenApiReference
+                        {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                        },
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+
+                    },
+                    new List<string>()
+                    }
+                });
+
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,11 +139,11 @@ namespace DatingApp
                 endpoints.MapControllers();
             });
 
-
             //config static folder to get images
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Share/Images")), RequestPath = new PathString("/images")
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Share/Images")),
+                RequestPath = new PathString("/images")
             });
         }
     }
