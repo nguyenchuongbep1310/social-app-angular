@@ -64,6 +64,69 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("DatingApp.Core.Entities.PostComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("DatingApp.Core.Entities.PostLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
                 {
                     b.Property<int>("PostId")
@@ -118,6 +181,44 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Relationships");
                 });
 
+            modelBuilder.Entity("DatingApp.Core.Entities.PostComment", b =>
+                {
+                    b.HasOne("DatingApp.Core.Entities.PostUser", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DatingApp.Core.Entities.PostLike", b =>
+                {
+                    b.HasOne("DatingApp.Core.Entities.PostUser", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "User")
+                        .WithOne("Like")
+                        .HasForeignKey("DatingApp.Core.Entities.PostLike", "UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
                 {
                     b.HasOne("DatingApp.Core.Entities.AppUser", "AppUser")
@@ -150,11 +251,22 @@ namespace DatingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("CurrentUsers");
 
                     b.Navigation("Friends");
 
+                    b.Navigation("Like");
+
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }
