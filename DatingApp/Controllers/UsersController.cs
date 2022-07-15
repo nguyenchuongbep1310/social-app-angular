@@ -19,7 +19,7 @@ namespace DatingApp.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IEnumerable<AppUser>> GetUsers()
         {
             return await _userRepository.GetAll();
