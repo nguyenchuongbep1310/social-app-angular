@@ -29,6 +29,7 @@ import { UploadPostModule } from './components/upload-post/upload-post.module';
 import { PostModule } from './components/post/post.module';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { UploadPostComponent } from './components/upload-post/upload-post.component';
+import { NotificationItemComponent } from './components/notification-item/notification-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { UploadPostComponent } from './components/upload-post/upload-post.compon
     SearchUserComponent,
     EditprofileComponent,
     ImageComponent,
-    
+    NotificationItemComponent,
   ],
   imports: [
     BrowserModule,
