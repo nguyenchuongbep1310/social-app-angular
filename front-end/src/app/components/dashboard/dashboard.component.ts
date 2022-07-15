@@ -13,20 +13,16 @@ export class DashboardComponent implements OnInit {
     public postService: PostService
   ) {
     this.accountService.getPosts(this.profile, this.posts);
-    
   }
+
+  public currentUserProfile;
 
   ngOnInit(): void {
-    // this.accountService.getProfileInfo()
-    // this.accountService.getPostSearchUser();
+    this.accountService.getCurrentUserProfile().subscribe({
+      next: (response) => (this.currentUserProfile = response),
+      error: (error) => console.log(error),
+    });
   }
-
-  // ngDoCheck(): void {
-  //   console.log('hello');
-  //   if (window.localStorage.getItem('token')) {
-  //     this.accountService.getPosts(this.profile, this.posts);
-  //   }
-  // }
 
   displayDate(date) {
     const months = [

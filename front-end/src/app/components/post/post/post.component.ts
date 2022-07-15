@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PostService } from 'src/_services/post.service';
 import { LikeCommentService } from 'src/_services/like-comment.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -11,7 +12,15 @@ export class PostComponent implements OnInit {
   constructor(
     private postService: PostService,
     private likeCommentService: LikeCommentService
-  ) {}
+  ) {
+    this.commentSubject$.subscribe((response) => {});
+  }
+
+  @ViewChild('textarea') textarea;
+
+  public commentSubject$: Subject<object> = new Subject<object>();
+
+  public arrayOfComments;
 
   @ViewChild('deleteBtn') deleteBtn;
   @ViewChild('likeBtnIcon') likeBtnIcon;
@@ -26,6 +35,7 @@ export class PostComponent implements OnInit {
   @Input() postId;
   @Input() displayDeleteBtn;
   @Input() currentUserId;
+  @Input() currentUserAvatar;
 
   displayDeleteButton() {
     if (this.deleteBtn.nativeElement.className.includes('hidden')) {
@@ -78,7 +88,40 @@ export class PostComponent implements OnInit {
       });
   }
 
+  areCommentsDisplayed = false;
+  displayComments() {
+    this.areCommentsDisplayed = !this.areCommentsDisplayed;
+
+    return this.areCommentsDisplayed;
+  }
+
+  public commentContent;
+  postComment() {
+    this.likeCommentService
+      .postComment(this.commentContent, this.currentUserId, this.postId)
+      .subscribe({
+        next: (response) => {
+          this.likeCommentService.getComments(this.postId).subscribe({
+            next: (response) => (this.arrayOfComments = response),
+            error: (error) => console.log(error),
+          });
+        },
+        error: (error) => console.log(error),
+      });
+
+    this.commentSubject$.next(this.arrayOfComments);
+    this.textarea.nativeElement.value = '';
+  }
+
+  getInput(event: Event) {
+    this.commentContent = (event.target as HTMLInputElement).value;
+  }
+
   ngOnInit(): void {
     this.countLikes();
+    this.likeCommentService.getComments(this.postId).subscribe({
+      next: (response) => (this.arrayOfComments = response),
+      error: (error) => console.log(error),
+    });
   }
 }

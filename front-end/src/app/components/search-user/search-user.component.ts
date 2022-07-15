@@ -14,49 +14,50 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 export class SearchUserComponent implements OnInit {
   constructor(
     public accountService: AccountService,
-    private dialog: MatDialog,
-    private http: HttpClient,
     private activatedRoute: ActivatedRoute,
     private _router: Router
-  ) {
-    
-  }
+  ) {}
+
+  public currentUserProfile;
 
   ngOnInit(): void {
+    this.accountService.getCurrentUserProfile().subscribe({
+      next: (response) => (this.currentUserProfile = response),
+      error: (error) => console.log(error),
+    });
+    this.activatedRoute.queryParams.subscribe((query) => {
+      if (query && query.username) {
+        if (query.username === this.accountService.userName) {
+          this.navigateToPersonalWall();
+        }
 
-
-    this.activatedRoute.queryParams.subscribe(
-      query => {
-        if(query && query.username) {
-
-          if(query.username === this.accountService.userName)
-          {
-            this.navigateToPersonalWall()
-          }
-
-          // call api query by username
-          this.accountService.getProfileInfo(query.username).subscribe(Response => {
+        // call api query by username
+        this.accountService
+          .getProfileInfo(query.username)
+          .subscribe((Response) => {
             this.profile.userId = Response.userId;
             this.profile.firstName = Response.firstName;
             this.profile.lastName = Response.lastName;
             this.profile.username = Response.userName;
             this.profile.dateOfBirth = Response.dateOfBirth;
             this.profile.gender = Response.gender;
-            this.profile.avatar = Response.avatar ? "https://localhost:44371/Images/" + Response.avatar : '';
+            this.profile.avatar = Response.avatar
+              ? 'https://localhost:44371/Images/' + Response.avatar
+              : '';
             this.profile.email = Response.email;
             this.profile.phone = Response.phone;
-            this.profile.coverPhoto = Response.coverPhoto ? "https://localhost:44371/Images/" + Response.coverPhoto : '';     
-            
-            
-            this.accountService.getPostSearchUser(this.profile.userId).subscribe(
-              Response => {
-                this.posts = Response
-              }
-            )
-          });          
-        }
+            this.profile.coverPhoto = Response.coverPhoto
+              ? 'https://localhost:44371/Images/' + Response.coverPhoto
+              : '';
+
+            this.accountService
+              .getPostSearchUser(this.profile.userId)
+              .subscribe((Response) => {
+                this.posts = Response;
+              });
+          });
       }
-    );   
+    });
   }
 
   public posts = { posts: null };
@@ -109,5 +110,4 @@ export class SearchUserComponent implements OnInit {
   navigateToPersonalWall() {
     this._router.navigateByUrl('/personal-wall');
   }
-
 }
