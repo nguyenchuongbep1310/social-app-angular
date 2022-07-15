@@ -125,6 +125,10 @@ export class AccountService {
     );
   }
 
+  public getCurrentUserProfile() {
+    return this.imageService.getProfileInfo(this.tokenInfo.nameid);
+  }
+
   public getPosts(profile, posts) {
     this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
       (response) => {
@@ -158,6 +162,12 @@ export class AccountService {
       },
       (error) => console.log(error)
     );
+  }
+
+  getUserProfileByUserId(userId) {
+    const url = this.baseUrl + 'Users/' + userId;
+
+    return this.http.get(url, this.httpOptions2);
   }
 
   public login(model: any) {
@@ -204,17 +214,17 @@ export class AccountService {
     const url = `${this.baseUrl + 'Account/search-user-profile'}`;
 
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("username", username);
+    queryParams = queryParams.append('username', username);
 
-    return this.http.get<any>(url, {params: queryParams});
+    return this.http.get<any>(url, { params: queryParams });
   }
 
   public getPostSearchUser(userId: number): any {
-   const url = `${this.baseUrl + 'Post'}`;
+    const url = `${this.baseUrl + 'Post'}`;
 
-   let queryParams = new HttpParams();
-    queryParams = queryParams.append("UserId", userId);
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('UserId', userId);
 
-    return this.http.get<any>(url, {params: queryParams});
+    return this.http.get<any>(url, { params: queryParams });
   }
 }

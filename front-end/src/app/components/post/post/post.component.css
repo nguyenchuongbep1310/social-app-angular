@@ -47,8 +47,9 @@
   padding: 14px;
   align-self: start;
   padding: 0 12px;
-  color: #333;
+  color: #111;
   margin-bottom: 8px;
+  font-size: 14px;
 }
 
 .small-avt {
@@ -171,4 +172,9 @@
 
 .up-btn:hover .up-icon {
   stroke: rgba(0, 0, 0, 0.8);
+}
+
+.comments {
+  align-self: stretch;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }

@@ -51,17 +51,38 @@
       </button>
       <p class="like-counts">{{ totalLikes }} likes</p>
     </div>
-    <button class="comment-btn button">
+    <button class="comment-btn button" (click)="displayComments()">
       <i class="fa-regular fa-comment-dots fa-2x"></i>
     </button>
   </div>
+  <div class="comments" *ngIf="areCommentsDisplayed">
+    <comment
+      *ngFor="let comment of arrayOfComments"
+      [commentId]="comment.id"
+      [text]="comment.text"
+      [commentUserId]="comment.userId"
+      [postId]="comment.postId"
+    ></comment>
+  </div>
   <div class="comment-box">
     <div class="img-box">
-      <img [src]="avatar" class="medium-avt" />
+      <img
+        [src]="
+          currentUserAvatar
+            ? 'https://localhost:44371/images/' + currentUserAvatar
+            : 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0='
+        "
+        class="medium-avt"
+      />
     </div>
     <div class="write-comment">
-      <textarea placeholder="Leave a comment" name="comment"></textarea>
-      <button class="up-btn flex-center">
+      <textarea
+        placeholder="Leave a comment"
+        (input)="getInput($event)"
+        name="comment"
+        #textarea
+      ></textarea>
+      <button class="up-btn flex-center" (click)="postComment()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="up-icon icon"

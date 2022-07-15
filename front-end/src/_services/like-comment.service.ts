@@ -39,4 +39,16 @@ export class LikeCommentService {
 
     return this.http.get(url);
   }
+
+  public getComments(postId) {
+    const url = this.baseUrl + `Post/${postId}/GetComments`;
+
+    return this.http.get<any>(url);
+  }
+
+  public postComment(text, userId, postId) {
+    const url = this.baseUrl + 'Comments';
+
+    return this.http.post<any>(url, { text, userId, postId });
+  }
 }
