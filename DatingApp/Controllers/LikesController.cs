@@ -39,6 +39,13 @@ namespace DatingApp.Controllers
         {
             var updatedLike = await _likeService.UpdateLike(request);
             return Ok(updatedLike);
-        }       
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetLikeOfCurrentUser([FromBody ] GetLikeRequest request)
+        {
+            var likeOfCurrentUser = await _likeService.GetLikeOfCurrentUser(request);
+            return Ok(likeOfCurrentUser);
+        }
     }
 }
