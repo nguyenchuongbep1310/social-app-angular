@@ -130,6 +130,12 @@ button {
   align-items: center;
 }
 
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 450px) {
   .reset-container {
     max-width: 350px;
