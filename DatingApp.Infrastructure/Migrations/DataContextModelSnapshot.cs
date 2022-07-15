@@ -93,17 +93,17 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.UserLike", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserFriend", b =>
                 {
                     b.Property<int>("SourceUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LikedUserId")
+                    b.Property<int>("TargetUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("SourceUserId", "LikedUserId");
+                    b.HasKey("SourceUserId", "TargetUserId");
 
-                    b.HasIndex("LikedUserId");
+                    b.HasIndex("TargetUserId");
 
                     b.ToTable("Likes");
                 });
@@ -119,23 +119,23 @@ namespace DatingApp.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.UserLike", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserFriend", b =>
                 {
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "LikedUser")
-                        .WithMany("LikedByUsers")
-                        .HasForeignKey("LikedUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("DatingApp.Core.Entities.AppUser", "SourceUser")
                         .WithMany("LikedUsers")
                         .HasForeignKey("SourceUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("LikedUser");
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "TargetUser")
+                        .WithMany("LikedByUsers")
+                        .HasForeignKey("TargetUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("SourceUser");
+
+                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Core.Interfaces
 {
-    public interface ILikesRepository
+    public interface IFriendRepository
     {
-        Task<UserLike> GetUserLike(int sourceUserId, int likedUserId);
+        Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId);
         Task<AppUser> GetUserWithLikes(int userId);
 
-        Task<AppUser> GetUserLikes(LikeParam likesParams);
+        Task<AppUser> GetUserLikes(FriendParam likesParams);
 
         Task<bool> Complete();
 

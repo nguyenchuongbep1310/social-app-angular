@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatingApp.Infrastructure.Migrations
 {
-    public partial class InitDbs : Migration
+    public partial class Initdbs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,19 +35,19 @@ namespace DatingApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     SourceUserId = table.Column<int>(type: "int", nullable: false),
-                    LikedUserId = table.Column<int>(type: "int", nullable: false)
+                    TargetUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Likes", x => new { x.SourceUserId, x.LikedUserId });
-                    table.ForeignKey(
-                        name: "FK_Likes_Users_LikedUserId",
-                        column: x => x.LikedUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_Likes", x => new { x.SourceUserId, x.TargetUserId });
                     table.ForeignKey(
                         name: "FK_Likes_Users_SourceUserId",
                         column: x => x.SourceUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Likes_Users_TargetUserId",
+                        column: x => x.TargetUserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -76,9 +76,9 @@ namespace DatingApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_LikedUserId",
+                name: "IX_Likes_TargetUserId",
                 table: "Likes",
-                column: "LikedUserId");
+                column: "TargetUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",

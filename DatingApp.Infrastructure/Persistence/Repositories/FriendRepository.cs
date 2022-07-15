@@ -11,20 +11,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Infrastructure.Persistence.Repositories
 {
-    public class LikesRepository : ILikesRepository
+    public class FriendRepository : IFriendRepository
     {
         private readonly DataContext _context;
-        public LikesRepository(DataContext context)
+        public FriendRepository(DataContext context)
         {
             _context = context;
         }
 
-        public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
+        public async Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId)
         {
             return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
-        public async Task<AppUser> GetUserLikes(LikeParam likesParams)
+        public async Task<AppUser> GetUserLikes(FriendParam likesParams)
         {
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
@@ -32,12 +32,12 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             if (likesParams.Predicate == "liked")
             {
                 likes = likes.Where(like => like.SourceUserId == likesParams.UserId);
-                users = likes.Select(like => like.LikedUser);
+                users = likes.Select(like => like.TargetUser);
             }
 
             if (likesParams.Predicate == "likedBy")
             {
-                likes = likes.Where(like => like.LikedUserId == likesParams.UserId);
+                likes = likes.Where(like => like.TargetUserId == likesParams.UserId);
                 users = likes.Select(like => like.SourceUser);
             }
 

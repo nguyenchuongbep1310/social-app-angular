@@ -41,24 +41,24 @@ namespace DatingApp.Infrastructure.Data
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuider.Entity<UserLike>()
-               .HasKey(k => new { k.SourceUserId, k.LikedUserId });
+            modelBuider.Entity<UserFriend>()
+               .HasKey(k => new { k.SourceUserId, k.TargetUserId });
 
-            modelBuider.Entity<UserLike>()
+            modelBuider.Entity<UserFriend>()
                 .HasOne(s => s.SourceUser)
                 .WithMany(l => l.LikedUsers)
                 .HasForeignKey(s => s.SourceUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuider.Entity<UserLike>()
-                .HasOne(s => s.LikedUser)
+            modelBuider.Entity<UserFriend>()
+                .HasOne(s => s.TargetUser)
                 .WithMany(l => l.LikedByUsers)
-                .HasForeignKey(s => s.LikedUserId)
+                .HasForeignKey(s => s.TargetUserId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
         public virtual DbSet<PostUser> Posts { get; set; }
-        public virtual DbSet<UserLike> Likes { get; set; }
+        public virtual DbSet<UserFriend> Likes { get; set; }
     }
 }

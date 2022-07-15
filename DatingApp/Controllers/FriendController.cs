@@ -15,13 +15,13 @@ namespace DatingApp.Controllers
     [ApiController]
     public class FriendController : ControllerBase
     {
-        private readonly ILikesRepository _likesRepository;
+        private readonly IFriendRepository _friendRepository;
         private readonly IUserRepository _userRepository;
     
 
-        public FriendController(ILikesRepository likesRepository, IUserRepository userRepository)
+        public FriendController(IFriendRepository friendRepository, IUserRepository userRepository)
         {
-            _likesRepository = likesRepository;
+            _friendRepository = friendRepository;
             _userRepository = userRepository;
         }
 
@@ -30,22 +30,22 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> AddFriend(string username)
         {
             var sourceUserId = User.GetUserId();
-            var likedUser = await _userRepository.GetByUsername(username);
-            var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
+            var targetUser = await _userRepository.GetByUsername(username);
+            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
 
-            if (likedUser == null) return NotFound();
+            if (targetUser == null) return NotFound();
 
-            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
+            var userFriend = await _friendRepository.GetUserLike(sourceUserId, targetUser.Id);
 
-            userLike = new UserLike
+            userFriend = new UserFriend
             {
                 SourceUserId = sourceUserId,
-                LikedUserId = likedUser.Id
+                TargetUserId = targetUser.Id
             };
 
-            sourceUser.LikedUsers.Add(userLike);
+            sourceUser.LikedUsers.Add(userFriend);
 
-            if(await _likesRepository.Complete()) return Ok();
+            if(await _friendRepository.Complete()) return Ok();
 
             return Ok();
 
@@ -57,15 +57,15 @@ namespace DatingApp.Controllers
         {
             var sourceUserId = User.GetUserId();
             var likedUser = await _userRepository.GetByUsername(username);
-            var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
+            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
 
             if (likedUser == null) return NotFound();
 
-            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
+            var userLike = await _friendRepository.GetUserLike(sourceUserId, likedUser.Id);
 
             sourceUser.LikedUsers.Remove(userLike);
 
-            if (await _likesRepository.Complete()) return Ok();
+            if (await _friendRepository.Complete()) return Ok();
 
             return Ok();
 
@@ -73,10 +73,10 @@ namespace DatingApp.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] LikeParam likesParams, int id)
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] FriendParam friendParam, int id)
         {
-            likesParams.UserId = User.GetUserId();
-            var users = await _likesRepository.GetUserLikes(likesParams);
+            friendParam.UserId = User.GetUserId();
+            var users = await _friendRepository.GetUserLikes(friendParam);
 
             return Ok(users);
         }
