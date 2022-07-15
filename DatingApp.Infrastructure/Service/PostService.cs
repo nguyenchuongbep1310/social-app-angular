@@ -93,10 +93,10 @@ namespace DatingApp.Infrastructure.Service
             };
         }
 
-        public async Task<GetLikeResponse> CountLikeOfPost(int id)
+        public async Task<GetLikeNumberResponse> CountLikeOfPost(int id)
         {
             var likesOfPost = await _likeRepository.GetAll(id);
-            return new GetLikeResponse
+            return new GetLikeNumberResponse
             {
                 LikesOfPostNumber = likesOfPost.Count(),
             };

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Application.DTO.Likes
 {
-    public class GetLikeResponse
+    public class GetLikeNumberResponse
     {
+        public int LikesOfPostNumber { get; set; }
     }
 }
