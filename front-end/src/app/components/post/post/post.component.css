@@ -52,7 +52,7 @@
 }
 
 .small-avt {
-  width: 30px;
+  width: 40px;
   border-radius: 50%;
 }
 
@@ -95,6 +95,9 @@
   align-self: start;
   padding: 0 12px 12px 8px;
   column-gap: 5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  justify-content: start;
 }
 
 .like-btn {
@@ -124,4 +127,48 @@
 .comment-btn i::before {
   width: 2rem;
   color: #1877f2;
+}
+
+.comment-box {
+  padding: 8px 40px 8px 20px;
+  display: grid;
+  align-self: stretch;
+  grid-template-columns: 1fr 6fr;
+  align-items: center;
+}
+
+.medium-avt {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.write-comment {
+  position: relative;
+}
+
+.write-comment textarea {
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.up-btn {
+  position: absolute;
+  right: 1%;
+  top: 40%;
+  transform: translateY(-50%);
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.up-icon {
+  width: 1.5rem;
+  stroke: rgba(0, 0, 0, 0.6);
+  transition: all 0.2s;
+}
+
+.up-btn:hover .up-icon {
+  stroke: rgba(0, 0, 0, 0.8);
 }
