@@ -226,6 +226,30 @@ img {
   transform: translateX(0);
 }
 
+.notifi-box {
+  position: relative;
+}
+
+.notification-items {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 1;
+  bottom: -10%;
+  left: 0;
+  transform: translate(-80%, 102%);
+}
+
+.notify-btn {
+  color: #1877f2;
+}
+
+.notification-icon {
+  stroke: red;
+}
+
 @media (max-width: 750px) {
   nav {
     grid-template-columns: 1fr;

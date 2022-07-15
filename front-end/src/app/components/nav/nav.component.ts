@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
-import {NgModel} from '@angular/forms'
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-nav',
@@ -83,32 +83,28 @@ export class NavComponent implements OnInit {
     this._router.navigateByUrl('/personal-wall');
   }
 
-  
   searchUser() {
     if (this.searchQuery && this.searchQuery.length > 0) {
+      console.log(this.searchQuery);
 
-      console.log(this.searchQuery)
-
-      this.accountService.getProfileInfo(this.searchQuery).subscribe(
-          (Response) => {
-          if(Response) 
-          {
-            this._router.navigateByUrl(`/search-user?username=${this.searchQuery}`);
+      this.accountService
+        .getProfileInfo(this.searchQuery)
+        .subscribe((Response) => {
+          if (Response) {
+            this._router.navigateByUrl(
+              `/search-user?username=${this.searchQuery}`
+            );
+          } else {
+            alert('User does not exists!!!');
           }
-          else
-          {
-            alert("User does not exists!!!");
-          }
-        }
-      )
-    
-      // this.accountService.getUserProfileInfo(this.searchQuery).subscribe(
-      //   (Response) => {
-      //     console.log(Response);
-      //   }
-      // );
-
-      // this._router.navigateByUrl(`/search?username=${this.searchQuery}`);
+        });
     }
+  }
+
+  @ViewChild('notificationItems') notificationItems;
+  notificationBtnClick() {
+    if (this.notificationItems.nativeElement.className.includes('hidden')) {
+      this.notificationItems.nativeElement.classList.remove('hidden');
+    } else this.notificationItems.nativeElement.classList.add('hidden');
   }
 }

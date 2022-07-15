@@ -13,12 +13,14 @@
   <p *ngIf="status !== 'undefined'" class="post-status">
     {{ status }}
   </p>
-  <img
-    *ngIf="image"
-    [src]="'https://localhost:44371/images/' + image"
-    alt="Ungap post image"
-    class="post-img"
-  />
+  <div class="post-img-box flex-center">
+    <img
+      *ngIf="image"
+      [src]="'https://localhost:44371/images/' + image"
+      alt="Ungap post image"
+      class="post-img"
+    />
+  </div>
   <button
     class="dots-btn button"
     *ngIf="displayDeleteBtn"
@@ -42,4 +44,15 @@
   <button class="delete-btn btn hidden" #deleteBtn (click)="deletePost()">
     Delete
   </button>
+  <div class="like-comment flex-center">
+    <div class="like-box flex-center">
+      <button class="like-btn button" (click)="likeBtnClick()">
+        <i class="fa-solid fa-thumbs-up fa-2x" #likeBtnIcon></i>
+      </button>
+      <p class="like-counts">{{ totalLikes }} likes</p>
+    </div>
+    <button class="comment-btn button">
+      <i class="fa-regular fa-comment-dots fa-2x"></i>
+    </button>
+  </div>
 </div>
