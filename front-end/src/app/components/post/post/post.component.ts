@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 export class PostComponent implements OnInit {
   constructor(
     private postService: PostService,
-    private likeCommentService: LikeCommentService
+    private likeCommentService: LikeCommentService = null //để tạm null để test
   ) {
     this.commentSubject$.subscribe((response) => {});
   }

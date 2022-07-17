@@ -14,7 +14,6 @@ namespace DatingApp.Controllers
     public class LikesController : ControllerBase
     {
         private readonly ILikeService _likeService;
-
         public LikesController(ILikeService likeService)
         {
             _likeService = likeService;
@@ -42,7 +41,7 @@ namespace DatingApp.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetLikeOfCurrentUser([FromBody ] GetLikeRequest request)
+        public async Task<IActionResult> GetLikeOfCurrentUser([FromQuery] GetLikeRequest request)
         {
             var likeOfCurrentUser = await _likeService.GetLikeOfCurrentUser(request);
             return Ok(likeOfCurrentUser);

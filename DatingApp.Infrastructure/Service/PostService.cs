@@ -26,7 +26,6 @@ namespace DatingApp.Infrastructure.Service
             _postRepository = postRepository;
             _likeRepository = likeRepository;
             _commentRepository = commentRepository;
-
         }
 
         public async Task<AddPostResponse> CreateNewPost(AddPostRequest request)

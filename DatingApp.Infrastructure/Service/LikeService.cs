@@ -68,6 +68,8 @@ namespace DatingApp.Infrastructure.Service
             var likes = await _likeRepository.GetAll(request.PostId);
             var like = likes.SingleOrDefault(l => l.UserId == request.UserId);
 
+            if (like == null) return null;
+
             return new GetLikeResponse {
                 Id = like.Id,
                 PostId = like.PostId,
