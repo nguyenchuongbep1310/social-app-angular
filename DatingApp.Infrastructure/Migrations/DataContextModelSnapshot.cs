@@ -105,7 +105,7 @@ namespace DatingApp.Infrastructure.Migrations
 
                     b.HasIndex("TargetUserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
@@ -122,13 +122,13 @@ namespace DatingApp.Infrastructure.Migrations
             modelBuilder.Entity("DatingApp.Core.Entities.UserFriend", b =>
                 {
                     b.HasOne("DatingApp.Core.Entities.AppUser", "SourceUser")
-                        .WithMany("LikedUsers")
+                        .WithMany("FriendUsers")
                         .HasForeignKey("SourceUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DatingApp.Core.Entities.AppUser", "TargetUser")
-                        .WithMany("LikedByUsers")
+                        .WithMany("AddByUsers")
                         .HasForeignKey("TargetUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -140,9 +140,9 @@ namespace DatingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
                 {
-                    b.Navigation("LikedByUsers");
+                    b.Navigation("AddByUsers");
 
-                    b.Navigation("LikedUsers");
+                    b.Navigation("FriendUsers");
 
                     b.Navigation("Posts");
                 });

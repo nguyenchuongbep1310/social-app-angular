@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatingApp.Infrastructure.Migrations
 {
-    public partial class Initdbs : Migration
+    public partial class initDbs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace DatingApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Likes",
+                name: "Friends",
                 columns: table => new
                 {
                     SourceUserId = table.Column<int>(type: "int", nullable: false),
@@ -39,14 +39,14 @@ namespace DatingApp.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Likes", x => new { x.SourceUserId, x.TargetUserId });
+                    table.PrimaryKey("PK_Friends", x => new { x.SourceUserId, x.TargetUserId });
                     table.ForeignKey(
-                        name: "FK_Likes_Users_SourceUserId",
+                        name: "FK_Friends_Users_SourceUserId",
                         column: x => x.SourceUserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Likes_Users_TargetUserId",
+                        name: "FK_Friends_Users_TargetUserId",
                         column: x => x.TargetUserId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -76,8 +76,8 @@ namespace DatingApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_TargetUserId",
-                table: "Likes",
+                name: "IX_Friends_TargetUserId",
+                table: "Friends",
                 column: "TargetUserId");
 
             migrationBuilder.CreateIndex(
@@ -89,7 +89,7 @@ namespace DatingApp.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Likes");
+                name: "Friends");
 
             migrationBuilder.DropTable(
                 name: "Posts");

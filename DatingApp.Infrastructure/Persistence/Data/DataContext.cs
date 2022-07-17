@@ -46,19 +46,19 @@ namespace DatingApp.Infrastructure.Data
 
             modelBuider.Entity<UserFriend>()
                 .HasOne(s => s.SourceUser)
-                .WithMany(l => l.LikedUsers)
+                .WithMany(l => l.FriendUsers)
                 .HasForeignKey(s => s.SourceUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuider.Entity<UserFriend>()
                 .HasOne(s => s.TargetUser)
-                .WithMany(l => l.LikedByUsers)
+                .WithMany(l => l.AddByUsers)
                 .HasForeignKey(s => s.TargetUserId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
         public virtual DbSet<PostUser> Posts { get; set; }
-        public virtual DbSet<UserFriend> Likes { get; set; }
+        public virtual DbSet<UserFriend> Friends { get; set; }
     }
 }

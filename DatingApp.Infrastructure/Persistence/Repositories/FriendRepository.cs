@@ -21,13 +21,13 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
 
         public async Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId)
         {
-            return await _context.Likes.FindAsync(sourceUserId, likedUserId);
+            return await _context.Friends.FindAsync(sourceUserId, likedUserId);
         }
 
         public async Task<AppUser> GetUserLikes(FriendParam likesParams)
         {
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
-            var likes = _context.Likes.AsQueryable();
+            var likes = _context.Friends.AsQueryable();
 
             if (likesParams.Predicate == "liked")
             {
@@ -56,8 +56,8 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
                 Avatar = user.Avatar,
                 CoverPhoto = user.CoverPhoto,
                 Posts = user.Posts,
-                LikedByUsers = user.LikedByUsers,
-                LikedUsers = user.LikedUsers,
+                AddByUsers = user.AddByUsers,
+                FriendUsers = user.FriendUsers,
 
             });
             
@@ -66,7 +66,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
 
         public async Task<AppUser> GetUserWithLikes(int userId)
         {
-            return await _context.Users.Include(x => x.LikedUsers).FirstOrDefaultAsync(x => x.Id == userId);
+            return await _context.Users.Include(x => x.FriendUsers).FirstOrDefaultAsync(x => x.Id == userId);
         }
 
         public async Task<bool> Complete()

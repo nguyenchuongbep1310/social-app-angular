@@ -43,7 +43,7 @@ namespace DatingApp.Controllers
                 TargetUserId = targetUser.Id
             };
 
-            sourceUser.LikedUsers.Add(userFriend);
+            sourceUser.FriendUsers.Add(userFriend);
 
             if(await _friendRepository.Complete()) return Ok();
 
@@ -63,7 +63,7 @@ namespace DatingApp.Controllers
 
             var userLike = await _friendRepository.GetUserLike(sourceUserId, likedUser.Id);
 
-            sourceUser.LikedUsers.Remove(userLike);
+            sourceUser.FriendUsers.Remove(userLike);
 
             if (await _friendRepository.Complete()) return Ok();
 
