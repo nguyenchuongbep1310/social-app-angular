@@ -13,6 +13,7 @@ namespace DatingApp.Application.Interfaces
 
         Task Delete(PostUser post);
         Task DeleteAllComment(int postId);
+        Task DeleteAllLike(int postId);
 
         Task<PostUser> GetById(int postId);
 

@@ -78,14 +78,36 @@ export class PostComponent implements OnInit {
     });
   }
 
+  public CheckLikeStatus(): boolean
+  {
+    let checkStatus = true;
+
+    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe((Response) => {
+      if(Response.status != null || Response.status === 'Actived')
+      {
+        checkStatus = false;
+      }
+    });
+
+    return checkStatus;
+  }
+
   postLike() {
-    console.log(this.currentUserId, this.postId);
-    this.likeCommentService
-      .postLike(this.currentUserId, this.postId)
-      .subscribe({
-        next: (response) => console.log(response),
-        error: (error) => console.log(error.error.errors.$[0]),
-      });
+    // test add like
+    if(!this.CheckLikeStatus())
+    {
+      console.log(this.currentUserId, this.postId);
+      this.likeCommentService
+        .postLike(this.currentUserId, this.postId)
+        .subscribe({
+          next: (response) => console.log(response),
+          error: (error) => console.log(error.error.errors.$[0]),
+        });
+    }
+    else
+    {
+      this.likeBtnIcon.nativeElement.className.includes('application-color')
+    }
   }
 
   areCommentsDisplayed = false;

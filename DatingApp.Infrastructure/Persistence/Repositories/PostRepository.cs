@@ -38,6 +38,13 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAllLike(int postId)
+        {
+            var listLike = _context.Likes.Where(l => l.PostId == postId);
+            _context.Likes.RemoveRange(listLike);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<PostUser> GetById(int postId)
         {
             return await _context.Posts.FindAsync(postId);
@@ -64,6 +71,6 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
+        }      
     }
 }

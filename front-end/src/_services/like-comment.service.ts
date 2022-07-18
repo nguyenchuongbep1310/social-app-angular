@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,16 @@ export class LikeCommentService {
   constructor(private http: HttpClient) {}
 
   baseUrl = 'https://localhost:44371/api/';
+
+  public getLikeOfCurrentUser(currentUserId, postId) {
+    const url = this.baseUrl + 'Likes';
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("UserId", currentUserId);
+    queryParams = queryParams.append("PostId", postId);
+
+    return this.http.get<any>(url,{params:queryParams});
+  }
 
   public postLike(currentUserId, postId) {
     const url = this.baseUrl + 'Likes';
