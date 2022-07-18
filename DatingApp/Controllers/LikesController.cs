@@ -20,7 +20,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewLike([FromBody] AddLikeRequest request)
+        public async Task<IActionResult> CreateNewLike([FromForm] AddLikeRequest request)
         {
             try
             {

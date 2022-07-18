@@ -31,6 +31,13 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAllComment(int postId)
+        {
+            var listComment = _context.Comments.Where(c => c.PostId == postId);
+            _context.Comments.RemoveRange(listComment);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<PostUser> GetById(int postId)
         {
             return await _context.Posts.FindAsync(postId);

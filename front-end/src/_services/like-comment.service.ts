@@ -18,7 +18,7 @@ export class LikeCommentService {
 
     return this.http.post<any>(url, formData, {
       headers: new HttpHeaders({
-        'Content-type': 'application/json',
+        // 'Content-type': 'application/json',
       }),
     });
   }
