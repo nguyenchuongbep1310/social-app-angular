@@ -12,9 +12,6 @@ namespace DatingApp.Core.Interfaces
     {
         Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId);
         Task<AppUser> GetUserWithLikes(int userId);
-
-        Task<AppUser> GetUserLikes(FriendParam likesParams);
-
         Task<bool> Complete();
 
     }

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PostService } from 'src/_services/post.service';
 import { LikeCommentService } from 'src/_services/like-comment.service';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
+import { TmplAstRecursiveVisitor } from '@angular/compiler';
 
 @Component({
   selector: 'app-post',
@@ -78,36 +79,22 @@ export class PostComponent implements OnInit {
     });
   }
 
-  public CheckLikeStatus(): boolean
-  {
-    let checkStatus = true;
-
-    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe((Response) => {
-      if(Response.status != null || Response.status === 'Actived')
-      {
-        checkStatus = false;
-      }
-    });
-
-    return checkStatus;
-  }
-
   postLike() {
-    // test add like
-    if(!this.CheckLikeStatus())
-    {
-      console.log(this.currentUserId, this.postId);
-      this.likeCommentService
-        .postLike(this.currentUserId, this.postId)
-        .subscribe({
-          next: (response) => console.log(response),
-          error: (error) => console.log(error.error.errors.$[0]),
-        });
-    }
-    else
-    {
-      this.likeBtnIcon.nativeElement.className.includes('application-color')
-    }
+    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe(response => {
+      if(response === null)
+      {
+        this.likeCommentService.postLike(this.currentUserId, this.postId)
+                               .subscribe({
+                                next: (response) => console.log(response),
+                                error: (error) => console.log(error.error.errors.$[0])});
+      }
+
+      if(response != null && response.status === 'Actived')
+      {
+        this.likeCommentService.deleteLike(response.id).subscribe();
+      }
+
+    });
   }
 
   areCommentsDisplayed = false;
@@ -144,6 +131,13 @@ export class PostComponent implements OnInit {
     this.likeCommentService.getComments(this.postId).subscribe({
       next: (response) => (this.arrayOfComments = response),
       error: (error) => console.log(error),
+    });
+
+    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe(response => {
+      if(response!=null && response.status === 'Actived')
+      {
+        this.likeBtnIcon.nativeElement.classList.add('application-color');
+      }   
     });
   }
 }

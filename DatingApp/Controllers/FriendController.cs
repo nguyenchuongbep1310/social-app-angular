@@ -72,13 +72,21 @@ namespace DatingApp.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] FriendParam friendParam, int id)
-        {
-            friendParam.UserId = User.GetUserId();
-            var users = await _friendRepository.GetUserLikes(friendParam);
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] FriendParam friendParam, int id)
+        //{
+        //    friendParam.UserId = User.GetUserId();
+        //    var users = await _friendRepository.GetUserLikes(friendParam);
 
-            return Ok(users);
+        //    return Ok(users);
+        //}
+
+        [HttpGet]
+        public async Task<ActionResult> GetUserLike([FromQuery] int sourceUserId, int likedUserId)
+        {
+            var friend = await _friendRepository.GetUserLike(sourceUserId, likedUserId);
+
+            return Ok(friend);
         }
     }
 }

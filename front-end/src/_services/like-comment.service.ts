@@ -33,6 +33,11 @@ export class LikeCommentService {
     });
   }
 
+  public deleteLike(likeId) {
+    const url = this.baseUrl + 'Likes/' + likeId;
+    return this.http.delete<any>(url);
+  }
+
   public patchLike(likeId, postId, userId) {
     const url = this.baseUrl + 'Likes';
 
