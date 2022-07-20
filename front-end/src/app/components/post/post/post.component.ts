@@ -15,11 +15,13 @@ export class PostComponent implements OnInit {
     private likeCommentService: LikeCommentService = null //để tạm null để test
   ) {
     this.commentSubject$.subscribe((response) => {});
+    this.likeSubject$.subscribe((response) => {});
   }
 
   @ViewChild('textarea') textarea;
 
   public commentSubject$: Subject<object> = new Subject<object>();
+  public likeSubject$: Subject<number> = new Subject<number>();
 
   public arrayOfComments;
 
@@ -74,38 +76,51 @@ export class PostComponent implements OnInit {
 
   countLikes() {
     this.likeCommentService.countLikes(this.postId).subscribe({
-      next: (response: any) => (this.totalLikes = response.likesOfPostNumber),
+      next: (response: any) => {
+        this.totalLikes = response.likesOfPostNumber;
+      },
       error: (error) => console.log(error),
     });
   }
 
   postLike() {
-    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe(response => {
-      if(response === null)
-      {
-        this.likeCommentService.postLike(this.currentUserId, this.postId)
-                               .subscribe({
-                                next: (response) => console.log(response),
-                                error: (error) => console.log(error.error.errors.$[0])});
-      }
+    this.likeCommentService
+      .getLikeOfCurrentUser(this.currentUserId, this.postId)
+      .subscribe((response) => {
+        if (response === null) {
+          this.likeCommentService
+            .postLike(this.currentUserId, this.postId)
+            .subscribe({
+              next: (response) => {
+                this.countLikes();
+                this.likeSubject$.next(this.totalLikes);
+              },
+              error: (error) => {
+                console.log(error.error.errors.$[0]);
+              },
+            });
+        }
 
-      if(response != null && response.status === 'Actived')
-      {
-        this.likeCommentService.deleteLike(response.id).subscribe();
-      }
-
-    });
+        if (response != null && response.status === 'Actived') {
+          this.likeCommentService.deleteLike(response.id).subscribe({
+            next: (response) => {
+              this.countLikes();
+              this.likeSubject$.next(this.totalLikes);
+            },
+            error: (error) => console.log(error),
+          });
+        }
+      });
   }
 
   areCommentsDisplayed = false;
   displayComments() {
     this.areCommentsDisplayed = !this.areCommentsDisplayed;
-
-    return this.areCommentsDisplayed;
   }
 
   public commentContent;
   postComment() {
+    if (!this.commentContent) return;
     this.likeCommentService
       .postComment(this.commentContent, this.currentUserId, this.postId)
       .subscribe({
@@ -120,6 +135,8 @@ export class PostComponent implements OnInit {
 
     this.commentSubject$.next(this.arrayOfComments);
     this.textarea.nativeElement.value = '';
+    this.commentContent = '';
+    this.areCommentsDisplayed = true;
   }
 
   getInput(event: Event) {
@@ -133,11 +150,12 @@ export class PostComponent implements OnInit {
       error: (error) => console.log(error),
     });
 
-    this.likeCommentService.getLikeOfCurrentUser(this.currentUserId, this.postId).subscribe(response => {
-      if(response!=null && response.status === 'Actived')
-      {
-        this.likeBtnIcon.nativeElement.classList.add('application-color');
-      }   
-    });
+    this.likeCommentService
+      .getLikeOfCurrentUser(this.currentUserId, this.postId)
+      .subscribe((response) => {
+        if (response != null && response.status === 'Actived') {
+          this.likeBtnIcon.nativeElement.classList.add('application-color');
+        }
+      });
   }
 }

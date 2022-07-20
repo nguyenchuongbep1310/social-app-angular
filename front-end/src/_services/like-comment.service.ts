@@ -13,10 +13,10 @@ export class LikeCommentService {
     const url = this.baseUrl + 'Likes';
 
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("UserId", currentUserId);
-    queryParams = queryParams.append("PostId", postId);
+    queryParams = queryParams.append('UserId', currentUserId);
+    queryParams = queryParams.append('PostId', postId);
 
-    return this.http.get<any>(url,{params:queryParams});
+    return this.http.get<any>(url, { params: queryParams });
   }
 
   public postLike(currentUserId, postId) {
@@ -27,9 +27,7 @@ export class LikeCommentService {
     formData.append('postId', postId);
 
     return this.http.post<any>(url, formData, {
-      headers: new HttpHeaders({
-        // 'Content-type': 'application/json',
-      }),
+      headers: new HttpHeaders({}),
     });
   }
 

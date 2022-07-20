@@ -5,6 +5,7 @@ import { EditprofileComponent } from '../editprofile/editprofile.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { FriendService } from 'src/_services/friend.service';
 
 @Component({
   selector: 'search',
@@ -15,14 +16,17 @@ export class SearchUserComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private friendService: FriendService
   ) {}
 
   public currentUserProfile;
 
   ngOnInit(): void {
     this.accountService.getCurrentUserProfile().subscribe({
-      next: (response) => (this.currentUserProfile = response),
+      next: (response) => {
+        this.currentUserProfile = response;
+      },
       error: (error) => console.log(error),
     });
     this.activatedRoute.queryParams.subscribe((query) => {
@@ -55,9 +59,27 @@ export class SearchUserComponent implements OnInit {
               .subscribe((Response) => {
                 this.posts = Response;
               });
+            this.getFriend();
           });
       }
     });
+  }
+
+  public addFriendBtn: boolean;
+
+  public getFriend() {
+    this.friendService
+      .getFriend(this.currentUserProfile.userId, this.profile.userId)
+      .subscribe({
+        next: (response: any) => {
+          if (response) {
+            this.addFriendBtn = true;
+          } else {
+            this.addFriendBtn = false;
+          }
+        },
+        error: (error) => console.log(error),
+      });
   }
 
   public posts = { posts: null };
@@ -109,5 +131,23 @@ export class SearchUserComponent implements OnInit {
 
   navigateToPersonalWall() {
     this._router.navigateByUrl('/personal-wall');
+  }
+
+  public addFriend() {
+    this.friendService.addFriend(this.profile.username).subscribe({
+      next: (response) => {
+        window.location.reload();
+      },
+      error: (error) => console.log(error),
+    });
+  }
+
+  public unFriend() {
+    this.friendService.unFriend(this.profile.username).subscribe({
+      next: (response) => {
+        window.location.reload();
+      },
+      error: (error) => console.log(error),
+    });
   }
 }
