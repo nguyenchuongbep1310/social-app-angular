@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
       next: (response) => (this.currentUserProfile = response),
       error: (error) => console.log(error),
     });
+    console.log(this.posts);
   }
 
   displayDate(date) {
