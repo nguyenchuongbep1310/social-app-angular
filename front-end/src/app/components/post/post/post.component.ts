@@ -23,7 +23,12 @@ export class PostComponent implements OnInit {
   public commentSubject$: Subject<object> = new Subject<object>();
   public likeSubject$: Subject<number> = new Subject<number>();
 
-  public arrayOfComments;
+  public arrayOfComments: {
+    id: number;
+    text: string;
+    userId: number;
+    postId: number;
+  }[];
 
   @ViewChild('deleteBtn') deleteBtn;
   @ViewChild('likeBtnIcon') likeBtnIcon;
@@ -126,7 +131,7 @@ export class PostComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.likeCommentService.getComments(this.postId).subscribe({
-            next: (response) => (this.arrayOfComments = response),
+            next: (response: any[]) => (this.arrayOfComments = response),
             error: (error) => console.log(error),
           });
         },
@@ -146,7 +151,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.countLikes();
     this.likeCommentService.getComments(this.postId).subscribe({
-      next: (response) => (this.arrayOfComments = response),
+      next: (response: any[]) => (this.arrayOfComments = response),
       error: (error) => console.log(error),
     });
 
