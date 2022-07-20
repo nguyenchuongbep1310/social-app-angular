@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,16 @@ export class LikeCommentService {
   constructor(private http: HttpClient) {}
 
   baseUrl = 'https://localhost:44371/api/';
+
+  public getLikeOfCurrentUser(currentUserId, postId) {
+    const url = this.baseUrl + 'Likes';
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("UserId", currentUserId);
+    queryParams = queryParams.append("PostId", postId);
+
+    return this.http.get<any>(url,{params:queryParams});
+  }
 
   public postLike(currentUserId, postId) {
     const url = this.baseUrl + 'Likes';
@@ -18,9 +28,14 @@ export class LikeCommentService {
 
     return this.http.post<any>(url, formData, {
       headers: new HttpHeaders({
-        'Content-type': 'application/json',
+        // 'Content-type': 'application/json',
       }),
     });
+  }
+
+  public deleteLike(likeId) {
+    const url = this.baseUrl + 'Likes/' + likeId;
+    return this.http.delete<any>(url);
   }
 
   public patchLike(likeId, postId, userId) {

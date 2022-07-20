@@ -26,7 +26,6 @@ namespace DatingApp.Infrastructure.Service
             _postRepository = postRepository;
             _likeRepository = likeRepository;
             _commentRepository = commentRepository;
-
         }
 
         public async Task<AddPostResponse> CreateNewPost(AddPostRequest request)
@@ -62,6 +61,9 @@ namespace DatingApp.Infrastructure.Service
 
         public async Task DeletePost(DeletePostRequest request)
         {
+            await _postRepository.DeleteAllComment(request.Id);
+            await _postRepository.DeleteAllLike(request.Id);
+
             PostUser postToDelete = await _postRepository.GetById(request.Id);
             await _postRepository.Delete(postToDelete);
         }
