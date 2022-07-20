@@ -57,7 +57,7 @@ export class SearchUserComponent implements OnInit {
             this.accountService
               .getPostSearchUser(this.profile.userId)
               .subscribe((Response) => {
-                this.posts = Response;
+                this.posts.posts = Response;
               });
             this.getFriend();
           });
@@ -82,7 +82,7 @@ export class SearchUserComponent implements OnInit {
       });
   }
 
-  public posts = { posts: null };
+  public posts = { posts: [] };
 
   public profile: {
     userId: number;

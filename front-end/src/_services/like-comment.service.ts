@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+const headers = new HttpHeaders({
+  Authorization: 'Bearer ' + localStorage.getItem('token'),
+  'Content-type': 'application/json',
+});
+
 @Injectable({
   providedIn: 'root',
 })
@@ -63,5 +68,17 @@ export class LikeCommentService {
     const url = this.baseUrl + 'Comments';
 
     return this.http.post<any>(url, { text, userId, postId });
+  }
+
+  public deleteComment(id: number, userId: number) {
+    const url = this.baseUrl + 'Comments';
+
+    return this.http.delete(url, {
+      headers,
+      body: {
+        id,
+        userId,
+      },
+    });
   }
 }

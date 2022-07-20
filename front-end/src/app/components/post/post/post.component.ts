@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PostService } from 'src/_services/post.service';
 import { LikeCommentService } from 'src/_services/like-comment.service';
-import { of, Subject } from 'rxjs';
-import { TmplAstRecursiveVisitor } from '@angular/compiler';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -14,7 +13,9 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private likeCommentService: LikeCommentService = null //để tạm null để test
   ) {
-    this.commentSubject$.subscribe((response) => {});
+    this.commentSubject$.subscribe((response) => {
+      console.log(response);
+    });
     this.likeSubject$.subscribe((response) => {});
   }
 
@@ -56,7 +57,6 @@ export class PostComponent implements OnInit {
   deletePost() {
     this.postService.deletePost(this.userId, this.postId).subscribe(
       (response) => {
-        console.log(response);
         window.location.reload();
       },
       (error) => console.log(error)
@@ -151,7 +151,9 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.countLikes();
     this.likeCommentService.getComments(this.postId).subscribe({
-      next: (response: any[]) => (this.arrayOfComments = response),
+      next: (response: any[]) => {
+        this.arrayOfComments = response;
+      },
       error: (error) => console.log(error),
     });
 
