@@ -2,6 +2,8 @@
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
+using DatingApp.Infrastructure.Data;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,15 @@ namespace DatingApp.Infrastructure.Service
 {
     public class CommentService : ICommentService
     {
+        private readonly DataContext _context;
         private readonly ICommentRepository _commentRepository;
-        
-        public CommentService(ICommentRepository commentRepository)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+
+        public CommentService(ICommentRepository commentRepository, IHubContext<BroadcastHub, IHubClient> hubContext, DataContext context)
         {
             _commentRepository = commentRepository;
+            _hubContext = hubContext;
+            _context = context;
         }
 
         public async Task<AddCommentResponse> CreateNewComment(AddCommentRequest request)
@@ -28,6 +34,19 @@ namespace DatingApp.Infrastructure.Service
             };
 
             var comment = await _commentRepository.Add(newComment);
+
+            Notification notification = new Notification()
+            {
+                Content = "comment on your post",
+                Type = "Comment",
+                UserSend = request.UserId,
+                UserReceive = request.UserId,
+            };
+
+             _context.Notification.Add(notification);
+
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
 
             return new AddCommentResponse
             {
