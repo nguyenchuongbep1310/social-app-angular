@@ -11,5 +11,7 @@ namespace DatingApp.Application.Interfaces
     {
         Task<AddLikeResponse> CreateNewLike(AddLikeRequest request);
         Task<UpdateLikeResponse> UpdateLike(UpdateLikeRequest request);
+        Task<GetLikeResponse> GetLikeOfCurrentUser(GetLikeRequest request);
+        Task DeleteLike(int id);
     }
 }

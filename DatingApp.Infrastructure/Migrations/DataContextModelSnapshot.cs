@@ -121,9 +121,6 @@ namespace DatingApp.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Likes");
                 });
 
@@ -156,29 +153,19 @@ namespace DatingApp.Infrastructure.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserFriend", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("CurrentUserId")
+                    b.Property<int>("SourceUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FriendId")
+                    b.Property<int>("TargetUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("SourceUserId", "TargetUserId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("TargetUserId");
 
-                    b.HasIndex("CurrentUserId");
-
-                    b.HasIndex("FriendId");
-
-                    b.ToTable("Relationships");
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostComment", b =>
@@ -208,15 +195,7 @@ namespace DatingApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "User")
-                        .WithOne("Like")
-                        .HasForeignKey("DatingApp.Core.Entities.PostLike", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Post");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostUser", b =>
@@ -230,34 +209,32 @@ namespace DatingApp.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("DatingApp.Core.Entities.Relationships", b =>
+            modelBuilder.Entity("DatingApp.Core.Entities.UserFriend", b =>
                 {
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "Friend")
-                        .WithMany("CurrentUsers")
-                        .HasForeignKey("CurrentUserId")
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "SourceUser")
+                        .WithMany("FriendUsers")
+                        .HasForeignKey("SourceUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DatingApp.Core.Entities.AppUser", "CurrentUser")
-                        .WithMany("Friends")
-                        .HasForeignKey("FriendId")
+                    b.HasOne("DatingApp.Core.Entities.AppUser", "TargetUser")
+                        .WithMany("AddByUsers")
+                        .HasForeignKey("TargetUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CurrentUser");
+                    b.Navigation("SourceUser");
 
-                    b.Navigation("Friend");
+                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.AppUser", b =>
                 {
+                    b.Navigation("AddByUsers");
+
                     b.Navigation("Comments");
 
-                    b.Navigation("CurrentUsers");
-
-                    b.Navigation("Friends");
-
-                    b.Navigation("Like");
+                    b.Navigation("FriendUsers");
 
                     b.Navigation("Posts");
                 });

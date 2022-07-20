@@ -61,6 +61,30 @@ namespace DatingApp.Infrastructure.Service
                 UserId = updatedLike.UserId,
                 Status = updatedLike.Status,
             };
-        }       
+        }
+
+        public async Task<GetLikeResponse> GetLikeOfCurrentUser(GetLikeRequest request)
+        {
+            var likes = await _likeRepository.GetAll(request.PostId);
+            var like = likes.SingleOrDefault(l => l.UserId == request.UserId);
+
+            if (like == null) return null;
+
+            return new GetLikeResponse {
+                Id = like.Id,
+                PostId = like.PostId,
+                UserId = like.UserId,
+                Status = like.Status,
+            };
+        }
+
+        public async Task DeleteLike(int id)
+        {
+           var likeToDelete =  await _likeRepository.GetById(id);
+           if(likeToDelete != null)
+            {
+                await _likeRepository.Delete(likeToDelete);
+            }    
+        }
     }
 }

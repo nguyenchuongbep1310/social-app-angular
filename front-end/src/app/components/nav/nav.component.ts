@@ -85,8 +85,6 @@ export class NavComponent implements OnInit {
 
   searchUser() {
     if (this.searchQuery && this.searchQuery.length > 0) {
-      console.log(this.searchQuery);
-
       this.accountService
         .getProfileInfo(this.searchQuery)
         .subscribe((Response) => {

@@ -14,6 +14,5 @@ namespace DatingApp.Core.Entities
         public string Status { get; set; }
 
         public PostUser Post { get; set; }
-        public AppUser User { get; set; }
     }
 }

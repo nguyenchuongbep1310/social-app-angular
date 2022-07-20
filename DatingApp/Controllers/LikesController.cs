@@ -14,14 +14,13 @@ namespace DatingApp.Controllers
     public class LikesController : ControllerBase
     {
         private readonly ILikeService _likeService;
-
         public LikesController(ILikeService likeService)
         {
             _likeService = likeService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewLike([FromBody] AddLikeRequest request)
+        public async Task<IActionResult> CreateNewLike([FromForm] AddLikeRequest request)
         {
             try
             {
@@ -39,6 +38,20 @@ namespace DatingApp.Controllers
         {
             var updatedLike = await _likeService.UpdateLike(request);
             return Ok(updatedLike);
-        }       
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteLike(int id)
+        {
+            await _likeService.DeleteLike(id);
+            return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLikeOfCurrentUser([FromQuery] GetLikeRequest request)
+        {
+            var likeOfCurrentUser = await _likeService.GetLikeOfCurrentUser(request);
+            return Ok(likeOfCurrentUser);
+        }
     }
 }

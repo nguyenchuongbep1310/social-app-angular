@@ -25,9 +25,10 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             return like;
         }
 
-        public Task Delete(PostLike like)
+        public async Task Delete(PostLike like)
         {
-            throw new NotImplementedException();
+            _context.Likes.Remove(like);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<PostLike>> GetAll(int postId)
