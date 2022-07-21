@@ -117,9 +117,10 @@ namespace DatingApp
                     new List<string>()
                     }
                 });
-
-
             });
+
+            //config signalR
+            services.AddSignalR();
 
         }
 
@@ -145,6 +146,7 @@ namespace DatingApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<BroadcastHub>("/notify");
             });
 
 

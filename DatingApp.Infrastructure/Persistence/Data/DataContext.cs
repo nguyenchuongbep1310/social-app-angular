@@ -62,6 +62,9 @@ namespace DatingApp.Infrastructure.Data
                 .WithMany(p => p.Likes)
                 .HasForeignKey(s => s.PostId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuider.Entity<Notification>()
+                .HasKey(n => n.Id);
         }
 
         public virtual DbSet<AppUser> Users { get; set; }
@@ -69,5 +72,6 @@ namespace DatingApp.Infrastructure.Data
         public virtual DbSet<PostComment> Comments { get; set; }
         public virtual DbSet<PostLike> Likes { get; set; }
         public virtual DbSet<UserFriend> Friends { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
     }
 }
