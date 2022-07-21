@@ -146,6 +146,10 @@
           [userId]="profile.userId"
           [postId]="post.id"
           [displayDeleteBtn]="true"
+          [currentUserAvatar]="
+            profile.avatar.replace('https://localhost:44371/images/', '')
+          "
+          [currentUserId]="profile.userId"
         ></app-post>
       </div>
     </div>

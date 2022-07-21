@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
-import { NgModel } from '@angular/forms';
+import { NotificationService } from 'src/_services/notification.service';
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'app-nav',
@@ -12,20 +13,43 @@ export class NavComponent implements OnInit {
   constructor(
     private element: ElementRef,
     private _router: Router,
-    public accountService: AccountService
+    public accountService: AccountService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.stickyBar();
-    this.accountService.getProfile(this.profile);
+    this.accountService.getCurrentUserProfile().subscribe({
+      next: (response) => {
+        this.profile = response;
+        this.getNotificationCount();
+      },
+      error: (error) => console.log(error),
+    });
+
+    const connection = new signalR.HubConnectionBuilder()
+      .configureLogging(signalR.LogLevel.Debug)
+      .withUrl('https://localhost:44371/notify', {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets,
+      })
+      .build();
+
+    connection
+      .start()
+      .then(function () {
+        console.log('SignalR Connected!');
+      })
+      .catch(function (err) {
+        return console.error(err.toString());
+      });
+
+    connection.on('BroadcastMessage', () => {
+      this.getNotificationCount();
+    });
   }
 
-  public profile = {
-    avatar: '',
-    firstName: '',
-    lastName: '',
-  };
-
+  public profile;
   searchQuery: string = '';
 
   hidden: string = 'hidden';
@@ -85,8 +109,6 @@ export class NavComponent implements OnInit {
 
   searchUser() {
     if (this.searchQuery && this.searchQuery.length > 0) {
-      console.log(this.searchQuery);
-
       this.accountService
         .getProfileInfo(this.searchQuery)
         .subscribe((Response) => {
@@ -106,5 +128,16 @@ export class NavComponent implements OnInit {
     if (this.notificationItems.nativeElement.className.includes('hidden')) {
       this.notificationItems.nativeElement.classList.remove('hidden');
     } else this.notificationItems.nativeElement.classList.add('hidden');
+  }
+
+  // notification part
+  notification;
+  getNotificationCount() {
+    this.notificationService
+      .getNotificationCount(this.profile?.userId)
+      .subscribe({
+        next: (notification) => (this.notification = notification),
+        error: (error) => console.log(error),
+      });
   }
 }
