@@ -29,10 +29,7 @@ namespace DatingApp.Controllers
         [HttpGet]
         public ActionResult<NotificationCountResult> GetNotificationCount(int userId) //userId is Id of User that receive notification
         {
-            //var count = (from not in _context.Notification
-            //             select not).CountAsync();
-
-            var count = _context.Notification.Where(n => n.Id == userId).Count();
+            var count = _context.Notification.Where(n => n.UserReceive == userId).Count();
 
             NotificationCountResult result = new NotificationCountResult
             {
@@ -45,15 +42,7 @@ namespace DatingApp.Controllers
         [HttpGet]
         public ActionResult<List<NotificationResult>> GetNotificationMessage(int userId) //userId is Id of User that receive notification
         {
-            //var results = from message in _context.Notification
-            //              orderby message.Id descending
-            //              select new NotificationResult
-            //              {
-            //                  EmployeeName = message.EmployeeName,
-            //                  TranType = message.TranType
-            //              };
-
-            var results = _context.Notification.Where(n => n.Id == userId).OrderByDescending(n => n.Id).Select(n => new NotificationResult()
+            var results = _context.Notification.Where(n => n.UserReceive == userId).OrderByDescending(n => n.Id).Select(n => new NotificationResult()
             {
                 Content = n.Content,
                 Type = n.Type,

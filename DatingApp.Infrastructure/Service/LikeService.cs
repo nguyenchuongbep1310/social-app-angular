@@ -37,32 +37,6 @@ namespace DatingApp.Infrastructure.Service
             };
         }
 
-        public async Task<UpdateLikeResponse> UpdateLike(UpdateLikeRequest request)
-        {
-            var updateLike = await _likeRepository.GetById(request.Id);
-            switch (updateLike.Status)
-            {
-                case "Actived":
-                    updateLike.Status = "Deleted";
-                    break;
-                case "Deleted":
-                    updateLike.Status = "Actived";
-                    break;
-                default:
-                    break;
-            }
-
-            var updatedLike = await _likeRepository.Update(updateLike);
-
-            return new UpdateLikeResponse
-            {
-                Id = updatedLike.Id,
-                PostId = updatedLike.PostId,
-                UserId = updatedLike.UserId,
-                Status = updatedLike.Status,
-            };
-        }
-
         public async Task<GetLikeResponse> GetLikeOfCurrentUser(GetLikeRequest request)
         {
             var likes = await _likeRepository.GetAll(request.PostId);

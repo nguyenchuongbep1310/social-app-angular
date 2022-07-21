@@ -34,13 +34,14 @@ namespace DatingApp.Infrastructure.Service
             };
 
             var comment = await _commentRepository.Add(newComment);
+            var userReceive = _context.Posts.Where(p => p.PostId == request.PostId).SingleOrDefault();
 
             Notification notification = new Notification()
             {
                 Content = "comment on your post",
                 Type = "Comment",
                 UserSend = request.UserId,
-                UserReceive = request.UserId,
+                UserReceive = userReceive.UserId,
             };
 
              _context.Notification.Add(notification);
@@ -61,11 +62,6 @@ namespace DatingApp.Infrastructure.Service
         {      
             PostComment commentToDelete = await _commentRepository.GetById(request.Id);
             await _commentRepository.Delete(commentToDelete);
-        }
-
-        public Task UpdateComment(UpdateCommentRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

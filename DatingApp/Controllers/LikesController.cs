@@ -33,13 +33,6 @@ namespace DatingApp.Controllers
             }
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> UpdateLikeStatus([FromBody] UpdateLikeRequest request)
-        {
-            var updatedLike = await _likeService.UpdateLike(request);
-            return Ok(updatedLike);
-        }
-
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteLike(int id)
         {
