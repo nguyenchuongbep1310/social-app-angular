@@ -19,15 +19,7 @@ export class WallComponent implements OnInit {
     this.accountService.getPosts(this.profile, this.posts);
   }
 
-  ngOnInit(): void {
-    // const url = `${environment.baseUrl + 'Users'}`;
-    // this.http.get(url).subscribe(
-    //   (result) => {
-    //   },
-    //   (error) => {}
-    // );
-    console.log(this.posts);
-  }
+  ngOnInit(): void {}
 
   public posts = { posts: null };
 
