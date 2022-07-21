@@ -94,6 +94,7 @@ export class AccountService {
   public getProfile(profile) {
     this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
       (response) => {
+        console.log(response.userId);
         profile.userId = response.userId;
         profile.username = this.userName;
         profile.firstName = response.firstName;
