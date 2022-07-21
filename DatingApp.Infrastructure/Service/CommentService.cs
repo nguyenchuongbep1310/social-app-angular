@@ -3,6 +3,7 @@ using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using DatingApp.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,20 @@ namespace DatingApp.Infrastructure.Service
 {
     public class CommentService : ICommentService
     {
-        private readonly DataContext _context;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
 
-        public CommentService(ICommentRepository commentRepository, IHubContext<BroadcastHub, IHubClient> hubContext, DataContext context)
+        public CommentService(ICommentRepository commentRepository, 
+            IHubContext<BroadcastHub, IHubClient> hubContext,
+            INotificationRepository notificationRepository,
+            IPostRepository postRepository)
         {
             _commentRepository = commentRepository;
             _hubContext = hubContext;
-            _context = context;
+            _notificationRepository = notificationRepository;
+            _postRepository = postRepository;
         }
 
         public async Task<AddCommentResponse> CreateNewComment(AddCommentRequest request)
@@ -34,7 +40,7 @@ namespace DatingApp.Infrastructure.Service
             };
 
             var comment = await _commentRepository.Add(newComment);
-            var userReceive = _context.Posts.Where(p => p.PostId == request.PostId).SingleOrDefault();
+            var userReceive = _postRepository.GetById(request.PostId).Result;
 
             Notification notification = new Notification()
             {
@@ -44,9 +50,7 @@ namespace DatingApp.Infrastructure.Service
                 UserReceive = userReceive.UserId,
             };
 
-             _context.Notification.Add(notification);
-
-            await _context.SaveChangesAsync();
+            await _notificationRepository.Add(notification);
             await _hubContext.Clients.All.BroadcastMessage();
 
             return new AddCommentResponse

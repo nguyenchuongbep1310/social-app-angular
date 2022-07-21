@@ -47,6 +47,7 @@ namespace DatingApp
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ILikeService, LikeService>();
