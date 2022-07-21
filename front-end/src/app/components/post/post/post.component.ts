@@ -164,7 +164,5 @@ export class PostComponent implements OnInit {
           this.likeBtnIcon.nativeElement.classList.add('application-color');
         }
       });
-
-    console.log(this.currentUserAvatar);
   }
 }
