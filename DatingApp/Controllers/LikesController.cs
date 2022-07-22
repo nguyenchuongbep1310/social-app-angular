@@ -1,5 +1,6 @@
 ﻿using DatingApp.Application.DTO.Likes;
 using DatingApp.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,6 +20,7 @@ namespace DatingApp.Controllers
             _likeService = likeService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateNewLike([FromForm] AddLikeRequest request)
         {
@@ -33,6 +35,7 @@ namespace DatingApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteLike(int id)
         {
