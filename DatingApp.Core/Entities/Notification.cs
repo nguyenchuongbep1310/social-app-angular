@@ -16,5 +16,7 @@ namespace DatingApp.Core.Entities
         public int UserReceive { get; set; }
 
         public string Type { get; set; }
+
+        public string Status { get; set; }
     }
 }

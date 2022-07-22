@@ -46,6 +46,7 @@ namespace DatingApp.Infrastructure.Service
             {
                 Content = "comment on your post",
                 Type = "Comment",
+                Status = "Actived",
                 UserSend = request.UserId,
                 UserReceive = userReceive.UserId,
             };

@@ -64,5 +64,16 @@ namespace DatingApp.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch]
+        [Route("updatenotification")]
+        public async Task<IActionResult> UpdateNotificationStatus(int notificationUpdatedId)
+        {
+            var notificationUpdated = await _notificationRepository.GetById(notificationUpdatedId);
+            notificationUpdated.Status = "Seen";
+            await _notificationRepository.Update(notificationUpdated);
+
+            return Ok(notificationUpdated);
+        }
     }
 }

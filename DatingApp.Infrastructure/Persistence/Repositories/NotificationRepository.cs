@@ -38,14 +38,16 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             return await _context.Notification.Where(n => n.UserReceive == userId).ToListAsync();
         }
 
-        public Task<Notification> GetById(int notificationId)
+        public async Task<Notification> GetById(int notificationId)
         {
-            throw new NotImplementedException();
+            return await _context.Notification.FindAsync(notificationId);
         }
 
-        public Task<Notification> Update(Notification notification)
+        public async Task<Notification> Update(Notification notification)
         {
-            throw new NotImplementedException();
+            _context.Entry(notification).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return await _context.Notification.FindAsync(notification.Id);
         }
     }
 }

@@ -46,6 +46,7 @@ namespace DatingApp.Infrastructure.Service
             Notification notification = new Notification()
             {
                 Content = "like on your post",
+                Status = "Actived",
                 Type = "Like",
                 UserSend = request.UserId,
                 UserReceive = userReceive.UserId,
