@@ -55,25 +55,22 @@
       <i class="fa-regular fa-comment-dots fa-2x"></i>
     </button>
   </div>
-  <div class="comments" *ngIf="areCommentsDisplayed">
+  <div
+    class="comments"
+    *ngIf="areCommentsDisplayed && this.arrayOfComments.length !== 0"
+  >
     <comment
       *ngFor="let comment of arrayOfComments"
       [commentId]="comment.id"
       [text]="comment.text"
       [commentUserId]="comment.userId"
       [postId]="comment.postId"
+      [arrayOfComments]="arrayOfComments"
     ></comment>
   </div>
   <div class="comment-box">
     <div class="img-box">
-      <img
-        [src]="
-          currentUserAvatar
-            ? 'https://localhost:44371/images/' + currentUserAvatar
-            : 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0='
-        "
-        class="medium-avt"
-      />
+      <img [src]="avatar" class="medium-avt" />
     </div>
     <div class="write-comment">
       <textarea

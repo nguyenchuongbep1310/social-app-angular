@@ -276,3 +276,23 @@ h4 {
   top: 0;
   left: 0;
 }
+
+.unfriend-btn {
+  position: absolute;
+  bottom: 10%;
+  border-radius: 5px;
+  padding: 6px 12px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #e9ebee;
+  color: #111;
+  transition: all 0.2s;
+}
+
+.unfriend-btn:hover {
+  background-color: #d7d7d7;
+}
