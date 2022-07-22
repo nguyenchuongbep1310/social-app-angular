@@ -29,26 +29,31 @@ namespace DatingApp.Controllers
         [HttpPost("{username}")]
         public async Task<ActionResult> AddFriend(string username)
         {
+            var foundedUser = await _userRepository.GetByUsername(username);
+            if (foundedUser == null) return NotFound();
+            var friendUser = await _friendRepository.GetUserWithLikes(foundedUser.Id);
+
             var sourceUserId = User.GetUserId();
-            var targetUser = await _userRepository.GetByUsername(username);
-            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
+            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId); 
 
-            if (targetUser == null) return NotFound();
-
-            var userFriend = await _friendRepository.GetUserLike(sourceUserId, targetUser.Id);
-
-            userFriend = new UserFriend
+            var userFriend1 = new UserFriend
             {
                 SourceUserId = sourceUserId,
-                TargetUserId = targetUser.Id
+                TargetUserId = foundedUser.Id,
             };
 
-            sourceUser.FriendUsers.Add(userFriend);
+            var userFriend2 = new UserFriend
+            {
+                SourceUserId = foundedUser.Id,
+                TargetUserId = sourceUserId,
+            };
+
+            sourceUser.FriendUsers.Add(userFriend1);
+            friendUser.FriendUsers.Add(userFriend2);
 
             if (await _friendRepository.Complete()) return Ok();
 
             return Ok();
-
         }
 
         [Authorize]

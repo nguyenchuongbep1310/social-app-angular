@@ -1,12 +1,10 @@
 ﻿using DatingApp.Application.DTO.Notifications;
 using DatingApp.Core.Entities;
+using DatingApp.Core.Extension;
 using DatingApp.Core.Interfaces;
-using DatingApp.Infrastructure.Data;
-using DatingApp.Infrastructure.Persistence.Repositories;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,24 +54,32 @@ namespace DatingApp.Controllers
         }
 
         // DELETE: api/Notifications/deletenotifications
+        [Authorize]
         [HttpDelete]
         [Route("deletenotifications")]
         public async Task<IActionResult> DeleteNotifications(int userId)
         {
+            int currentLoginUser = User.GetUserId();
+            if (currentLoginUser != userId) return BadRequest("You do not have permisson to do this action.");
+
             await _notificationRepository.Delete(userId);
 
             return NoContent();
         }
 
+        [Authorize]
         [HttpPatch]
         [Route("updatenotification")]
         public async Task<IActionResult> UpdateNotificationStatus(int notificationUpdatedId)
         {
             var notificationUpdated = await _notificationRepository.GetById(notificationUpdatedId);
+            int currentLoginUser = User.GetUserId();
+            if (currentLoginUser != notificationUpdated.UserReceive) return BadRequest("You do not have permisson to do this action.");
+
             notificationUpdated.Status = "Seen";
             await _notificationRepository.Update(notificationUpdated);
 
-            return Ok(notificationUpdated);
+            return Ok(notificationUpdated);   
         }
     }
 }

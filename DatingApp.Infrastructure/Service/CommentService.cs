@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DatingApp.Core.Extension;
 
 namespace DatingApp.Infrastructure.Service
 {
@@ -64,8 +65,9 @@ namespace DatingApp.Infrastructure.Service
         }
 
         public async Task DeleteComment(DeleteCommentRequest request)
-        {      
-            PostComment commentToDelete = await _commentRepository.GetById(request.Id);
+        {
+            PostComment commentToDelete = await _commentRepository.GetById(request.Id);          
+
             await _commentRepository.Delete(commentToDelete);
         }
     }
