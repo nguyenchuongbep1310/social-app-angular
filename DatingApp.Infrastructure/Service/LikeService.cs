@@ -1,6 +1,9 @@
 ﻿using DatingApp.Application.DTO.Likes;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
+using DatingApp.Core.Interfaces;
+using DatingApp.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +15,20 @@ namespace DatingApp.Infrastructure.Service
     public class LikeService : ILikeService
     {
         private readonly ILikeRepository _likeRepository;
+        private readonly IPostRepository _postRepository;
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        private readonly INotificationRepository _notificationRepository;
 
-        public LikeService(ILikeRepository likeRepository, IPostRepository _postRepository)
+        public LikeService(
+            IHubContext<BroadcastHub, IHubClient> hubContext,
+            INotificationRepository notificationRepository,
+            ILikeRepository likeRepository, 
+            IPostRepository postRepository)
         {
             _likeRepository = likeRepository;
+            _postRepository = postRepository;
+            _hubContext = hubContext;
+            _notificationRepository = notificationRepository;
         }
 
         public async Task<AddLikeResponse> CreateNewLike(AddLikeRequest request)
@@ -28,38 +41,25 @@ namespace DatingApp.Infrastructure.Service
             newLike.Status = "Actived";
 
             await _likeRepository.Add(newLike);
+            var userReceive = _postRepository.GetById(request.PostId).Result;
+
+            Notification notification = new Notification()
+            {
+                Content = "like on your post",
+                Status = "Actived",
+                Type = "Like",
+                UserSend = request.UserId,
+                UserReceive = userReceive.UserId,
+            };
+
+            await _notificationRepository.Add(notification);
+            await _hubContext.Clients.All.BroadcastMessage();
 
             return new AddLikeResponse
             {
                 Id = newLike.Id,
                 PostId = newLike.PostId,
                 UserId = newLike.UserId,
-            };
-        }
-
-        public async Task<UpdateLikeResponse> UpdateLike(UpdateLikeRequest request)
-        {
-            var updateLike = await _likeRepository.GetById(request.Id);
-            switch (updateLike.Status)
-            {
-                case "Actived":
-                    updateLike.Status = "Deleted";
-                    break;
-                case "Deleted":
-                    updateLike.Status = "Actived";
-                    break;
-                default:
-                    break;
-            }
-
-            var updatedLike = await _likeRepository.Update(updateLike);
-
-            return new UpdateLikeResponse
-            {
-                Id = updatedLike.Id,
-                PostId = updatedLike.PostId,
-                UserId = updatedLike.UserId,
-                Status = updatedLike.Status,
             };
         }
 

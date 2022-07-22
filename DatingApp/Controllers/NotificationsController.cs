@@ -2,6 +2,7 @@
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
+using DatingApp.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -16,23 +17,21 @@ namespace DatingApp.Controllers
     [ApiController]
     public class NotificationsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly INotificationRepository _notificationRepository;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
 
-        public NotificationsController(DataContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
+        public NotificationsController(INotificationRepository notificationRepository, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
-            _context = context;
+            _notificationRepository = notificationRepository;
             _hubContext = hubContext;
         }
 
         [Route("notificationcount")]
         [HttpGet]
-        public ActionResult<NotificationCountResult> GetNotificationCount(int userId) //userId is Id of User that receive notification
+        public async Task<ActionResult<NotificationCountResult>> GetNotificationCount(int userId) //userId is Id of User that receive notification
         {
-            //var count = (from not in _context.Notification
-            //             select not).CountAsync();
-
-            var count = _context.Notification.Where(n => n.Id == userId).Count();
+            var notifications = await _notificationRepository.GetAll(userId);
+            var count = notifications.Count();
 
             NotificationCountResult result = new NotificationCountResult
             {
@@ -45,15 +44,7 @@ namespace DatingApp.Controllers
         [HttpGet]
         public ActionResult<List<NotificationResult>> GetNotificationMessage(int userId) //userId is Id of User that receive notification
         {
-            //var results = from message in _context.Notification
-            //              orderby message.Id descending
-            //              select new NotificationResult
-            //              {
-            //                  EmployeeName = message.EmployeeName,
-            //                  TranType = message.TranType
-            //              };
-
-            var results = _context.Notification.Where(n => n.Id == userId).OrderByDescending(n => n.Id).Select(n => new NotificationResult()
+            var results = _notificationRepository.GetAll(userId).Result.OrderByDescending(n => n.Id).Select(n => new NotificationResult()
             {
                 Content = n.Content,
                 Type = n.Type,
@@ -69,11 +60,20 @@ namespace DatingApp.Controllers
         [Route("deletenotifications")]
         public async Task<IActionResult> DeleteNotifications(int userId)
         {
-            var results = _context.Notification.Where(n => n.UserReceive == userId).ToList();
-            _context.Notification.RemoveRange(results);
-            await _context.SaveChangesAsync();
+            await _notificationRepository.Delete(userId);
 
             return NoContent();
+        }
+
+        [HttpPatch]
+        [Route("updatenotification")]
+        public async Task<IActionResult> UpdateNotificationStatus(int notificationUpdatedId)
+        {
+            var notificationUpdated = await _notificationRepository.GetById(notificationUpdatedId);
+            notificationUpdated.Status = "Seen";
+            await _notificationRepository.Update(notificationUpdated);
+
+            return Ok(notificationUpdated);
         }
     }
 }
