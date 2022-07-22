@@ -26,6 +26,7 @@ namespace DatingApp.Controllers
             _accountService = accountService;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Resgister([FromForm] RegisterDto registerDto)
         {          
@@ -85,7 +86,8 @@ namespace DatingApp.Controllers
                 return BadRequest("Error");
             }
         }
-       
+        
+        
         [HttpGet("search-user-profile")]
         public async Task<IActionResult> SearchUserProfile([FromQuery] string username)
         {

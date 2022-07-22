@@ -31,11 +31,11 @@ namespace DatingApp.Controllers
         {
             var sourceUserId = User.GetUserId();
             var targetUser = await _userRepository.GetByUsername(username);
-            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
+            var sourceUser = await _friendRepository.GetUserWithFriends(sourceUserId);
 
             if (targetUser == null) return NotFound();
 
-            var userFriend = await _friendRepository.GetUserLike(sourceUserId, targetUser.Id);
+            var userFriend = await _friendRepository.GetUserFriend(sourceUserId, targetUser.Id);
 
             userFriend = new UserFriend
             {
@@ -57,11 +57,11 @@ namespace DatingApp.Controllers
         {
             var sourceUserId = User.GetUserId();
             var likedUser = await _userRepository.GetByUsername(username);
-            var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
+            var sourceUser = await _friendRepository.GetUserWithFriends(sourceUserId);
 
             if (likedUser == null) return NotFound();
 
-            var userLike = await _friendRepository.GetUserLike(sourceUserId, likedUser.Id);
+            var userLike = await _friendRepository.GetUserFriend(sourceUserId, likedUser.Id);
 
             sourceUser.FriendUsers.Remove(userLike);
 
@@ -84,7 +84,7 @@ namespace DatingApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUserLike([FromQuery] int sourceUserId, int likedUserId)
         {
-            var friend = await _friendRepository.GetUserLike(sourceUserId, likedUserId);
+            var friend = await _friendRepository.GetUserFriend(sourceUserId, likedUserId);
 
             return Ok(friend);
         }

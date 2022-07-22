@@ -10,8 +10,8 @@ namespace DatingApp.Core.Interfaces
 {
     public interface IFriendRepository
     {
-        Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId);
-        Task<AppUser> GetUserWithLikes(int userId);
+        Task<UserFriend> GetUserFriend(int sourceUserId, int likedUserId);
+        Task<AppUser> GetUserWithFriends(int userId);
         Task<bool> Complete();
 
     }

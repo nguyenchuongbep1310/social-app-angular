@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220718041332_Initial")]
-    partial class Initial
+    [Migration("20220722034753_InitDbs")]
+    partial class InitDbs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,30 @@ namespace DatingApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("DatingApp.Core.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserReceive")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserSend")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notification");
                 });
 
             modelBuilder.Entity("DatingApp.Core.Entities.PostComment", b =>

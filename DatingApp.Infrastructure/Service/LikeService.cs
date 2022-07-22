@@ -82,9 +82,9 @@ namespace DatingApp.Infrastructure.Service
         {
            var likeToDelete =  await _likeRepository.GetById(id);
            if(likeToDelete != null)
-            {
+           {
                 await _likeRepository.Delete(likeToDelete);
-            }    
+           }    
         }
     }
 }

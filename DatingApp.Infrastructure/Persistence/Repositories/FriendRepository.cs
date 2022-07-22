@@ -19,12 +19,12 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<UserFriend> GetUserLike(int sourceUserId, int likedUserId)
+        public async Task<UserFriend> GetUserFriend(int sourceUserId, int likedUserId)
         {
             return await _context.Friends.FindAsync(sourceUserId, likedUserId);
         }
 
-        public async Task<AppUser> GetUserWithLikes(int userId)
+        public async Task<AppUser> GetUserWithFriends(int userId)
         {
             return await _context.Users.Include(x => x.FriendUsers).FirstOrDefaultAsync(x => x.Id == userId);
         }
