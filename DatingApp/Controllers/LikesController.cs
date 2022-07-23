@@ -24,15 +24,8 @@ namespace DatingApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNewLike([FromForm] AddLikeRequest request)
         {
-            try
-            {
-                var newLike = await _likeService.CreateNewLike(request);
-                return Ok(newLike);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            var newLike = await _likeService.CreateNewLike(request);
+            return Ok(newLike);
         }
 
         [Authorize]

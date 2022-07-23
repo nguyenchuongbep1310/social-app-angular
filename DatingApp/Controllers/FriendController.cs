@@ -41,7 +41,6 @@ namespace DatingApp.Controllers
                 SourceUserId = sourceUserId,
                 TargetUserId = foundedUser.Id,
             };
-
             var userFriend2 = new UserFriend
             {
                 SourceUserId = foundedUser.Id,
@@ -51,40 +50,34 @@ namespace DatingApp.Controllers
             sourceUser.FriendUsers.Add(userFriend1);
             friendUser.FriendUsers.Add(userFriend2);
 
-            if (await _friendRepository.Complete()) return Ok();
-
-            return Ok();
+            if (await _friendRepository.Complete())
+                return Ok();
+            else
+                return BadRequest();
         }
 
         [Authorize]
         [HttpDelete("{username}")]
         public async Task<ActionResult> RemoveFriend(string username)
         {
+            var foundedUser = await _userRepository.GetByUsername(username);
+            if (foundedUser == null) return NotFound();
+            var friendUser = await _friendRepository.GetUserWithLikes(foundedUser.Id);
+
             var sourceUserId = User.GetUserId();
-            var likedUser = await _userRepository.GetByUsername(username);
             var sourceUser = await _friendRepository.GetUserWithLikes(sourceUserId);
 
-            if (likedUser == null) return NotFound();
+            var relationship1 = await _friendRepository.GetUserLike(sourceUserId, friendUser.Id);
+            sourceUser.FriendUsers.Remove(relationship1);
 
-            var userLike = await _friendRepository.GetUserLike(sourceUserId, likedUser.Id);
+            var relationship2 = await _friendRepository.GetUserLike(friendUser.Id, sourceUserId);
+            friendUser.FriendUsers.Remove(relationship2);
 
-            sourceUser.FriendUsers.Remove(userLike);
-
-            if (await _friendRepository.Complete()) return Ok();
-
-            return Ok();
-
+            if (await _friendRepository.Complete())
+                return Ok();
+            else
+                return BadRequest();
         }
-
-
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<AppUser>>> GetUserLikes([FromQuery] FriendParam friendParam, int id)
-        //{
-        //    friendParam.UserId = User.GetUserId();
-        //    var users = await _friendRepository.GetUserLikes(friendParam);
-
-        //    return Ok(users);
-        //}
 
         [HttpGet]
         public async Task<ActionResult> GetUserLike([FromQuery] int sourceUserId, int likedUserId)
