@@ -48,6 +48,7 @@ namespace DatingApp.Controllers
                 Type = n.Type,
                 UserSend = n.UserSend,
                 UserReceive = n.UserReceive,
+                Status = n.Status,
             }).ToList();
 
             return results;
@@ -59,8 +60,8 @@ namespace DatingApp.Controllers
         [Route("deletenotifications")]
         public async Task<IActionResult> DeleteNotifications(int userId)
         {
-            int currentLoginUser = User.GetUserId();
-            if (currentLoginUser != userId) return BadRequest("You do not have permisson to do this action.");
+            int currentLoginUserId = User.GetUserId();
+            if (currentLoginUserId != userId) return BadRequest("You do not have permisson to do this action.");
 
             await _notificationRepository.Delete(userId);
 
@@ -73,8 +74,8 @@ namespace DatingApp.Controllers
         public async Task<IActionResult> UpdateNotificationStatus(int notificationUpdatedId)
         {
             var notificationUpdated = await _notificationRepository.GetById(notificationUpdatedId);
-            int currentLoginUser = User.GetUserId();
-            if (currentLoginUser != notificationUpdated.UserReceive) return BadRequest("You do not have permisson to do this action.");
+            int currentLoginUserId = User.GetUserId();
+            if (currentLoginUserId != notificationUpdated.UserReceive) return BadRequest("You do not have permisson to do this action.");
 
             notificationUpdated.Status = "Seen";
             await _notificationRepository.Update(notificationUpdated);

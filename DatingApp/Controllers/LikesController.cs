@@ -1,5 +1,6 @@
 ﻿using DatingApp.Application.DTO.Likes;
 using DatingApp.Application.Interfaces;
+using DatingApp.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,8 +33,16 @@ namespace DatingApp.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteLike(int id)
         {
-            await _likeService.DeleteLike(id);
-            return NoContent();
+            int currentLoginUserId = User.GetUserId();
+            try
+            {
+                await _likeService.DeleteLike(id, currentLoginUserId);
+                return NoContent();
+            }
+            catch(Exception)
+            {
+                return BadRequest("You do not have permisson to do this action.");
+            }
         }
 
         [HttpGet]

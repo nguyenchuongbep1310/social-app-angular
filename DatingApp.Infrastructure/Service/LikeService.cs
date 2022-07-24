@@ -43,17 +43,20 @@ namespace DatingApp.Infrastructure.Service
             await _likeRepository.Add(newLike);
             var userReceive = _postRepository.GetById(request.PostId).Result;
 
-            Notification notification = new Notification()
+            if(userReceive.UserId != request.UserId)
             {
-                Content = "like on your post",
-                Status = "Actived",
-                Type = "Like",
-                UserSend = request.UserId,
-                UserReceive = userReceive.UserId,
-            };
+                Notification notification = new Notification()
+                {
+                    Content = "like on your post",
+                    Status = "Actived",
+                    Type = "Like",
+                    UserSend = request.UserId,
+                    UserReceive = userReceive.UserId,
+                };
 
-            await _notificationRepository.Add(notification);
-            await _hubContext.Clients.All.BroadcastMessage();
+                await _notificationRepository.Add(notification);
+                await _hubContext.Clients.All.BroadcastMessage();
+            }       
 
             return new AddLikeResponse
             {
@@ -78,13 +81,14 @@ namespace DatingApp.Infrastructure.Service
             };
         }
 
-        public async Task DeleteLike(int id)
+        public async Task DeleteLike(int id, int userCreatedId)
         {
-           var likeToDelete =  await _likeRepository.GetById(id);
-           if(likeToDelete != null)
+            var likeToDelete = await _likeRepository.GetById(id);
+            if (likeToDelete != null)
             {
+                if (likeToDelete.UserId != userCreatedId) throw new Exception();
                 await _likeRepository.Delete(likeToDelete);
-            }    
+            }
         }
     }
 }

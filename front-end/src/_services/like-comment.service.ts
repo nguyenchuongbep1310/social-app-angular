@@ -32,13 +32,17 @@ export class LikeCommentService {
     formData.append('postId', postId);
 
     return this.http.post<any>(url, formData, {
-      headers: new HttpHeaders({}),
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),})
     });
   }
 
   public deleteLike(likeId) {
     const url = this.baseUrl + 'Likes/' + likeId;
-    return this.http.delete<any>(url);
+    return this.http.delete<any>(url, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),})
+    });
   }
 
   public patchLike(likeId, postId, userId) {
@@ -67,7 +71,7 @@ export class LikeCommentService {
   public postComment(text, userId, postId) {
     const url = this.baseUrl + 'Comments';
 
-    return this.http.post<any>(url, { text, userId, postId });
+    return this.http.post<any>(url, { text, userId, postId }, {headers});
   }
 
   public deleteComment(id: number, userId: number) {

@@ -43,18 +43,21 @@ namespace DatingApp.Infrastructure.Service
             var comment = await _commentRepository.Add(newComment);
             var userReceive = _postRepository.GetById(request.PostId).Result;
 
-            Notification notification = new Notification()
+            if(userReceive.UserId != request.UserId)
             {
-                Content = "comment on your post",
-                Type = "Comment",
-                Status = "Actived",
-                UserSend = request.UserId,
-                UserReceive = userReceive.UserId,
-            };
+                Notification notification = new Notification()
+                {
+                    Content = "comment on your post",
+                    Type = "Comment",
+                    Status = "Actived",
+                    UserSend = request.UserId,
+                    UserReceive = userReceive.UserId,
+                };
 
-            await _notificationRepository.Add(notification);
-            await _hubContext.Clients.All.BroadcastMessage();
-
+                await _notificationRepository.Add(notification);
+                await _hubContext.Clients.All.BroadcastMessage();
+            }
+            
             return new AddCommentResponse
             {
                 Id = comment.Id,
