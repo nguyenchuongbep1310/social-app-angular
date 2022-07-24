@@ -18,5 +18,6 @@ namespace DatingApp.Application.Interfaces
         Task<PostUser> GetById(int postId);
 
         Task<List<PostUser>> GetAll(int userId);
+        List<PostUser> GetAllAndFriend(int userId);
     }
 }

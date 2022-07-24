@@ -56,6 +56,14 @@ export class PostService {
     });
   }
 
+  //////////////////////////////////////////
+  public getPostsAndFriendPosts(userId, posts, profile) {
+    const url = `${this.baseUrl + 'Post/FriendPosts?userId=' + userId}`;
+    return this.http.get<any>(url, this.httpOptions2).subscribe((response) => {
+      posts.posts = response.reverse();
+    });
+  }
+
   public createPost(userId, text, image): any {
     if (!window.localStorage.getItem('token')) {
       window.location.reload();

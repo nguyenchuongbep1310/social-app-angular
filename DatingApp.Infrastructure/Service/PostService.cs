@@ -81,6 +81,20 @@ namespace DatingApp.Infrastructure.Service
             }).ToList();
         }
 
+        public List<GetUserPostResponse> GetAllPostOfUserAndFriend(GetUserPostRequest request)
+        {
+            var postUsers = _postRepository.GetAllAndFriend(request.UserId);
+
+            return postUsers.Select(post => new GetUserPostResponse()
+            {
+                Id = post.PostId,
+                UserId = post.UserId,
+                Text = post.Text,
+                Image = post.Image,
+                CreatedDate = post.CreatedDate,
+            }).ToList();
+        }
+
         public async Task<GetPostResponse> GetPostById(GetPostRequest request)
         {
             PostUser postUser = await _postRepository.GetById(request.Id);
