@@ -71,10 +71,14 @@ export class PostComponent implements OnInit {
 
   deletePost() {
     this.postService.deletePost(this.post.userId, this.post.id).subscribe(
-      (response) => {
+      (response) => {      
         window.location.reload();
       },
-      (error) => console.log(error)
+      // (error) => {console.log(error)}
+      (error) => {
+        alert("Delete Failed.");
+        this.deleteBtn.nativeElement.classList.add('hidden');
+      }
     );
   }
 
