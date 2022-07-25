@@ -15,5 +15,6 @@ namespace DatingApp.Application.Interfaces
         Task<List<GetUserPostResponse>> GetAllPostOfUser(GetUserPostRequest request);
         Task<GetLikeNumberResponse> CountLikeOfPost(int id);
         Task<List<GetCommentResponse>> GetAllCommentOfAPost(int postId);
+        List<GetUserPostResponse> GetAllPostOfUserAndFriend(GetUserPostRequest request);
     }
 }

@@ -1,11 +1,10 @@
 ﻿using DatingApp.Application.DTO.Notifications;
 using DatingApp.Core.Entities;
+using DatingApp.Core.Extension;
 using DatingApp.Core.Interfaces;
-using DatingApp.Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,23 +15,21 @@ namespace DatingApp.Controllers
     [ApiController]
     public class NotificationsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly INotificationRepository _notificationRepository;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
 
-        public NotificationsController(DataContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
+        public NotificationsController(INotificationRepository notificationRepository, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
-            _context = context;
+            _notificationRepository = notificationRepository;
             _hubContext = hubContext;
         }
 
         [Route("notificationcount")]
         [HttpGet]
-        public ActionResult<NotificationCountResult> GetNotificationCount(int userId) //userId is Id of User that receive notification
+        public async Task<ActionResult<NotificationCountResult>> GetNotificationCount(int userId) //userId is Id of User that receive notification
         {
-            //var count = (from not in _context.Notification
-            //             select not).CountAsync();
-
-            var count = _context.Notification.Where(n => n.Id == userId).Count();
+            var notifications = await _notificationRepository.GetAll(userId);
+            var count = notifications.Count();
 
             NotificationCountResult result = new NotificationCountResult
             {
@@ -45,35 +42,45 @@ namespace DatingApp.Controllers
         [HttpGet]
         public ActionResult<List<NotificationResult>> GetNotificationMessage(int userId) //userId is Id of User that receive notification
         {
-            //var results = from message in _context.Notification
-            //              orderby message.Id descending
-            //              select new NotificationResult
-            //              {
-            //                  EmployeeName = message.EmployeeName,
-            //                  TranType = message.TranType
-            //              };
-
-            var results = _context.Notification.Where(n => n.Id == userId).OrderByDescending(n => n.Id).Select(n => new NotificationResult()
+            var results = _notificationRepository.GetAll(userId).Result.OrderByDescending(n => n.Id).Select(n => new NotificationResult()
             {
                 Content = n.Content,
                 Type = n.Type,
                 UserSend = n.UserSend,
                 UserReceive = n.UserReceive,
+                Status = n.Status,
             }).ToList();
 
             return results;
         }
 
         // DELETE: api/Notifications/deletenotifications
+        [Authorize]
         [HttpDelete]
         [Route("deletenotifications")]
         public async Task<IActionResult> DeleteNotifications(int userId)
         {
-            var results = _context.Notification.Where(n => n.UserReceive == userId).ToList();
-            _context.Notification.RemoveRange(results);
-            await _context.SaveChangesAsync();
+            int currentLoginUserId = User.GetUserId();
+            if (currentLoginUserId != userId) return BadRequest("You do not have permisson to do this action.");
+
+            await _notificationRepository.Delete(userId);
 
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpPatch]
+        [Route("updatenotification")]
+        public async Task<IActionResult> UpdateNotificationStatus(int notificationUpdatedId)
+        {
+            var notificationUpdated = await _notificationRepository.GetById(notificationUpdatedId);
+            int currentLoginUserId = User.GetUserId();
+            if (currentLoginUserId != notificationUpdated.UserReceive) return BadRequest("You do not have permisson to do this action.");
+
+            notificationUpdated.Status = "Seen";
+            await _notificationRepository.Update(notificationUpdated);
+
+            return Ok(notificationUpdated);   
         }
     }
 }

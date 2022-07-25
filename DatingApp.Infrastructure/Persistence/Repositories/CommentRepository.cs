@@ -17,6 +17,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
         {
             _context = context;
         }
+
         public async Task<PostComment> Add(PostComment comment)
         {
             _context.Comments.Add(comment);

@@ -17,37 +17,22 @@ export class EditprofileComponent implements OnInit {
     public accountService: AccountService,
     private _router: Router,
     public dialog: MatDialog
-  ) {
-    this.accountService.getProfile(this.value);
+  ) {}
+
+  ngOnInit(): void {
+    this.accountService.getCurrentUserProfile().subscribe({
+      next: (response) => {
+        this.currentUserProfile = response;
+      },
+      error: (error) => console.log(error),
+    });
   }
 
-  ngOnInit(): void {}
-
-  public value: {
-    firstName: string;
-    lastName: string;
-    username: string;
-    dateOfBirth: any;
-    gender: string;
-    avatar: any;
-    coverPhoto: any;
-    email: string;
-    phone: string;
-  } = {
-    firstName: null,
-    lastName: null,
-    username: null,
-    dateOfBirth: null,
-    gender: null,
-    avatar: '',
-    coverPhoto: '',
-    email: null,
-    phone: '',
-  };
+  public currentUserProfile;
 
   public formatDate() {
-    if (this.value.dateOfBirth) {
-      var d = this.value.dateOfBirth.split('/');
+    if (this.currentUserProfile.dateOfBirth) {
+      var d = this.currentUserProfile.dateOfBirth.split('/');
       const dateFormat = d.reverse().join('-');
 
       return dateFormat;
@@ -57,12 +42,12 @@ export class EditprofileComponent implements OnInit {
 
   public hitCancel: boolean = false;
 
-  public getInput(event: Event, value: any, str: string) {
-    value[str] = (event.target as HTMLInputElement).value;
+  public getInput(event: Event, currentUserProfile: any, str: string) {
+    currentUserProfile[str] = (event.target as HTMLInputElement).value;
   }
 
-  public blur(value: any, str: string) {
-    if (value[str] === null) value[str] = '';
+  public blur(currentUserProfile: any, str: string) {
+    if (currentUserProfile[str] === null) currentUserProfile[str] = '';
   }
 
   public navigateToLogin() {
@@ -74,7 +59,7 @@ export class EditprofileComponent implements OnInit {
   }
 
   onFileChanged(event: any, s: string) {
-    this.value[s] = event.target.files[0];
+    this.currentUserProfile[s] = event.target.files[0];
   }
 
   onSave() {
@@ -82,14 +67,16 @@ export class EditprofileComponent implements OnInit {
   }
 
   public onEditProfile(): void {
-    if (this.value.dateOfBirth.includes('-')) {
-      let myDate = new Date(this.value.dateOfBirth);
+    if (this.currentUserProfile.dateOfBirth.includes('-')) {
+      let myDate = new Date(this.currentUserProfile.dateOfBirth);
       let date = myDate.toLocaleDateString('en-AU');
 
-      this.value.dateOfBirth = date;
+      this.currentUserProfile.dateOfBirth = date;
     }
-    this.accountService.editProfile(this.value).subscribe((response) => {
-      location.reload();
-    });
+    this.accountService
+      .editProfile(this.currentUserProfile)
+      .subscribe((response) => {
+        location.reload();
+      });
   }
 }

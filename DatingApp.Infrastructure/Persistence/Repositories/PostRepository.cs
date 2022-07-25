@@ -52,7 +52,22 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
 
         public async Task<List<PostUser>> GetAll(int userId)
         {
-            return await _context.Posts.Where(p => p.UserId == userId).ToListAsync();
+            //var listFriendId = (from friend in _context.Friends where friend.SourceUserId == userId select friend.TargetUserId).ToListAsync();
+            //var listPost = (from post in _context.Posts
+            //                where post.UserId == userId || listFriendId.Result.Contains(post.UserId)
+            //                select post).ToList();
+            //return listPost;
+
+            return await _context.Posts.Where(p => p.UserId == userId).OrderBy(p => p.CreatedDate).ToListAsync();
+        }
+
+        public List<PostUser> GetAllAndFriend(int userId)
+        {
+            var listFriendId = (from friend in _context.Friends where friend.SourceUserId == userId select friend.TargetUserId).ToListAsync();
+            var listPost = (from post in _context.Posts
+                            where post.UserId == userId || listFriendId.Result.Contains(post.UserId)
+                            select post).ToList();
+            return listPost;
         }
 
         private bool disposed = false;

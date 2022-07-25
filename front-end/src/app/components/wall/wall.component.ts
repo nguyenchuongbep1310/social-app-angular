@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/_services/account.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditprofileComponent } from '../editprofile/editprofile.component';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { PostService } from 'src/_services/post.service';
 
 @Component({
   selector: 'wall',
@@ -14,38 +13,26 @@ export class WallComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private dialog: MatDialog,
-    private http: HttpClient
-  ) {
-    this.accountService.getPosts(this.profile, this.posts);
+    private postService: PostService
+  ) {}
+
+  ngOnInit(): void {
+    this.accountService.getCurrentUserProfile().subscribe({
+      next: (response) => {
+        this.currentUserProfile = response;
+        this.postService.getPosts(response.userId).subscribe({
+          next: (response) => {
+            this.posts = response;
+          },
+          error: (error) => console.log(error),
+        });
+      },
+    });
   }
 
-  ngOnInit(): void {}
+  public posts;
 
-  public posts = { posts: null };
-
-  public profile: {
-    userId: number;
-    firstName: any;
-    lastName: any;
-    username: any;
-    dateOfBirth: any;
-    gender: any;
-    avatar: any;
-    email: any;
-    phone: any;
-    coverPhoto: any;
-  } = {
-    userId: null,
-    firstName: null,
-    lastName: null,
-    username: null,
-    dateOfBirth: null,
-    gender: null,
-    avatar: '',
-    email: null,
-    phone: null,
-    coverPhoto: '',
-  };
+  public currentUserProfile;
 
   displayDate(date) {
     const months = [

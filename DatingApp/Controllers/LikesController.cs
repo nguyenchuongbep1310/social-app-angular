@@ -1,5 +1,7 @@
 ﻿using DatingApp.Application.DTO.Likes;
 using DatingApp.Application.Interfaces;
+using DatingApp.Core.Extension;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,32 +21,28 @@ namespace DatingApp.Controllers
             _likeService = likeService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateNewLike([FromForm] AddLikeRequest request)
         {
-            try
-            {
-                var newLike = await _likeService.CreateNewLike(request);
-                return Ok(newLike);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            var newLike = await _likeService.CreateNewLike(request);
+            return Ok(newLike);
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> UpdateLikeStatus([FromBody] UpdateLikeRequest request)
-        {
-            var updatedLike = await _likeService.UpdateLike(request);
-            return Ok(updatedLike);
-        }
-
+        [Authorize]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteLike(int id)
         {
-            await _likeService.DeleteLike(id);
-            return NoContent();
+            int currentLoginUserId = User.GetUserId();
+            try
+            {
+                await _likeService.DeleteLike(id, currentLoginUserId);
+                return NoContent();
+            }
+            catch(Exception)
+            {
+                return BadRequest("You do not have permisson to do this action.");
+            }
         }
 
         [HttpGet]

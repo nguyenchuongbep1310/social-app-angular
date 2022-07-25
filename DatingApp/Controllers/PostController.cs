@@ -28,6 +28,14 @@ namespace DatingApp.Controllers
             return Ok(postsUser);
         }
 
+        [HttpGet]
+        [Route("FriendPosts")]
+        public async Task<IActionResult> GetAllPostsOfAUserAndFriend([FromQuery] GetUserPostRequest request)
+        {
+            var postsUser = _postService.GetAllPostOfUserAndFriend(request);
+            return Ok(postsUser);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPostById([FromQuery] GetPostRequest request)
         {

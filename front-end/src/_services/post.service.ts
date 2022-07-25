@@ -8,9 +8,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class PostService {
   private httpOptions = {
-    headers: new HttpHeaders({
-      
-    }),
+    headers: new HttpHeaders({}),
   };
 
   private httpOptions2 = {
@@ -49,11 +47,15 @@ export class PostService {
     return null;
   }
 
-  public getPosts(userId, posts) {
+  public getPosts(userId) {
     const url = `${this.baseUrl + 'Post?userId=' + userId}`;
-    return this.http.get<any>(url, this.httpOptions2).subscribe((response) => {
-      posts.posts = response.reverse();
-    });
+    return this.http.get<any>(url, this.httpOptions2);
+  }
+
+  //////////////////////////////////////////
+  public getPostsAndFriendPosts(userId) {
+    const url = `${this.baseUrl + 'Post/FriendPosts?userId=' + userId}`;
+    return this.http.get(url, this.httpOptions2);
   }
 
   public createPost(userId, text, image): any {
@@ -80,7 +82,7 @@ export class PostService {
 
     return this.http.delete(url, {
       headers: this.httpOptions2.headers,
-      body: formData
+      body: formData,
     });
   }
 }

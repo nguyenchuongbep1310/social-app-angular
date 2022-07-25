@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PostService } from 'src/_services/post.service';
 import { LikeCommentService } from 'src/_services/like-comment.service';
 import { Subject } from 'rxjs';
+import { AccountService } from 'src/_services/account.service';
 
 @Component({
   selector: 'app-post',
@@ -11,7 +12,8 @@ import { Subject } from 'rxjs';
 export class PostComponent implements OnInit {
   constructor(
     private postService: PostService,
-    private likeCommentService: LikeCommentService = null //để tạm null để test
+    private likeCommentService: LikeCommentService = null,
+    private accountService: AccountService //để tạm null để test
   ) {
     this.commentSubject$.subscribe((response) => {
       console.log(response);
@@ -19,32 +21,43 @@ export class PostComponent implements OnInit {
     this.likeSubject$.subscribe((response) => {});
   }
 
+  ngOnInit(): void {
+    this.accountService.getUserProfileByUserId(this.post.userId).subscribe({
+      next: (response) => {
+        this.postUserProfile = response;
+      },
+      error: (error) => console.log(error),
+    });
+    this.countLikes();
+    this.likeCommentService.getComments(this.post.id).subscribe({
+      next: (response: any[]) => {
+        this.arrayOfComments = response;
+      },
+      error: (error) => console.log(error),
+    });
+
+    this.likeCommentService
+      .getLikeOfCurrentUser(this.currentUserId, this.post.id)
+      .subscribe((response) => {
+        if (response != null && response.status === 'Actived') {
+          this.likeBtnIcon.nativeElement.classList.add('application-color');
+        }
+      });
+  }
   @ViewChild('textarea') textarea;
-
-  public commentSubject$: Subject<object> = new Subject<object>();
-  public likeSubject$: Subject<number> = new Subject<number>();
-
-  public arrayOfComments: {
-    id: number;
-    text: string;
-    userId: number;
-    postId: number;
-  }[];
-
   @ViewChild('deleteBtn') deleteBtn;
   @ViewChild('likeBtnIcon') likeBtnIcon;
 
-  @Input() avatar;
-  @Input() firstName;
-  @Input() lastName;
-  @Input() status = '';
-  @Input() image = '';
+  @Input() post;
   @Input() date;
-  @Input() userId;
-  @Input() postId;
   @Input() displayDeleteBtn;
   @Input() currentUserId;
   @Input() currentUserAvatar;
+
+  public commentSubject$: Subject<object> = new Subject<object>();
+  public likeSubject$: Subject<number> = new Subject<number>();
+  public arrayOfComments;
+  public postUserProfile;
 
   displayDeleteButton() {
     if (this.deleteBtn.nativeElement.className.includes('hidden')) {
@@ -55,7 +68,7 @@ export class PostComponent implements OnInit {
   }
 
   deletePost() {
-    this.postService.deletePost(this.userId, this.postId).subscribe(
+    this.postService.deletePost(this.post.userId, this.post.id).subscribe(
       (response) => {
         window.location.reload();
       },
@@ -80,7 +93,7 @@ export class PostComponent implements OnInit {
   public totalLikes = 0;
 
   countLikes() {
-    this.likeCommentService.countLikes(this.postId).subscribe({
+    this.likeCommentService.countLikes(this.post.id).subscribe({
       next: (response: any) => {
         this.totalLikes = response.likesOfPostNumber;
       },
@@ -90,11 +103,11 @@ export class PostComponent implements OnInit {
 
   postLike() {
     this.likeCommentService
-      .getLikeOfCurrentUser(this.currentUserId, this.postId)
+      .getLikeOfCurrentUser(this.currentUserId, this.post.id)
       .subscribe((response) => {
         if (response === null) {
           this.likeCommentService
-            .postLike(this.currentUserId, this.postId)
+            .postLike(this.currentUserId, this.post.id)
             .subscribe({
               next: (response) => {
                 this.countLikes();
@@ -127,10 +140,10 @@ export class PostComponent implements OnInit {
   postComment() {
     if (!this.commentContent) return;
     this.likeCommentService
-      .postComment(this.commentContent, this.currentUserId, this.postId)
+      .postComment(this.commentContent, this.currentUserId, this.post.id)
       .subscribe({
         next: (response) => {
-          this.likeCommentService.getComments(this.postId).subscribe({
+          this.likeCommentService.getComments(this.post.id).subscribe({
             next: (response: any[]) => (this.arrayOfComments = response),
             error: (error) => console.log(error),
           });
@@ -146,23 +159,5 @@ export class PostComponent implements OnInit {
 
   getInput(event: Event) {
     this.commentContent = (event.target as HTMLInputElement).value;
-  }
-
-  ngOnInit(): void {
-    this.countLikes();
-    this.likeCommentService.getComments(this.postId).subscribe({
-      next: (response: any[]) => {
-        this.arrayOfComments = response;
-      },
-      error: (error) => console.log(error),
-    });
-
-    this.likeCommentService
-      .getLikeOfCurrentUser(this.currentUserId, this.postId)
-      .subscribe((response) => {
-        if (response != null && response.status === 'Actived') {
-          this.likeBtnIcon.nativeElement.classList.add('application-color');
-        }
-      });
   }
 }
