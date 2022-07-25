@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { PostService } from 'src/_services/post.service';
 import { LikeCommentService } from 'src/_services/like-comment.service';
 import { Subject } from 'rxjs';
@@ -15,10 +15,12 @@ export class PostComponent implements OnInit {
     private likeCommentService: LikeCommentService = null,
     private accountService: AccountService //để tạm null để test
   ) {
-    this.commentSubject$.subscribe((response) => {
-      console.log(response);
-    });
+    this.commentSubject$.subscribe((response) => {});
     this.likeSubject$.subscribe((response) => {});
+  }
+
+  ngOnChanges() {
+    console.log(this.arrayOfComments);
   }
 
   ngOnInit(): void {

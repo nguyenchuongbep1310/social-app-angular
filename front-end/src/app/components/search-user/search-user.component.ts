@@ -95,7 +95,7 @@ export class SearchUserComponent implements OnInit {
   }
 
   public addFriend() {
-    this.friendService.addFriend(this.profile.username).subscribe({
+    this.friendService.addFriend(this.profile.userName).subscribe({
       next: (response) => {
         window.location.reload();
       },
@@ -104,7 +104,7 @@ export class SearchUserComponent implements OnInit {
   }
 
   public unFriend() {
-    this.friendService.unFriend(this.profile.username).subscribe({
+    this.friendService.unFriend(this.profile.userName).subscribe({
       next: (response) => {
         window.location.reload();
       },
