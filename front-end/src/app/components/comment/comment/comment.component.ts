@@ -24,6 +24,8 @@ export class CommentComponent implements OnInit {
     this.commentSubject$.subscribe((response) => {});
   }
 
+  public currentUsername = this.accountService.userName;
+
   public commentSubject$: Subject<object> = new Subject<object>();
 
   ngOnInit(): void {

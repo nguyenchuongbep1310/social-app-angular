@@ -31,7 +31,7 @@ export class EditprofileComponent implements OnInit {
   public currentUserProfile;
 
   public formatDate() {
-    if (this.currentUserProfile.dateOfBirth) {
+    if (this.currentUserProfile?.dateOfBirth) {
       var d = this.currentUserProfile.dateOfBirth.split('/');
       const dateFormat = d.reverse().join('-');
 

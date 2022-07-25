@@ -17,5 +17,11 @@
       {{ text }}
     </p>
   </div>
-  <button class="delete-btn" (click)="deleteComment()">Delete</button>
+  <button
+    *ngIf="commentUserProfile?.userName === currentUsername"
+    class="delete-btn"
+    (click)="deleteComment()"
+  >
+    Delete
+  </button>
 </div>

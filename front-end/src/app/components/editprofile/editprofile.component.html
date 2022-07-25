@@ -17,30 +17,30 @@
               placeholder="First name"
               aria-label="First name"
               aria-describedby="addon-wrapping"
-              [ngClass]="{ 'border-red': currentUserProfile.firstName === '' }"
-              [value]="currentUserProfile.firstName"
+              [ngClass]="{ 'border-red': currentUserProfile?.firstName === '' }"
+              [value]="currentUserProfile?.firstName"
             />
           </div>
           <div class="col-6">
             <input
               (input)="getInput($event, currentUserProfile, 'lastName')"
               (blur)="blur(currentUserProfile, 'lastName')"
-              [ngClass]="{ 'border-red': currentUserProfile.lastName === '' }"
+              [ngClass]="{ 'border-red': currentUserProfile?.lastName === '' }"
               type="text"
               class="form-control"
               placeholder="Last Name"
               aria-label="Last name"
               aria-describedby="addon-wrapping"
-              [value]="currentUserProfile.lastName"
+              [value]="currentUserProfile?.lastName"
             />
           </div>
           <div class="col-6">
-            <p *ngIf="currentUserProfile.firstName === ''" class="empty-err">
+            <p *ngIf="currentUserProfile?.firstName === ''" class="empty-err">
               Please enter your first name
             </p>
           </div>
           <div class="col-6">
-            <p *ngIf="currentUserProfile.lastName === ''" class="empty-err">
+            <p *ngIf="currentUserProfile?.lastName === ''" class="empty-err">
               Please enter your last name
             </p>
           </div>
@@ -54,7 +54,7 @@
               placeholder="Phone number"
               aria-label="Phone number"
               aria-describedby="addon-wrapping"
-              [value]="currentUserProfile.phone"
+              [value]="currentUserProfile?.phone"
             />
           </div>
         </div>
@@ -70,14 +70,14 @@
                 (input)="getInput($event, currentUserProfile, 'dateOfBirth')"
                 (blur)="blur(currentUserProfile, 'dateOfBirth')"
                 [ngClass]="{
-                  'border-red': currentUserProfile.dateOfBirth === ''
+                  'border-red': currentUserProfile?.dateOfBirth === ''
                 }"
                 type="date"
                 class="form-control"
                 aria-label="Confirm password"
                 aria-describedby="addon-wrapping"
                 id="birthday"
-                [value]="currentUserProfile.dateOfBirth"
+                [value]="currentUserProfile?.dateOfBirth"
               />
             </div>
           </div>
@@ -93,7 +93,7 @@
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
                     currentUserProfile="Male"
-                    [checked]="currentUserProfile.gender === 'Male'"
+                    [checked]="currentUserProfile?.gender === 'Male'"
                   />
                   <label class="form-check-label" for="flexRadioDefault1">
                     Male
@@ -109,7 +109,7 @@
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
                     currentUserProfile="Female"
-                    [checked]="currentUserProfile.gender === 'Female'"
+                    [checked]="currentUserProfile?.gender === 'Female'"
                   />
                   <label class="form-check-label" for="flexRadioDefault1">
                     Female
@@ -118,7 +118,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="currentUserProfile.dateOfBirth === ''" class="col-6">
+          <div *ngIf="currentUserProfile?.dateOfBirth === ''" class="col-6">
             <p class="empty-err">Please choose your birthday</p>
           </div>
         </div>
@@ -165,11 +165,11 @@
                 [ngClass]="{
                   spinner: true,
                   disabled:
-                    !currentUserProfile.firstName ||
-                    !currentUserProfile.lastName ||
-                    !currentUserProfile.username ||
-                    !currentUserProfile.dateOfBirth ||
-                    !currentUserProfile.email
+                    !currentUserProfile?.firstName ||
+                    !currentUserProfile?.lastName ||
+                    !currentUserProfile?.username ||
+                    !currentUserProfile?.dateOfBirth ||
+                    !currentUserProfile?.email
                 }"
                 class="btn-success btn register-btn"
                 (click)="onSave()"
