@@ -40,7 +40,7 @@ export class SearchUserComponent implements OnInit {
             this.accountService
               .getPostSearchUser(this.profile.userId)
               .subscribe((response) => {
-                this.posts = response.reverse();
+                this.posts = response;
               });
             this.getFriend();
           });
