@@ -11,15 +11,25 @@ export class DashboardComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     public postService: PostService
-  ) {
-    this.accountService.getPosts(this.profile, this.posts);
-  }
+  ) {}
 
   public currentUserProfile;
 
   ngOnInit(): void {
+    this.getCurrentUserProfileAndPostsOfFriends();
+  }
+
+  getCurrentUserProfileAndPostsOfFriends() {
     this.accountService.getCurrentUserProfile().subscribe({
-      next: (response) => (this.currentUserProfile = response),
+      next: (response) => {
+        this.currentUserProfile = response;
+        this.postService.getPostsAndFriendPosts(response.userId).subscribe({
+          next: (response) => {
+            this.posts = response;
+          },
+          error: (error) => console.log(error),
+        });
+      },
       error: (error) => console.log(error),
     });
   }
@@ -45,31 +55,7 @@ export class DashboardComponent implements OnInit {
     return monthName + ' ' + day;
   }
 
-  public posts = { posts: null };
-
-  public profile: {
-    userId: number;
-    firstName: any;
-    lastName: any;
-    username: any;
-    dateOfBirth: any;
-    gender: any;
-    avatar: any;
-    email: any;
-    phone: any;
-    coverPhoto: any;
-  } = {
-    userId: null,
-    firstName: null,
-    lastName: null,
-    username: null,
-    dateOfBirth: null,
-    gender: null,
-    avatar: '',
-    email: null,
-    phone: null,
-    coverPhoto: '',
-  };
+  public posts;
 
   displayModal(event: any) {
     event.stopPropagation();

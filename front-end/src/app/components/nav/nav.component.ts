@@ -37,9 +37,7 @@ export class NavComponent implements OnInit {
 
     connection
       .start()
-      .then(function () {
-        console.log('SignalR Connected!');
-      })
+      .then(function () {})
       .catch(function (err) {
         return console.error(err.toString());
       });
@@ -127,16 +125,45 @@ export class NavComponent implements OnInit {
   notificationBtnClick() {
     if (this.notificationItems.nativeElement.className.includes('hidden')) {
       this.notificationItems.nativeElement.classList.remove('hidden');
-    } else this.notificationItems.nativeElement.classList.add('hidden');
+      this.getNotificationResult();
+    } else {
+      this.notificationItems.nativeElement.classList.add('hidden');
+      this.deleteNotification();
+    }
   }
 
   // notification part
-  notification;
+  notificationCount;
   getNotificationCount() {
     this.notificationService
       .getNotificationCount(this.profile?.userId)
       .subscribe({
-        next: (notification) => (this.notification = notification),
+        next: (notificationCount: any) => {
+          this.notificationCount = notificationCount.count;
+        },
+        error: (error) => console.log(error),
+      });
+  }
+
+  notificationResult;
+  getNotificationResult() {
+    this.notificationService
+      .getNotificationResult(this.profile?.userId)
+      .subscribe({
+        next: (notificationResult: any) => {
+          this.notificationResult = notificationResult;
+        },
+        error: (error) => console.log(error),
+      });
+  }
+
+  deleteNotification() {
+    this.notificationService
+      .deleteNotifications(this.profile?.userId)
+      .subscribe({
+        next: (response) => {
+          this.notificationCount = 0;
+        },
         error: (error) => console.log(error),
       });
   }

@@ -1,5 +1,7 @@
 ﻿using DatingApp.Application.DTO.Comments;
 using DatingApp.Application.Interfaces;
+using DatingApp.Core.Extension;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,6 +22,7 @@ namespace DatingApp.Controllers
             _commentService = commentService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateNewComment([FromBody] AddCommentRequest request)
         {
@@ -28,6 +31,7 @@ namespace DatingApp.Controllers
             return Ok(newComment);
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteComment([FromBody] DeleteCommentRequest request)
         {
