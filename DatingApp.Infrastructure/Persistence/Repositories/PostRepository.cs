@@ -58,7 +58,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             //                select post).ToList();
             //return listPost;
 
-            return await _context.Posts.Where(p => p.UserId == userId).OrderBy(p => p.CreatedDate).ToListAsync();
+            return await _context.Posts.Where(p => p.UserId == userId).OrderByDescending(p => p.CreatedDate).ToListAsync();
         }
 
         public List<PostUser> GetAllAndFriend(int userId)
@@ -67,7 +67,7 @@ namespace DatingApp.Infrastructure.Persistence.Repositories
             var listPost = (from post in _context.Posts
                             where post.UserId == userId || listFriendId.Result.Contains(post.UserId)
                             select post).ToList();
-            return listPost;
+            return listPost.OrderByDescending(p => p.CreatedDate).ToList();
         }
 
         private bool disposed = false;
