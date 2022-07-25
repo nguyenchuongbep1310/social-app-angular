@@ -18,8 +18,8 @@
       <p class="post-date">{{ date }}<span>th</span></p>
     </div>
   </div>
-  <p *ngIf="post.status !== 'undefined'" class="post-status">
-    {{ status }}
+  <p *ngIf="post.text !== 'undefined'" class="post-status">
+    {{ post.text }}
   </p>
   <div class="post-img-box flex-center">
     <img

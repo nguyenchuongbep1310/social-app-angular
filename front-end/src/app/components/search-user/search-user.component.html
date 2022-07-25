@@ -158,8 +158,8 @@
           *ngFor="let post of posts"
           [date]="displayDate(post.createdDate)"
           [displayDeleteBtn]="true"
-          [currentUserId]="profile?.userId"
-          [currentUserAvatar]="profile?.avatar"
+          [currentUserId]="currentUserProfile?.userId"
+          [currentUserAvatar]="currentUserProfile?.avatar"
         ></app-post>
       </div>
     </div>
