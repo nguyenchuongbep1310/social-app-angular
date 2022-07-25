@@ -159,7 +159,7 @@ export class AccountService {
           profile.coverPhoto =
             'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
         }
-        this.postService.getPosts(response.userId, posts);
+        this.postService.getPosts(response.userId);
       },
       (error) => console.log(error)
     );
