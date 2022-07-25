@@ -1,6 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
 import { PostService } from './post.service';
@@ -91,78 +90,8 @@ export class AccountService {
     return this.tokenInfo && this.tokenInfo.gender;
   }
 
-  public getProfile(profile) {
-    this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
-      (response) => {
-        console.log(response.userId);
-        profile.userId = response.userId;
-        profile.username = this.userName;
-        profile.firstName = response.firstName;
-        profile.lastName = response.lastName;
-        profile.dateOfBirth = response.dateOfBirth;
-        profile.gender = response.gender;
-        profile.email = response.email;
-        if (!response.phone) {
-          profile.phone = '';
-        } else {
-          profile.phone = response.phone;
-        }
-        if (response.avatar) {
-          profile.avatar = 'https://localhost:44371/images/' + response.avatar;
-        } else {
-          profile.avatar =
-            'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=';
-        }
-
-        if (response.coverPhoto) {
-          profile.coverPhoto =
-            'https://localhost:44371/images/' + response.coverPhoto;
-        } else {
-          profile.coverPhoto =
-            'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
-        }
-      },
-      (error) => console.log(error)
-    );
-  }
-
   public getCurrentUserProfile() {
     return this.imageService.getProfileInfo(this.tokenInfo.nameid);
-  }
-
-  public getPosts(profile, posts) {
-    this.imageService.getProfileInfo(this.tokenInfo.nameid).subscribe(
-      (response) => {
-        profile.userId = response.userId;
-        profile.username = this.userName;
-        profile.firstName = response.firstName;
-        profile.lastName = response.lastName;
-        profile.dateOfBirth = response.dateOfBirth;
-        profile.gender = response.gender;
-        profile.email = response.email;
-        if (!response.phone) {
-          profile.phone = '';
-        } else {
-          profile.phone = response.phone;
-        }
-        if (response.avatar) {
-          profile.avatar = 'https://localhost:44371/images/' + response.avatar;
-        } else {
-          profile.avatar =
-            'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=';
-        }
-
-        if (response.coverPhoto) {
-          profile.coverPhoto =
-            'https://localhost:44371/images/' + response.coverPhoto;
-        } else {
-          profile.coverPhoto =
-            'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
-        }
-        this.postService.getPosts(response.userId);
-      },
-      (error) => console.log(error)
-    );
   }
 
   getUserProfileByUserId(userId) {
