@@ -21,7 +21,7 @@ namespace DatingApp.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IEnumerable<AppUser>> GetUsers()
         {
             return await _userRepository.GetAll();
