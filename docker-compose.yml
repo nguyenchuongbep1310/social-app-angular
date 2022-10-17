@@ -1,7 +1,6 @@
 version: '3.4'
 
 services:
-
   sqldata:
     ports:
       - 1433:1433
