@@ -17,6 +17,7 @@ COPY . .
 WORKDIR "/src/DatingApp"
 RUN dotnet build "DatingApp.csproj" -c Release -o /app/build
 
+
 FROM build AS publish
 RUN dotnet publish "DatingApp.csproj" -c Release -o /app/publish
 
@@ -24,6 +25,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=build /src/DatingApp/Share /app/Share
-
 
 ENTRYPOINT ["dotnet", "DatingApp.dll"]

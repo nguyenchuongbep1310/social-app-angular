@@ -6,6 +6,8 @@ services:
     ports:
       - 1433:1433
     image: mcr.microsoft.com/mssql/server
+    volumes:
+      - "datingapp-db:/var/opt/mssql"
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Huy01216903436!
@@ -18,3 +20,5 @@ services:
     ports:
       - "44371:80"
       - "44372:443"
+volumes:   # add this section
+  datingapp-db:   
