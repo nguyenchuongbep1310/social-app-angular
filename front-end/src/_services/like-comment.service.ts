@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 const headers = new HttpHeaders({
   Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -12,10 +13,9 @@ const headers = new HttpHeaders({
 export class LikeCommentService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://localhost:44371/api/';
 
   public getLikeOfCurrentUser(currentUserId, postId) {
-    const url = this.baseUrl + 'Likes';
+    const url = environment.baseUrl + 'Likes';
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append('UserId', currentUserId);
@@ -25,7 +25,7 @@ export class LikeCommentService {
   }
 
   public postLike(currentUserId, postId) {
-    const url = this.baseUrl + 'Likes';
+    const url = environment.baseUrl + 'Likes';
 
     const formData = new FormData();
     formData.append('userId', currentUserId);
@@ -38,7 +38,7 @@ export class LikeCommentService {
   }
 
   public deleteLike(likeId) {
-    const url = this.baseUrl + 'Likes/' + likeId;
+    const url = environment.baseUrl + 'Likes/' + likeId;
     return this.http.delete<any>(url, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + localStorage.getItem('token'),})
@@ -46,7 +46,7 @@ export class LikeCommentService {
   }
 
   public patchLike(likeId, postId, userId) {
-    const url = this.baseUrl + 'Likes';
+    const url = environment.baseUrl + 'Likes';
 
     const formData = new FormData();
     formData.append('id', likeId);
@@ -57,25 +57,25 @@ export class LikeCommentService {
   }
 
   public countLikes(postId) {
-    const url = this.baseUrl + 'Post/' + postId + '/CountLikes';
+    const url = environment.baseUrl + 'Post/' + postId + '/CountLikes';
 
     return this.http.get(url);
   }
 
   public getComments(postId) {
-    const url = this.baseUrl + `Post/${postId}/GetComments`;
+    const url = environment.baseUrl + `Post/${postId}/GetComments`;
 
     return this.http.get<any>(url);
   }
 
   public postComment(text, userId, postId) {
-    const url = this.baseUrl + 'Comments';
+    const url = environment.baseUrl + 'Comments';
 
     return this.http.post<any>(url, { text, userId, postId }, {headers});
   }
 
   public deleteComment(id: number, userId: number) {
-    const url = this.baseUrl + 'Comments';
+    const url = environment.baseUrl + 'Comments';
 
     return this.http.delete(url, {
       headers,
