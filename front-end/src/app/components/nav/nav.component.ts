@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/_services/account.service';
 import { NotificationService } from 'src/_services/notification.service';
 import * as signalR from '@microsoft/signalr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav',
@@ -29,7 +30,7 @@ export class NavComponent implements OnInit {
 
     const connection = new signalR.HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Debug)
-      .withUrl('https://localhost:44371/notify', {
+      .withUrl(environment.baseUrl + '/notify', {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
       })

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
 import { PostService } from './post.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,6 @@ export class AccountService {
     }),
   };
 
-  baseUrl = 'https://localhost:44371/api/';
-
   constructor(
     private http: HttpClient,
     public imageService: ImageService,
@@ -31,7 +30,7 @@ export class AccountService {
   ) {}
 
   // login(model: any){
-  //   return this.http.post(this.baseUrl + 'account/login', model);
+  //   return this.http.post(environment.baseUrl + 'account/login', model);
   // }
 
   get tokenInfo(): {
@@ -166,18 +165,18 @@ export class AccountService {
   }
 
   getUserProfileByUserId(userId) {
-    const url = this.baseUrl + 'Users/' + userId;
+    const url = environment.baseUrl + 'Users/' + userId;
 
     return this.http.get(url, this.httpOptions2);
   }
 
   public login(model: any) {
-    const url = `${this.baseUrl + 'account/login'}`;
+    const url = `${environment.baseUrl + 'account/login'}`;
     return this.http.post<any>(url, model, this.httpOptions);
   }
 
   public register(model: any) {
-    const url = `${this.baseUrl + 'Account/register'}`;
+    const url = `${environment.baseUrl + 'Account/register'}`;
 
     var formData: any = new FormData();
     formData.append('username', model.username);
@@ -195,7 +194,7 @@ export class AccountService {
   }
 
   public editProfile(model: any) {
-    const url = `${this.baseUrl + 'Account/edit-profile'}`;
+    const url = `${environment.baseUrl + 'Account/edit-profile'}`;
 
     var formData: any = new FormData();
     formData.append('username', model.username);
@@ -212,7 +211,7 @@ export class AccountService {
   }
 
   public getProfileInfo(username: string): any {
-    const url = `${this.baseUrl + 'Account/search-user-profile'}`;
+    const url = `${environment.baseUrl + 'Account/search-user-profile'}`;
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append('username', username);
@@ -221,7 +220,7 @@ export class AccountService {
   }
 
   public getPostSearchUser(userId: number): any {
-    const url = `${this.baseUrl + 'Post'}`;
+    const url = `${environment.baseUrl + 'Post'}`;
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append('UserId', userId);

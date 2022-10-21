@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ImageService } from './image.service';
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,6 @@ export class PostService {
     }),
   };
 
-  baseUrl = 'https://localhost:44371/api/';
 
   constructor(private http: HttpClient, public imageService: ImageService) {}
 
@@ -48,13 +48,13 @@ export class PostService {
   }
 
   public getPosts(userId) {
-    const url = `${this.baseUrl + 'Post?userId=' + userId}`;
+    const url = `${environment.baseUrl + 'Post?userId=' + userId}`;
     return this.http.get<any>(url, this.httpOptions2);
   }
 
   //////////////////////////////////////////
   public getPostsAndFriendPosts(userId) {
-    const url = `${this.baseUrl + 'Post/FriendPosts?userId=' + userId}`;
+    const url = `${environment.baseUrl + 'Post/FriendPosts?userId=' + userId}`;
     return this.http.get(url, this.httpOptions2);
   }
 
@@ -63,7 +63,7 @@ export class PostService {
       window.location.reload();
       return;
     }
-    const url = `${this.baseUrl + 'Post'}`;
+    const url = `${environment.baseUrl + 'Post'}`;
 
     const formData: any = new FormData();
     formData.append('userId', userId);
@@ -74,7 +74,7 @@ export class PostService {
   }
 
   public deletePost(userId, postId) {
-    const url = `${this.baseUrl + 'Post'} `;
+    const url = `${environment.baseUrl + 'Post'} `;
 
     const formData = new FormData();
     formData.append('UserId', userId);

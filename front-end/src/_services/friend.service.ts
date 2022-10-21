@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,19 +14,17 @@ const httpOptions = {
 export class FriendService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://localhost:44371/api/Friend';
-
   public addFriend(username: string) {
-    return this.http.post(this.baseUrl + '/' + username, {}, httpOptions);
+    return this.http.post(environment.baseUrl + '/' + username, {}, httpOptions);
   }
 
   public unFriend(username: string) {
-    return this.http.delete(this.baseUrl + '/' + username, httpOptions);
+    return this.http.delete(environment.baseUrl + '/' + username, httpOptions);
   }
 
   public getFriend(sourceUserId: number, likedUserId: number) {
     return this.http.get(
-      this.baseUrl + `?sourceUserId=${sourceUserId}&likedUserId=${likedUserId}`
+      environment.baseUrl + `?sourceUserId=${sourceUserId}&likedUserId=${likedUserId}`
     );
   }
 }
