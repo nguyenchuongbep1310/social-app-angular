@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/_services/image.service';
 import jwt_decode from 'jwt-decode';
 import { PostService } from './post.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
