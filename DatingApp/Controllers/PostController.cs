@@ -2,7 +2,6 @@
 using DatingApp.Application.DTO.Posts;
 using DatingApp.Application.Interfaces;
 using DatingApp.Core.Entities;
-using DatingApp.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -56,9 +55,6 @@ namespace DatingApp.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeletePost([FromForm] DeletePostRequest request)
         {
-            int currentLoginUserId = User.GetUserId();
-            if (currentLoginUserId != request.UserId) return BadRequest("You do not have permisson to do this action.");
-
             await _postService.DeletePost(request);
             return Ok();
         }
