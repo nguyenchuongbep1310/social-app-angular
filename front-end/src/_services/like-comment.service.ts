@@ -12,7 +12,7 @@ const headers = new HttpHeaders({
 export class LikeCommentService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://localhost:44371/api/';
+  baseUrl = 'http://20.244.58.242/api/';
 
   public getLikeOfCurrentUser(currentUserId, postId) {
     const url = this.baseUrl + 'Likes';

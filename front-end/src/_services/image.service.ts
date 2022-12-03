@@ -11,7 +11,7 @@ export class ImageService {
     }),
   };
 
-  baseUrl = 'https://localhost:44371/api/';
+  baseUrl = 'http://20.244.58.242/api/';
 
   constructor(private http: HttpClient) {}
 

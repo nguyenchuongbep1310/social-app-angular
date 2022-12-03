@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class NotificationService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://localhost:44371/api/Notifications/';
+  baseUrl = 'http://20.244.58.242/api/Notifications/';
 
   getNotificationCount(userId) {
     const url = `${this.baseUrl}notificationcount?userId=${userId}`;

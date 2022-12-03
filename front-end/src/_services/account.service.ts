@@ -22,7 +22,7 @@ export class AccountService {
     }),
   };
 
-  baseUrl = 'https://localhost:44371/api/';
+  baseUrl = 'http://20.244.58.242/api/';
 
   constructor(
     private http: HttpClient,
@@ -108,7 +108,7 @@ export class AccountService {
           profile.phone = response.phone;
         }
         if (response.avatar) {
-          profile.avatar = 'https://localhost:44371/images/' + response.avatar;
+          profile.avatar = 'http://hello/images/' + response.avatar;
         } else {
           profile.avatar =
             'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=';
@@ -116,7 +116,7 @@ export class AccountService {
 
         if (response.coverPhoto) {
           profile.coverPhoto =
-            'https://localhost:44371/images/' + response.coverPhoto;
+            'http://hello/images/' + response.coverPhoto;
         } else {
           profile.coverPhoto =
             'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';
@@ -146,7 +146,7 @@ export class AccountService {
           profile.phone = response.phone;
         }
         if (response.avatar) {
-          profile.avatar = 'https://localhost:44371/images/' + response.avatar;
+          profile.avatar = 'http://104.43.100.38/images/' + response.avatar;
         } else {
           profile.avatar =
             'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=';
@@ -154,7 +154,7 @@ export class AccountService {
 
         if (response.coverPhoto) {
           profile.coverPhoto =
-            'https://localhost:44371/images/' + response.coverPhoto;
+            'http://104.43.100.38/images/' + response.coverPhoto;
         } else {
           profile.coverPhoto =
             'https://s3.amazonaws.com/export.easil.com/4ffc1b2d-5384-404e-bcf9-e77f388b1f46/798e7a925e22c21006.png';

@@ -13,7 +13,7 @@ const httpOptions = {
 export class FriendService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://localhost:44371/api/Friend';
+  baseUrl = 'http://20.244.58.242/api/Friend';
 
   public addFriend(username: string) {
     return this.http.post(this.baseUrl + '/' + username, {}, httpOptions);

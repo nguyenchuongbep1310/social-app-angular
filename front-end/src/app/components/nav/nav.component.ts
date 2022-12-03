@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
 
     const connection = new signalR.HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Debug)
-      .withUrl('https://localhost:44371/notify', {
+      .withUrl('http://20.244.58.242/notify', {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
       })
